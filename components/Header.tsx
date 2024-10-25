@@ -18,12 +18,12 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-4">
-          <Link href='/login'>
+          <Link href='/auth/login'>
             <Button variant="ghost" className="text-sm font-medium text-gray-300 hover:text-gray-200 hover:bg-transparent">
               Sign In
             </Button>
           </Link>
-          <Link href='/register'>
+          <Link href='/auth/register'>
             <Button className="text-sm font-medium bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-900/25">
               Sign Up
             </Button>

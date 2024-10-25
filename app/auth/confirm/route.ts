@@ -1,37 +1,40 @@
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { type NextRequest, NextResponse } from "next/server";
-import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 
-
 export async function GET(request: NextRequest) {
+    try {
+        const { searchParams } = new URL(request.url);
+        const token_hash = searchParams.get('token_hash');
+        const type = searchParams.get('type') as EmailOtpType | null;
+        const next = searchParams.get('next') || '/dashboard';
 
-    const { searchParams } = new URL(request.url)
-    const token_hash = searchParams.get('token_hash')
-    const type = searchParams.get('type') as EmailOtpType | null
-    const next = '/dashboard'
-    const router = useRouter();
+        // Validate required parameters
+        if (!token_hash || !type) {
+            return NextResponse.redirect(
+                new URL('/auth/error?message=Missing required parameters', request.url)
+            );
+        }
 
-    // Create redirect link
-    const redirectTo = request.nextUrl.clone()
-    redirectTo.pathname = next
-    redirectTo.searchParams.delete('token_hash')
-    redirectTo.searchParams.delete('type')
-
-    if (token_hash && type) {
-
+        // Verify the OTP token
         const { error } = await supabase.auth.verifyOtp({
             type,
-            token_hash
-        })
-        if (!error) {
-            redirectTo.searchParams.delete('next')
-            return NextResponse.redirect(redirectTo)
-        }
-    }
-    console.log(redirectTo)
-    redirectTo.pathname = '/error'
-    router.push(next)
-    return NextResponse.redirect(redirectTo)
+            token_hash,
+        });
 
+        if (error) {
+            console.error('Auth confirmation error:', error);
+            return NextResponse.redirect(
+                new URL(`/auth/error?message=${encodeURIComponent(error.message)}`, request.url)
+            );
+        }
+
+        // Successful verification - redirect to the next page
+        return NextResponse.redirect(new URL(next, request.url));
+    } catch (error) {
+        console.error('Unexpected error during auth confirmation:', error);
+        return NextResponse.redirect(
+            new URL('/auth/error?message=An unexpected error occurred', request.url)
+        );
+    }
 }

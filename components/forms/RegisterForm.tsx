@@ -2,16 +2,12 @@
 
 import {
     AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
-    AlertDialogFooter,
     AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
+    AlertDialogTitle
 } from "@/components/ui/alert-dialog"
-import { supabase } from "@/lib/supabase/client"
+import { signUp } from "@/lib/actions/auth.actions"
 import {
     Form,
     FormControl,
@@ -32,6 +28,7 @@ import { useState } from "react"
 import { registerSchema } from "@/lib/validation"
 import { MailIcon, EyeIcon, EyeClosedIcon } from "lucide-react"
 import { Label } from "@radix-ui/react-label"
+import { useRouter } from "next/navigation"
 
 const RegisterForm = () => {
 
@@ -40,6 +37,9 @@ const RegisterForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [registeredEmail, setRegisteredEmail] = useState<string | null>(null)
+
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
@@ -58,26 +58,29 @@ const RegisterForm = () => {
         setIsLoading(true);
 
         try {
-            const { data, error } = await supabase.auth.signUp({
-                email: values.email,
-                password: values.password,
-                phone: values.phoneNumber,
-                options: {
-                    data: {
-                        first_name: values.firstName,
-                        last_name: values.lastName,
-                    },
-                },
-            })
-            if (error) throw new Error(error.message)
+
+            const result = await signUp(values);
+
+            if (result.error) {
+                throw new Error(result.error);
+            }
+
+            if (!result.success) {
+                throw new Error('Registration failed. Please try again.');
+            }
+
             setError(null);
+            setRegisteredEmail(values.email);
+            setIsDialogOpen(true);
+            form.reset();
+
         } catch (error: any) {
             setError(error.message);
-            console.error(error.message);
+            console.error('Registration error:', error);
+
+        } finally {
             setIsLoading(false);
-            return
         }
-        setIsLoading(false);
     }
 
     const values = ['First Name', 'Last Name', 'Email', 'Phone Number', 'Password', 'Confirm Password']
@@ -212,22 +215,27 @@ const RegisterForm = () => {
                     )}
                 </form>
             </Form>
-            <AlertDialog >
-                    <AlertDialogTrigger>Open</AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete your account
-                                and remove your data from our servers.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction>Continue</AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+            <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <AlertDialogContent className="bg-dark_gray-gradient border-none text-white">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Check your email</AlertDialogTitle>
+                        <AlertDialogDescription className="space-y-3 text-gray-200">
+                            <p>We've sent a confirmation email to:</p>
+                            <p className="font-medium text-primary">{registeredEmail}</p>
+                            <p>Please check your email and click the confirmation link to complete your registration.</p>
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <Button
+                        onClick={() => {
+                            setIsDialogOpen(false);
+                            router.push('/auth/login');
+                        }}
+                        className="w-full"
+                    >
+                        Go to Login
+                    </Button>
+                </AlertDialogContent>
+            </AlertDialog>
         </div >
     )
 }

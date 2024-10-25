@@ -25,7 +25,7 @@ const Hero = () => {
 
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/register">
+              <Link href="/auth/register">
                 <Button
                   size="lg"
                   className="group bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-900/25"
