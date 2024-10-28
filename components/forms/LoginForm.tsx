@@ -28,6 +28,7 @@ const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+    // const { toast } = useToast();
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -42,11 +43,12 @@ const LoginForm = () => {
         setIsLoading(true);
 
         try {
-            // @ts-ignore
-            const { error } = signIn(values);
-            if (error) throw new Error(error.message)
+            const result = await signIn(values);
+
+            if (result.error) throw new Error(result.error);
             setError(null);
             router.push('/dashboard')
+            router.refresh()
         } catch (error: any) {
             setError(error.message);
             console.error(error.message);

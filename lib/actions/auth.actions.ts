@@ -2,9 +2,9 @@
 
 import { z } from "zod";
 import { loginSchema, registerSchema } from "../validation";
-import { supabase } from "../supabase/client";
 import { cookies } from "next/headers";
 import { AuthError } from "@supabase/supabase-js";
+import { createClient } from '../supabase/server';
 
 export type AuthResult = {
     error: string | null;
@@ -12,70 +12,115 @@ export type AuthResult = {
 }
 
 export async function signIn(values: z.infer<typeof loginSchema>): Promise<AuthResult> {
-
     try {
+        const cookieStore = cookies()
+        const supabase = createClient(cookieStore)
+
         const { error } = await supabase.auth.signInWithPassword({
             email: values.email,
-            password: values.password
+            password: values.password,
         })
 
         if (error) {
-            return { error: error.message, success: false }
+            return {
+                error: error.message,
+                success: false,
+            }
         }
 
-        return { error: null, success: true }
+        return {
+            error: null,
+            success: true,
+        }
     } catch (error) {
         console.error('Sign in error:', error)
         return {
             error: error instanceof AuthError ? error.message : 'An unexpected error occurred',
-            success: false
+            success: false,
         }
     }
 }
 
 export async function signUp(values: z.infer<typeof registerSchema>): Promise<AuthResult> {
-
     try {
-        const { data: user, error: authError } = await supabase.auth.signUp({
+        const cookieStore = cookies()
+        const supabase = createClient(cookieStore)
+
+        // Begin transaction by signing up the user
+        const { data: authData, error: authError } = await supabase.auth.signUp({
             email: values.email,
             password: values.password,
-            phone: values.phoneNumber,
             options: {
                 data: {
                     first_name: values.firstName,
                     last_name: values.lastName,
+                    phone: values.phoneNumber,
                 },
-                emailRedirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/confirm`,
+                emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/confirm`,
             },
         })
 
         if (authError) {
-            return { error: authError.message, success: false }
+            throw authError
         }
 
-        if (!user.user) {
-            return { error: 'User creation failed', success: false }
+        if (!authData.user) {
+            throw new Error('User creation failed')
         }
 
-        const { error: dbError } = await supabase.from('profiles').insert({
-            id: user.user.id,
-            email: values.email,
-            phone_number: values.phoneNumber,
-            first_name: values.firstName,
-            last_name: values.lastName,
-        })
+        // Insert user profile data
+        const { error: profileError } = await supabase
+            .from('profiles')
+            .insert({
+                id: authData.user.id,
+                email: values.email,
+                phone_number: values.phoneNumber,
+                first_name: values.firstName,
+                last_name: values.lastName,
+            })
 
-        if (dbError) {
-            await supabase.auth.admin.deleteUser(user.user.id);
-            return { error: dbError.message, success: false }
+        if (profileError) {
+            // If profile creation fails, clean up the auth user
+            await supabase.auth.admin.deleteUser(authData.user.id)
+            throw profileError
         }
 
-        return { error: null, success: true }
+        return {
+            error: null,
+            success: true,
+        }
     } catch (error) {
-        console.error('Sign up error:', error);
+        console.error('Sign up error:', error)
         return {
             error: error instanceof AuthError ? error.message : 'An unexpected error occurred',
             success: false,
-        };
+        }
+    }
+}
+
+export async function signOut(): Promise<AuthResult> {
+    try {
+        const cookieStore = cookies()
+        const supabase = createClient(cookieStore)
+
+        const { error } = await supabase.auth.signOut()
+
+        if (error) {
+            return {
+                error: error.message,
+                success: false,
+            }
+        }
+
+        return {
+            error: null,
+            success: true,
+        }
+    } catch (error) {
+        console.error('Sign out error:', error)
+        return {
+            error: error instanceof AuthError ? error.message : 'An unexpected error occurred',
+            success: false,
+        }
     }
 }

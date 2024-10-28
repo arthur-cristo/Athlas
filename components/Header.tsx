@@ -4,7 +4,7 @@ import { Sparkles } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 header-gradient">
+    <header className="absolute top-0 left-0 right-0 z-50 header-gradient">
       <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Sparkles className="h-6 w-6 text-green-500" />

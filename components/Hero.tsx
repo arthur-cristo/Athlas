@@ -11,7 +11,7 @@ const Hero = () => {
   ];
 
   return (
-    <main className="md:pt-12 md:mt-0 px-8 md:py-0 mt-16 py-6 overflow-hidden md:h-screen flex ">
+    <main className="md:pt-12 md:mt-0 px-8 md:py-0 py-6 overflow-hidden md:h-screen flex mt-16 w-screen">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         <div className="flex-1 space-y-8">
 
