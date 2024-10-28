@@ -2,6 +2,7 @@ import Header from "@/components/Header"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 
+
 const Dashboard = async () => {
 
   const cookieStore = cookies()
@@ -9,6 +10,7 @@ const Dashboard = async () => {
   const { data: user, error } = await supabase.auth.getUser()
   const { data: profile, error: profileError } = await supabase.from('profiles').select().eq('id', user?.user?.id).single()
   const { first_name, last_name, balance } = profile
+
   const USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',

@@ -100,16 +100,16 @@ export async function signUp(values: z.infer<typeof registerSchema>): Promise<Au
 
 export async function signOut(): Promise<AuthResult> {
     try {
-        const cookieStore = cookies()
-        const supabase = createClient(cookieStore)
+        const response = await fetch('/api/auth/signout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
 
-        const { error } = await supabase.auth.signOut()
-
-        if (error) {
-            return {
-                error: error.message,
-                success: false,
-            }
+        if (!response.ok) {
+            const data = await response.json()
+            throw new Error(data.error || 'Failed to sign out')
         }
 
         return {
@@ -119,7 +119,7 @@ export async function signOut(): Promise<AuthResult> {
     } catch (error) {
         console.error('Sign out error:', error)
         return {
-            error: error instanceof AuthError ? error.message : 'An unexpected error occurred',
+            error: error instanceof Error ? error.message : 'An unexpected error occurred',
             success: false,
         }
     }
