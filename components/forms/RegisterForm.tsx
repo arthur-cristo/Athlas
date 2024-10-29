@@ -211,7 +211,7 @@ const RegisterForm = () => {
                     </div>
                     <Button type="submit" disabled={isLoading} className="w-full">{isLoading ? 'Loading...' : 'Sign Up'}</Button>
                     {error && (
-                        <Label className="text-red-600 font-bold text-sm text-center flex flex-col items-center justify-center">Sorry, an error has occurred :&#40;<br />Please, try again later.<p className="capitalize">Error: {error}</p></Label>
+                        <Label className="text-red-600 font-bold text-sm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                     )}
                 </form>
             </Form>

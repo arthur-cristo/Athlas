@@ -43,10 +43,24 @@ export async function signIn(values: z.infer<typeof loginSchema>): Promise<AuthR
 
 export async function signUp(values: z.infer<typeof registerSchema>): Promise<AuthResult> {
     try {
+
         const cookieStore = cookies()
         const supabase = createClient(cookieStore)
 
-        // Begin transaction by signing up the user
+        const { data: existingUserEmail, error: existingUserEmailError } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('email', values.email)
+            .single();
+        if (existingUserEmailError || existingUserEmail) throw new Error('A user with that email already exists')
+
+        const { data: existingUserPhone, error: existingUserPhoneError } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('phone_number', values.email)
+            .single();
+        if (existingUserPhoneError || existingUserPhone) throw new Error('A user with that phone number already exists')
+
         const { data: authData, error: authError } = await supabase.auth.signUp({
             email: values.email,
             password: values.password,
@@ -54,19 +68,14 @@ export async function signUp(values: z.infer<typeof registerSchema>): Promise<Au
                 data: {
                     first_name: values.firstName,
                     last_name: values.lastName,
-                    phone: values.phoneNumber,
                 },
                 emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/confirm`,
             },
         })
 
-        if (authError) {
-            throw authError
-        }
+        if (authError) throw authError
 
-        if (!authData.user) {
-            throw new Error('User creation failed')
-        }
+        if (!authData.user) throw new Error('User creation failed')
 
         // Insert user profile data
         const { error: profileError } = await supabase

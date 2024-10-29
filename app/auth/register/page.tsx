@@ -17,7 +17,7 @@ const Register = () => {
                     </div>
                 </header>
                 <div className='bg-register-card-gradient p-6 md:rounded-md flex flex-col gap-6 md:h-[596px] md:w-[568px] items-center justify-center w-screen'>
-                    <Link href="/" className="flex items-center space-x-2 md:hidden py-5 top-0 pt-12 ">
+                    <Link href="/" className="flex items-center space-x-2 md:hidden top-0 pt-2 ">
                         <Sparkles className="h-6 w-6 text-green-500" />
                         <span className="font-bold text-xl gradient-text">ATHLAS</span>
                     </Link>

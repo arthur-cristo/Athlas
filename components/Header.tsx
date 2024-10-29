@@ -16,8 +16,10 @@ const Header = () => {
     const result = await signOut()
     if (result.error) throw new Error(result.error)
     router.refresh()
+    router.push('/')
   }
 
+  console.log(user)
   return (
     <header className="fixed top-0 left-0 right-0 z-50 header-gradient py-2">
       <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
@@ -28,7 +30,7 @@ const Header = () => {
 
         {user ? (
           <div className="flex items-center space-x-4">
-            
+
             <Button
               variant="ghost"
               className="text-sm font-medium text-gray-300 hover:text-gray-200 hover:bg-transparent"
