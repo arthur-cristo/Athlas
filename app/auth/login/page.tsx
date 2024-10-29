@@ -17,8 +17,8 @@ const Login = () => {
                         </Link>
                     </div>
                 </header>
-                <div className='bg-register-card-gradient p-6 md:rounded-md flex flex-col gap-6 md:h-[440px] md:w-[568px] items-center justify-center w-screen h-screen'>
-                    <Link href="/" className="flex items-center space-x-2 md:hidden py-5 top-0 pt-12 ">
+                <div className='md:bg-register-card-gradient p-6 md:rounded-md flex flex-col gap-6 md:h-[500px] md:w-[568px] items-center justify-center w-screen h-screen'>
+                    <Link href="/" className="flex items-center space-x-2 md:hidden py-5 top-0">
                         <Sparkles className="h-6 w-6 text-green-500" />
                         <span className="font-bold text-xl gradient-text">ATHLAS</span>
                     </Link>

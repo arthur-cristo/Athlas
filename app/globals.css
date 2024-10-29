@@ -96,6 +96,12 @@
   background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, rgba(60, 60, 60, 0) 100%);
 }
 
+@media (min-width: 768px) {
+  .md\:bg-register-card-gradient {
+    background: linear-gradient(145deg, rgba(60, 60, 60, 0.7) 0%, rgba(60, 60, 60, 1) 100%);
+  }
+}
+
 .bg-light-gray {
   background-color: rgba(75, 75, 75, 1);
 }
@@ -109,8 +115,7 @@
 }
 
 .input-phone {
-  @apply bg-light-gray border-none text-white placeholder:text-gray-400 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 
-                                   
+  @apply bg-light-gray border-none text-white placeholder:text-gray-400 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50
 }
 
 /* Phone Input Styles */
