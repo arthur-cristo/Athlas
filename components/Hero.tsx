@@ -1,7 +1,10 @@
+'use client'
+
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "@/hooks/use-auth";
 
 const Hero = () => {
   const features = [
@@ -9,6 +12,8 @@ const Hero = () => {
     "Real-Time Trading",
     "No Risk, Only Growth"
   ];
+
+  const { user, loading } = useAuth()
 
   return (
     <main className="md:pt-12 md:mt-0 px-8 md:py-0 py-6 overflow-hidden md:h-screen flex mt-16 w-screen">
@@ -25,15 +30,27 @@ const Hero = () => {
 
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/auth/register">
-                <Button
-                  size="lg"
-                  className="group bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-900/25"
-                >
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
+              {user ? (
+                <Link href="/dashboard">
+                  <Button
+                    size="lg"
+                    className="group bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-900/25"
+                  >
+                    Dashboard
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/auth/register">
+                  <Button
+                    size="lg"
+                    className="group bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-900/25"
+                  >
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+              )}
             </div>
 
             <ul className="space-y-2">
@@ -60,8 +77,8 @@ const Hero = () => {
             />
           </div>
         </div>
-      </div>
-    </main>
+      </div >
+    </main >
   );
 };
 
