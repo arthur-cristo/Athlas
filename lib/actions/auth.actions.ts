@@ -4,7 +4,7 @@ import { z } from "zod";
 import { loginSchema, registerSchema } from "../validation";
 import { cookies } from "next/headers";
 import { AuthError } from "@supabase/supabase-js";
-import { createClient } from '../supabase/server';
+import { createClient } from "@/lib/supabase/server";
 
 export type AuthResult = {
     error: string | null;
@@ -100,16 +100,16 @@ export async function signUp(values: z.infer<typeof registerSchema>): Promise<Au
 
 export async function signOut(): Promise<AuthResult> {
     try {
-        const response = await fetch('/api/auth/signout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        const cookieStore = cookies()
+        const supabase = createClient(cookieStore)
 
-        if (!response.ok) {
-            const data = await response.json()
-            throw new Error(data.error || 'Failed to sign out')
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+            return {
+                error: error.message,
+                success: false,
+            }
         }
 
         return {
@@ -119,7 +119,7 @@ export async function signOut(): Promise<AuthResult> {
     } catch (error) {
         console.error('Sign out error:', error)
         return {
-            error: error instanceof Error ? error.message : 'An unexpected error occurred',
+            error: error instanceof AuthError ? error.message : 'An unexpected error occurred',
             success: false,
         }
     }
