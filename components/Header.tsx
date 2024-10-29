@@ -9,17 +9,18 @@ import { useRouter } from "next/navigation"
 
 const Header = () => {
 
-  const { user, loading } = useAuth()
+  const { user, setUser } = useAuth()
   const router = useRouter()
 
+
   const handleSignOut = async () => {
-    const result = await signOut()
-    if (result.error) throw new Error(result.error)
-    router.refresh()
-    router.push('/')
+    const result = await signOut();
+    if (result.error) throw new Error(result.error);
+    setUser(null);
+    router.refresh();
+    router.push('/');
   }
 
-  console.log(user)
   return (
     <header className="fixed top-0 left-0 right-0 z-50 header-gradient py-2">
       <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
