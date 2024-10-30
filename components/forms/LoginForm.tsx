@@ -48,7 +48,6 @@ const LoginForm = () => {
             if (result.error) throw new Error(result.error);
             setError(null);
             router.push('/dashboard')
-            router.refresh()
         } catch (error: any) {
             setError(error.message);
             setIsLoading(false);

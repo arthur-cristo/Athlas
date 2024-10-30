@@ -4,17 +4,10 @@ import Link from "next/link"
 import { Button } from "./ui/button"
 import { Sparkles } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
-import { signOut } from "@/lib/actions/auth.actions"
 
 const Header = () => {
 
   const { user, setUser } = useAuth()
-
-  const handleSignOut = async () => {
-    const result = await signOut();
-    if (result.error) throw new Error(result.error);
-    setUser(null);
-  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 header-gradient py-2">
@@ -26,11 +19,11 @@ const Header = () => {
 
         {user ? (
           <div className="flex items-center space-x-4">
-            <Link href='/'>
+            <Link href='/auth/signout'>
               <Button
                 variant="ghost"
                 className="text-sm font-medium text-gray-300 hover:text-gray-200 hover:bg-transparent"
-                onClick={handleSignOut}
+                onClick={() => setUser(null)}
               >
                 Sign Out
               </Button>

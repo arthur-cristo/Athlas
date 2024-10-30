@@ -10,13 +10,13 @@ export default async function DashboardPage() {
   const { data: { user }, error: userError } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/')
+    redirect('/auth/login')
   }
 
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select()
-    .eq('id', user.id)
+    .eq('id', user!.id)
     .single()
 
   if (profileError) {
