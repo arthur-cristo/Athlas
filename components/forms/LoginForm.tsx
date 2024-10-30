@@ -51,7 +51,6 @@ const LoginForm = () => {
             router.refresh()
         } catch (error: any) {
             setError(error.message);
-            console.error(error.message);
             setIsLoading(false);
         }
         setIsLoading(false);

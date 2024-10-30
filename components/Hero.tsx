@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
+import heroImage from "@/public/assets/images/hero_image.avif"
 
 const Hero = () => {
   const features = [
@@ -16,7 +17,7 @@ const Hero = () => {
   const { user, loading } = useAuth()
 
   return (
-    <main className="md:pt-12 md:mt-0 px-8 md:py-0 py-6 overflow-hidden md:h-screen flex mt-16 w-screen">
+    <main className="md:pt-12 md:mt-0 px-8 md:py-0 py-6 overflow-hidden md:h-screen flex mt-20 w-screen">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         <div className="flex-1 space-y-8">
 
@@ -68,12 +69,12 @@ const Hero = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent rounded-3xl -rotate-6 scale-95 w-full max-w-1/2 blur-2xl" />
           <div className="relative">
             <Image
-              src="/assets/images/hero-image.png"
+              src={heroImage}
               alt="Financial dashboard"
+              placeholder="blur"
               width={600}
               height={400}
               className="rounded-3xl shadow-2xl border border-gray-800"
-              priority
             />
           </div>
         </div>

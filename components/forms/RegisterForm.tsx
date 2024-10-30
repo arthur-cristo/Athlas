@@ -61,13 +61,7 @@ const RegisterForm = () => {
 
             const result = await signUp(values);
 
-            if (result.error) {
-                throw new Error(result.error);
-            }
-
-            if (!result.success) {
-                throw new Error('Registration failed. Please try again.');
-            }
+            if (result.error) throw new Error(result.error);
 
             setError(null);
             setRegisteredEmail(values.email);
@@ -76,7 +70,6 @@ const RegisterForm = () => {
 
         } catch (error: any) {
             setError(error.message);
-            console.error('Registration error:', error);
 
         } finally {
             setIsLoading(false);

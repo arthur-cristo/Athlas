@@ -47,19 +47,19 @@ export async function signUp(values: z.infer<typeof registerSchema>): Promise<Au
         const cookieStore = cookies()
         const supabase = createClient(cookieStore)
 
-        const { data: existingUserEmail, error: existingUserEmailError } = await supabase
+        const { data: existingUserEmail } = await supabase
             .from('profiles')
             .select('id')
             .eq('email', values.email)
             .single();
-        if (existingUserEmailError || existingUserEmail) throw new Error('A user with that email already exists')
+        if (existingUserEmail) throw new Error('A user with that email already exists')
 
-        const { data: existingUserPhone, error: existingUserPhoneError } = await supabase
+        const { data: existingUserPhone } = await supabase
             .from('profiles')
             .select('id')
             .eq('phone_number', values.email)
             .single();
-        if (existingUserPhoneError || existingUserPhone) throw new Error('A user with that phone number already exists')
+        if (existingUserPhone) throw new Error('A user with that phone number already exists')
 
         const { data: authData, error: authError } = await supabase.auth.signUp({
             email: values.email,
@@ -69,7 +69,6 @@ export async function signUp(values: z.infer<typeof registerSchema>): Promise<Au
                     first_name: values.firstName,
                     last_name: values.lastName,
                 },
-                emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/confirm`,
             },
         })
 
@@ -101,7 +100,7 @@ export async function signUp(values: z.infer<typeof registerSchema>): Promise<Au
     } catch (error) {
         console.error('Sign up error:', error)
         return {
-            error: error instanceof AuthError ? error.message : 'An unexpected error occurred',
+            error: (error as Error).message,
             success: false,
         }
     }
