@@ -1,5 +1,3 @@
-'use server'
-
 import Link from "next/link"
 import { Button } from "./ui/button"
 import { Sparkles } from "lucide-react"
@@ -12,6 +10,8 @@ const Header = async () => {
   } = await createClient().auth.getUser();
 
   const { first_name, last_name } = user?.user_metadata || {}
+
+  console.log(user)
 
   return (
     <header className="header-gradient py-2 flex flex-col">
