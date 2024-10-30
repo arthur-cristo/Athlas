@@ -23,9 +23,9 @@ const DashboardNewsWindow = () => {
     }, [])
 
     return (
-        <aside className='md:mt-0 md:pt-0 mt-8 p-8'>
+        <aside className='md:my-0 md:pt-0 mt-8 p-8'>
             <h2 className="my-2 font-bold text-3xl mb-8">Latest News</h2>
-            <div className="mt-2 flex flex-col gap-6 md:max-h-[400px] max-h-[500px] overflow-y-auto">
+            <div className="mt-2 flex flex-col gap-6 md:max-h-[350px] max-h-[500px] overflow-y-auto">
                 {news.length > 0 ? (
                     news.map((n, index) => (
                         <DashboardNews key={index} {...n} />

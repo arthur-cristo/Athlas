@@ -52,7 +52,6 @@ export async function signUp(values: z.infer<typeof registerSchema>) {
 
     if (!authData.user) throw new Error('User creation failed')
 
-    // Insert user profile data
     const { error: profileError } = await supabase
         .from('profiles')
         .insert({
@@ -64,7 +63,6 @@ export async function signUp(values: z.infer<typeof registerSchema>) {
         })
 
     if (profileError) {
-        // If profile creation fails, clean up the auth user
         await supabase.auth.admin.deleteUser(authData.user.id)
         throw profileError
     }
@@ -72,9 +70,7 @@ export async function signUp(values: z.infer<typeof registerSchema>) {
 
 export async function signOut() {
 
-    const supabase = createClient();
-
-    const { error } = await supabase.auth.signOut();
+    const { error } = await createClient().auth.signOut();
 
     if (error) throw error;
 
