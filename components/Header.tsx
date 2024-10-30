@@ -67,7 +67,7 @@ const Header = async () => {
         )}
       </div>
       {user && (
-        <h2 className="md:hidden flex justify-center text-xl pb-3 font-medium text-gray-300 text-center">{`Hello, ${first_name} ${last_name}!`}</h2>
+        <h2 className="md:hidden flex justify-center text-xl py-3 font-medium text-gray-100 text-center">{`Hello, ${first_name} ${last_name}!`}</h2>
       )}
     </header>
   )

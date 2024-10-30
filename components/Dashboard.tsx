@@ -1,6 +1,5 @@
 import { HandCoins, Wallet, MessageCircleMore, PiggyBank, ShoppingBag } from "lucide-react"
 import DashboardOption from "./DashboardOption"
-import DashboardNews from "./DashboardNews"
 import { Button } from "./ui/button"
 import DashboardNewsWindow from "./DashboardNewsWindow"
 
@@ -16,7 +15,7 @@ interface DashboardClientProps {
 
 const DashboardClient = ({ profile }: DashboardClientProps) => {
 
-    const { first_name, last_name, balance } = profile
+    const { balance } = profile
 
     const USDollar = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -41,16 +40,16 @@ const DashboardClient = ({ profile }: DashboardClientProps) => {
                     </h1>
                     <h3 className="text-sm text-gray-300 underline cursor-pointer">View Bank Statement</h3>
                 </div>
-                <div className="md:bg-transparent px-3 flex gap-6 items-center py-5 bg-dark-gray md:w-fit w-screen overflow-x-auto">
+                <div className="flex justify-center ">
+                    <Button className="flex my-8 py-6 mx-8 md:w-[400px] w-full">
+                        <PiggyBank className="h-10 w-10 mr-2" />
+                        My Savings
+                    </Button>
+                </div>
+                <div className="md:bg-transparent px-3 flex gap-6 items-center my-8 py-5 bg-dark-gray md:w-fit w-screen overflow-x-auto">
                     {options.map((option, index) => (
                         <DashboardOption key={index} {...option} />
                     ))}
-                </div>
-                <div className="flex justify-center ">
-                    <Button className="flex my-8 py-6 mx-8 md:w-[400px] w-full">
-                        <PiggyBank className="h-6 w-6 mr-2" />
-                        My Savings
-                    </Button>
                 </div>
             </div>
             <DashboardNewsWindow />
