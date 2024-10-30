@@ -1,24 +1,14 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Header from '@/components/Header'
-import { HandCoins, Wallet, MessageCircleMore, PiggyBank, ShoppingBag } from "lucide-react"
+import { PiggyBank } from "lucide-react"
 import DashboardNewsWindow from '@/components/DashboardNewsWindow'
 import DashboardOption from '@/components/DashboardOption'
 import { Button } from '@/components/ui/button'
+import { dashboardOptions } from '@/lib/constants'
+import { dollarFormat } from '@/lib/utils'
 
 export default async function DashboardPage() {
-
-  const USDollar = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  })
-
-  const options = [
-    { label: 'Transactions', link: '/', Icon: HandCoins },
-    { label: 'Stocks', link: '/', Icon: Wallet },
-    { label: 'Store', link: '/', Icon: ShoppingBag },
-    { label: 'Community', link: '/', Icon: MessageCircleMore },
-  ]
 
   const supabase = createClient()
 
@@ -43,7 +33,7 @@ export default async function DashboardPage() {
             <h2 className="text-2xl text-gray-200">Your Balance</h2>
             <h1 className="font-bold text-4xl">
               <span className="text-green-500">A$ </span>
-              {USDollar.format(balance).slice(1)}
+              {dollarFormat.format(balance).slice(1)}
             </h1>
             <h3 className="text-sm text-gray-300 underline cursor-pointer">View Bank Statement</h3>
           </div>
@@ -54,7 +44,7 @@ export default async function DashboardPage() {
             </Button>
           </div>
           <div className="md:bg-transparent px-3 flex gap-6 items-center my-8 py-5 bg-dark-gray md:w-fit w-screen overflow-x-auto">
-            {options.map((option, index) => (
+            {dashboardOptions.map((option, index) => (
               <DashboardOption key={index} {...option} />
             ))}
           </div>
