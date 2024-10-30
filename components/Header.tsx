@@ -1,16 +1,20 @@
-'use client'
+'use server'
 
 import Link from "next/link"
 import { Button } from "./ui/button"
 import { Sparkles } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
+import { createClient } from "@/lib/supabase/server"
 
-const Header = () => {
+const Header = async () => {
 
-  const { user, setUser } = useAuth()
+  const {
+    data: { user },
+  } = await createClient().auth.getUser();
+
+  const { first_name, last_name } = user?.user_metadata || {}
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 header-gradient py-2">
+    <header className="header-gradient py-2 flex flex-col">
       <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Sparkles className="h-6 w-6 text-green-500" />
@@ -23,7 +27,6 @@ const Header = () => {
               <Button
                 variant="ghost"
                 className="text-sm font-medium text-gray-300 hover:text-gray-200 hover:bg-transparent"
-                onClick={() => setUser(null)}
               >
                 Sign Out
               </Button>
@@ -63,6 +66,9 @@ const Header = () => {
           </>
         )}
       </div>
+      {user && (
+        <h2 className="md:hidden flex justify-center text-xl pb-3 font-medium text-gray-300 text-center">{`Hello, ${first_name} ${last_name}!`}</h2>
+      )}
     </header>
   )
 }

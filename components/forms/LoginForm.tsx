@@ -43,16 +43,13 @@ const LoginForm = () => {
         setIsLoading(true);
 
         try {
-            const result = await signIn(values);
-
-            if (result.error) throw new Error(result.error);
+            await signIn(values);
             setError(null);
             router.push('/dashboard')
         } catch (error: any) {
             setError(error.message);
             setIsLoading(false);
         }
-        setIsLoading(false);
     }
 
     return (

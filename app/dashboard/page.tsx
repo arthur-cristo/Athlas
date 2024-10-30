@@ -2,32 +2,26 @@ import { cookies } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import DashboardClient from '@/components/Dashboard'
+import Header from '@/components/Header'
 
 export default async function DashboardPage() {
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
 
-  const { data: { user }, error: userError } = await supabase.auth.getUser()
+  const supabase = createClient()
 
-  if (!user) {
-    redirect('/auth/login')
-  }
+  const { data: { user } } = await supabase.auth.getUser()
 
-  const { data: profile, error: profileError } = await supabase
+  if (!user) redirect('/auth/login')
+
+  const { data: profile } = await supabase
     .from('profiles')
     .select()
-    .eq('id', user!.id)
-    .single()
-
-  if (profileError) {
-    return <div>Error loading profile</div>
-  }
+    .eq('id', user.id)
+    .single();
 
   return (
-    <div className='h-screen w-screen bg-dark_gray-gradient text-white flex items-center justify-center flex-col text-center gap-12'>
-      <div className='bg-register-gradient flex flex-col h-screen w-screen justify-center md:flex-row p-8 gap-8'>
-        <DashboardClient profile={profile} />
-      </div>
+    <div className='bg-dark_gray-gradient text-white text-center min-h-screen'>
+      <Header />
+      <DashboardClient profile={profile} />
     </div>
   )
 }

@@ -4,15 +4,15 @@ import { LucideIcon } from 'lucide-react'
 
 const DashboardOption = ({ label, Icon, link }: {
     label: string,
-    Icon?: LucideIcon,
+    Icon: LucideIcon,
     link: string
 }) => {
     return (
-        <Link href={link} className="flex justify-center items-center bg-light-gray w-full rounded-full px-2 py-4 gap-6">
-            <Label className="font-medium text-3xl">{label}</Label>
-            {Icon && (
-                <Icon className='w-8 h-8' />
-            )}
+        <Link href={link} className="flex flex-col justify-center items-center gap-2">
+            <div className='w-16 h-16 bg-light-gray md:bg-primary rounded-full flex justify-center items-center'>
+                <Icon className='w-7 h-7 ' />
+            </div>
+            <Label className="text-base font-medium">{label}</Label>
         </Link>
     )
 }

@@ -59,9 +59,7 @@ const RegisterForm = () => {
 
         try {
 
-            const result = await signUp(values);
-
-            if (result.error) throw new Error(result.error);
+            await signUp(values);
 
             setError(null);
             setRegisteredEmail(values.email);

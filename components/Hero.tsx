@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import Link from "next/link";
-import { useAuth } from "@/hooks/use-auth";
 import heroImage from "@/public/assets/images/hero_image.avif"
 
 const Hero = () => {
@@ -14,10 +13,8 @@ const Hero = () => {
     "No Risk, Only Growth"
   ];
 
-  const { user, loading } = useAuth()
-
   return (
-    <main className="md:pt-12 md:mt-0 px-8 md:py-0 py-6 overflow-hidden md:h-screen flex mt-20 w-screen">
+    <main className="px-8 mt-6 pt-10 py-6 overflow-hidden flex w-screen">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         <div className="flex-1 space-y-8">
 
@@ -31,7 +28,7 @@ const Hero = () => {
 
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-4">
-              {user ? (
+              {true ? (
                 <Link href="/dashboard">
                   <Button
                     size="lg"

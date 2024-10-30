@@ -21,7 +21,7 @@ const Register = () => {
                         <Sparkles className="h-10 w-10 text-green-500" />
                         <span className="font-bold text-4xl gradient-text">ATHLAS</span>
                     </Link>
-                    <h2 className="mt-5 text-2xl font-bold capitalize text-center text-white">Create your account!</h2 >
+                    <h2 className="mt-5 text-2xl font-bold capitalize text-center text-white">Create your account</h2 >
                     <RegisterForm />
                     <p className="text-white text-sm text-center">Alredy have an account?&nbsp;
                         <Link href="/auth/login" className="text-green-400 font-bold">Login</Link>
