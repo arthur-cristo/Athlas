@@ -7,7 +7,7 @@ const Login = () => {
 
     return (
 
-        <div className='bg-dark_gray-gradient flex justify-center items-center h-screen'>
+        <div className='bg-dark_gray-gradient flex justify-center items-center md:h-screen'>
             <div className='bg-register-gradient flex flex-col justify-center items-center h-screen w-screen'>
                 <header className="hidden md:flex fixed top-0 left-0 right-0 z-50">
                     <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">

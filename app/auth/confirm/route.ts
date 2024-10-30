@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
         const { searchParams } = new URL(request.url);
         const token_hash = searchParams.get('token_hash');
         const type = searchParams.get('type') as EmailOtpType | null;
-        const next = searchParams.get('next') || '/login';
+        const next = searchParams.get('next') || '/auth/login';
 
         // Validate required parameters
         if (!token_hash || !type) {
@@ -25,12 +25,7 @@ export async function GET(request: NextRequest) {
             token_hash,
         });
 
-        if (error) {
-            console.error('Auth confirmation error:', error);
-            return NextResponse.redirect(
-                new URL(`/auth/error?message=${encodeURIComponent(error.message)}`, request.url)
-            );
-        }
+        if (error) throw error;
 
         // Successful verification - redirect to the next page
         return NextResponse.redirect(new URL(next, request.url));
