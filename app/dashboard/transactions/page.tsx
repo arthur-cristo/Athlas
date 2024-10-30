@@ -1,11 +1,25 @@
 import BalanceDisplay from '@/components/BalanceDisplay'
 import Header from '@/components/Header'
+import { createClient } from '@/lib/supabase/server'
 
-const Transactions = () => {
+const Transactions = async () => {
+
+    const supabase = createClient()
+
+    const { data: { user } } = await supabase.auth.getUser()
+
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select()
+        .eq('id', user?.id)
+        .single();
+
+    const { balance } = profile
+
     return (
         <div className='bg-dark_gray-gradient text-white text-center min-h-screen pb-8'>
             <Header />
-            <BalanceDisplay />
+            <BalanceDisplay balance={balance} />
         </div>
     )
 }
