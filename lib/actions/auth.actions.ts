@@ -12,15 +12,12 @@ export type AuthResult = {
 
 export async function signIn(values: z.infer<typeof loginSchema>) {
 
-
     const { error } = await createClient().auth.signInWithPassword({
         email: values.email,
         password: values.password,
     })
 
     if (error) throw error;
-
-    return redirect("/dashboard");
 }
 
 export async function signUp(values: z.infer<typeof registerSchema>) {

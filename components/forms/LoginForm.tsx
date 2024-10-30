@@ -48,6 +48,7 @@ const LoginForm = () => {
             router.push('/dashboard')
         } catch (error: any) {
             setError(error.message);
+        } finally {
             setIsLoading(false);
         }
     }
