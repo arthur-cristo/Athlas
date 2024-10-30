@@ -17,14 +17,10 @@ const DashboardNewsWindow = () => {
         const fetchNews = async () => {
             const res = await fetch('/api/news')
             const data = await res.json()
-            console.log('data: ', data)
             setNews(data.news)
         }
         fetchNews()
     }, [])
-
-    console.log(news)
-    console.log('news.length: ', news.length)
 
     return (
         <aside>
