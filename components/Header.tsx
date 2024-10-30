@@ -26,7 +26,7 @@ const Header = () => {
 
         {user ? (
           <div className="flex items-center space-x-4">
-            <Link href='/auth/signout'>
+            <Link href='/'>
               <Button
                 variant="ghost"
                 className="text-sm font-medium text-gray-300 hover:text-gray-200 hover:bg-transparent"
