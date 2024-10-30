@@ -3,7 +3,6 @@
 import { z } from "zod";
 import { loginSchema, registerSchema } from "../validation";
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 
 export type AuthResult = {
     error: string | null;
