@@ -2,6 +2,7 @@ import { HandCoins, Wallet, MessageCircleMore, PiggyBank, ShoppingBag } from "lu
 import DashboardOption from "./DashboardOption"
 import DashboardNews from "./DashboardNews"
 import { Button } from "./ui/button"
+import DashboardNewsWindow from "./DashboardNewsWindow"
 
 interface Profile {
     first_name: string
@@ -29,14 +30,6 @@ const DashboardClient = ({ profile }: DashboardClientProps) => {
         { label: 'Community', link: '/', Icon: MessageCircleMore },
     ]
 
-    const news = [
-        { title: 'Building the app', content: 'We are working hard to bring you the best experience' },
-        { title: 'New feature', content: 'We have added a new feature to the app' },
-        { title: 'New feature', content: 'We have added a new feature to the app' },
-        { title: 'New feature', content: 'We have added a new feature to the app' },
-        { title: 'New feature', content: 'We have added a new feature to the app' },
-    ]
-
     return (
         <div className="md:flex md:justify-between md:items-center md:mt-10">
             <div className="md:w-2/3 md:flex md:flex-col md:items-center">
@@ -60,14 +53,7 @@ const DashboardClient = ({ profile }: DashboardClientProps) => {
                     </Button>
                 </div>
             </div>
-            <aside>
-                <h2 className="mx-8 my-2 font-bold text-3xl text-left">Latest News</h2>
-                <div className="mx-8 mt-2 flex flex-col gap-6 md:max-h-[400px] max-h-[500px] overflow-y-auto">
-                    {news.map((n, index) => (
-                        <DashboardNews key={index} {...n} />
-                    ))}
-                </div>
-            </aside>
+            <DashboardNewsWindow />
         </div>
     )
 }
