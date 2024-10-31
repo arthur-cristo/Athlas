@@ -1,7 +1,6 @@
-'use server'
-
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { CookieOptions } from '@supabase/ssr'
 
 export const createClient = () => {
   const cookieStore = cookies();
@@ -20,9 +19,7 @@ export const createClient = () => {
               cookieStore.set(name, value, options);
             });
           } catch (error) {
-            // The `set` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
+            console.error('Cookie setting error:', error);
           }
         },
       },

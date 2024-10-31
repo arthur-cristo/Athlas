@@ -11,8 +11,6 @@ const Header = async () => {
 
   const { first_name, last_name } = user?.user_metadata || {}
 
-  console.log(user)
-
   return (
     <header className="header-gradient py-2 flex flex-col">
       <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
