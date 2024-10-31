@@ -11,6 +11,11 @@ export async function middleware(request: NextRequest) {
   // Handle session update
   const response = await updateSession(request)
 
+  // Skip authentication for API routes
+  if (pathname.startsWith('/api/')) {
+    return response
+  }
+
   // Check auth status for protected routes
   if (!PUBLIC_ROUTES.includes(pathname)) {
     const supabase = createServerClient(
@@ -37,13 +42,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder
-     */
     '/((?!_next/static|_next/image|favicon.ico|public/).*)',
   ],
 }
