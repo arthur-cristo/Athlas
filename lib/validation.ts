@@ -36,5 +36,5 @@ export const loginSchema = z.object({
 
 export const transferSchema = z.object({
     email: z.string().email('Invalid email address.'),
-    amount: z.coerce.number().gte(0.01, "Amount must be at least A$0.01."),
+    amount: z.coerce.number().gte(0.01, "Amount must be at least $0.01."),
 });

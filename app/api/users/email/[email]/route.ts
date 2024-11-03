@@ -7,9 +7,7 @@ export async function GET(request: NextRequest) {
 
     const email = request.url.split('/').pop();
 
-    if (!email) {
-        return NextResponse.json({ error: 'Email parameter is missing' }, { status: 400 });
-    }
+    if (!email) return NextResponse.json({ error: 'Email parameter is missing' }, { status: 400 });
 
     const { data, error } = await supabase
         .from('profiles')
@@ -17,13 +15,7 @@ export async function GET(request: NextRequest) {
         .eq('email', email)
         .single();
 
-    if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    if (!data || error) return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
 
-    if (!data) {
-        return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
-    }
-    console.log(data);
     return NextResponse.json(data);
 }

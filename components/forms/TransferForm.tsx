@@ -49,11 +49,12 @@ const TransferForm = () => {
 
         try {
             const { data: { user }, } = await createClient().auth.getUser();
-            const userResponse = await fetch(`/api/users/${values.email}`);
+            const userResponse = await fetch(`/api/users/email/${values.email}`);
             const userData = await userResponse.json();
             if (userData.error) throw userData.error;
+
             setReceiverData(userData);
-            console.log(userData)
+
             const response = await fetch('/api/transactions', {
                 method: 'POST',
                 headers: {
@@ -67,11 +68,13 @@ const TransferForm = () => {
             });
             const data = await response.json();
             if (data.error) throw data.error;
+
             setError(null);
             setIsDialogOpen(true);
-        } catch (error: any) {
-            console.log(error)
-            setError(error.message);
+
+        } catch (error: string | any) {
+            console.error(error);
+            setError(error);
         } finally {
             setIsLoading(false);
         }
@@ -106,11 +109,11 @@ const TransferForm = () => {
                             <FormItem>
                                 <FormLabel className="text-white">Amount</FormLabel>
                                 <div className="flex items-center bg-light-gray border-none text-white placeholder:text-gray-400 rounded-md">
-                                    <Label className='mx-2 text-gray-300'>A$</Label>
+                                    <Label className='mx-2 text-gray-300'>$</Label>
                                     <FormControl>
                                         <Input
                                             type='number'
-                                            placeholder='A$100.00'
+                                            placeholder='$100.00'
                                             {...field}
                                             className="border-none placeholder:text-gray-400"
                                             onChange={(e) => {
@@ -142,7 +145,7 @@ const TransferForm = () => {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Transaction Successful!</AlertDialogTitle>
                         <AlertDialogDescription className="space-y-3 text-gray-200">
-                            <p>You have transferred A${form.getValues("amount")} to {receiverData?.first_name} {receiverData?.last_name} ({receiverData?.email}).</p>
+                            <p>You have transferred ${form.getValues("amount")} to {receiverData?.first_name} {receiverData?.last_name} ({receiverData?.email}).</p>
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <Button
