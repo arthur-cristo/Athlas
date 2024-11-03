@@ -73,7 +73,6 @@ const TransferForm = () => {
             setIsDialogOpen(true);
 
         } catch (error: string | any) {
-            console.error(error);
             setError(error);
         } finally {
             setIsLoading(false);

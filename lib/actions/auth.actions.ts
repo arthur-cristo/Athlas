@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { loginSchema, registerSchema } from "../validation";
 import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
 export type AuthResult = {
     error: string | null;
@@ -17,6 +18,8 @@ export async function signIn(values: z.infer<typeof loginSchema>) {
     })
 
     if (error) throw error;
+    
+    return redirect('/dashboard')
 }
 
 export async function signUp(values: z.infer<typeof registerSchema>) {

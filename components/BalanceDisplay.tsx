@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/client'
 import { dollarFormat } from '@/lib/utils'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 const BalanceDisplay = () => {
 
@@ -15,10 +16,7 @@ const BalanceDisplay = () => {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
 
-                if (!user) {
-                    console.error('No authenticated user found');
-                    return;
-                }
+                if (!user) return;
 
                 const { data, error } = await supabase
                     .from('profiles')
@@ -26,10 +24,7 @@ const BalanceDisplay = () => {
                     .eq('id', user.id)
                     .single();
 
-                if (error) {
-                    console.error('Error fetching balance:', error.message);
-                    return;
-                }
+                if (error) throw error;
 
                 setBalance(data.balance ?? 0);
             } catch (error) {
@@ -44,13 +39,16 @@ const BalanceDisplay = () => {
     }, []);
 
     return (
-        <div className="md:p-8 md:w-[400px] md:mb-6 md:rounded-md flex flex-col gap-4 justify-center p-8 py-12">
+        <div className="md:bg-transparent bg-register-gradient md:p-8 md:w-[400px] md:mb-6 md:rounded-md flex flex-col gap-4 justify-center p-8 py-12">
             <h2 className="text-2xl text-gray-200">Your Balance</h2>
             <h1 className="font-bold text-4xl">
                 <span className="text-green-500">$</span>
                 {dollarFormat.format(balance).slice(1)}
             </h1>
-            <h3 className="text-sm text-gray-300 underline cursor-pointer">View Bank Statement</h3>
+            <Link href='/dashboard/transactions'>
+                <h3 className="text-sm text-gray-300 underline cursor-pointer">View Bank Statement</h3>
+            </Link>
+
         </div>
     )
 }
