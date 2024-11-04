@@ -135,3 +135,7 @@
 .PhoneInputInput:focus {
   @apply outline-none ring-2 ring-primary;
 }
+
+.hidden-input[type="file"] {
+  display: none;
+}

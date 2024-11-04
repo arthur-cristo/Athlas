@@ -38,3 +38,11 @@ export const transferSchema = z.object({
     email: z.string().email('Invalid email address.'),
     amount: z.coerce.number().gte(0.01, "Amount must be at least $0.01."),
 });
+
+export const postSchema = z.object({
+    title: z.string().min(2, "Title must be at least 2 characters.").max(50, "Title must be at most 50 characters."),
+    content: z.string().min(2, "Content must be at least 2 characters.").max(280, "Content must be at most 280 characters."),
+    images: z.unknown().transform(value => {
+        return value as FileList
+    }).refine((images) => images.length <= 5, "Please, upload at most 5 images."),
+});

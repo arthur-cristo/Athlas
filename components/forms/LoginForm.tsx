@@ -21,7 +21,6 @@ import { loginSchema } from "@/lib/validation"
 import { MailIcon, EyeIcon, EyeClosedIcon } from "lucide-react"
 import { Label } from "@radix-ui/react-label"
 import { useRouter } from "next/navigation"
-import { createClient } from '@/lib/supabase/client'
 
 const LoginForm = () => {
 

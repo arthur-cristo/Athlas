@@ -8,13 +8,12 @@ const PUBLIC_ROUTES = ['/', '/auth/login', '/auth/register', '/auth/reset-passwo
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Handle session update
   const response = await updateSession(request)
 
-  // Skip authentication for API routes
+  /* // Skip authentication for API routes
   if (pathname.startsWith('/api/')) {
     return response
-  }
+  } */
 
   // Check auth status for protected routes
   if (!PUBLIC_ROUTES.includes(pathname)) {

@@ -45,7 +45,7 @@ const BalanceDisplay = () => {
                 <span className="text-green-500">$</span>
                 {dollarFormat.format(balance).slice(1)}
             </h1>
-            <Link href='/dashboard/transactions'>
+            <Link href='/transactions'>
                 <h3 className="text-sm text-gray-300 underline cursor-pointer">View Bank Statement</h3>
             </Link>
 
