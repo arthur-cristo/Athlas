@@ -73,7 +73,8 @@ export async function GET(req: NextRequest) {
             .from("posts")
             .select(`
                 *,
-                posts_pictures (image_url)
+                posts_pictures (image_url),
+                posts_likes (user_id)
               `)
             .order('created_at', { ascending: false });
 

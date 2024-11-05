@@ -7,4 +7,5 @@ export interface PostType {
     likes: number
     comments: number
     posts_pictures: { image_url: string }[]
+    posts_likes: { user_id: string }[]
 }

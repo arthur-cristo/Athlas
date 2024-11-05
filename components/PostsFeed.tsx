@@ -3,7 +3,6 @@
 import { PostType } from "@/types/Post"
 import { useEffect, useState } from "react"
 import Post from "./Post"
-import Link from "next/link"
 
 const PostsFeed = () => {
     const [posts, setPosts] = useState<PostType[]>([])
@@ -39,11 +38,8 @@ const PostsFeed = () => {
         <div className="p-4">
             {posts.length > 0 && (
                 posts.map((post, index) => (
-                    console.log(post),
-                    <div key={index} className="bg-dark-gray p-4 rounded-md my-4 text-left w-full cursor-pointer">
-                        <Link href={'/community/posts/' + post.id}>
-                            <Post post={post} userProfiles={userProfiles} />
-                        </Link>
+                    <div key={index} className="bg-dark-gray p-4 rounded-md my-4 text-left w-full">
+                        <Post post={post} userProfiles={userProfiles} />
                     </div>
                 ))
             )}
