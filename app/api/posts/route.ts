@@ -66,6 +66,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "Files uploaded successfully" }, { status: 200 });
 }
 
+export async function GET(req: NextRequest) {
+    const supabase = createClient();
+    try {
+        const { data: posts, error } = await supabase
+            .from("posts")
+            .select(`
+                *,
+                posts_pictures (image_url)
+              `)
+            .order('created_at', { ascending: false });
+
+        if (error) return handleError(error.message, 500);
+        console.log(posts);
+        return NextResponse.json(posts, { status: 200 });
+    } catch (error) {
+        console.error("Unexpected error:", error);
+        return handleError("An unexpected error occurred", 500);
+    }
+}
+
 async function handleError(error: string, status: number) {
     return NextResponse.json({ error }, { status });
 }

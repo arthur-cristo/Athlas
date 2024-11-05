@@ -59,7 +59,7 @@ const PostForm = () => {
                 body: formData
             });
             const data = await response.json();
-            console.log(data);
+            form.reset();
         } catch (error: any) {
             setError(error.message);
         } finally {
