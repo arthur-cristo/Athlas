@@ -26,7 +26,7 @@ const PostForm = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
     const [writePost, setWritePost] = useState(true);
-
+    
     const form = useForm<z.infer<typeof postSchema>>({
         resolver: zodResolver(postSchema),
         defaultValues: {
@@ -54,11 +54,10 @@ const PostForm = () => {
                 }
             }
             console.log(formData);
-            const response = await fetch('/api/posts', {
+            await fetch('/api/posts', {
                 method: 'POST',
                 body: formData
             });
-            const data = await response.json();
             form.reset();
         } catch (error: any) {
             setError(error.message);
@@ -114,8 +113,9 @@ const PostForm = () => {
                                     <FormItem className="flex justify-start flex-col">
                                         <FormControl>
                                             <>
-                                                <Label htmlFor='images' className='cursor-pointer bg-light-gray rounded-full p-4 hover:bg-dark-gray'>
+                                                <Label htmlFor='images' className='cursor-pointer bg-light-gray rounded-full p-4 px-6 hover:bg-dark-gray flex gap-4'>
                                                     <Images className="h-8 w-8 text-green-500 hover:text-green-400" />
+                                                    <h3 className='text-xl'>{form.watch('images')?.length || 0}</h3>
                                                 </Label>
                                                 <Input
                                                     id='images'
@@ -125,6 +125,7 @@ const PostForm = () => {
                                                     {...fileRef}
                                                     className="hidden-input"
                                                 />
+                                                
                                             </>
                                         </FormControl>
                                         <FormDescription>
