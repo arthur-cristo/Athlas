@@ -1,25 +1,64 @@
 import { PostType } from '@/types/Post'
-import { Heart, MessageCircleMore } from 'lucide-react';
+import { EllipsisVertical, MessageCircleMore } from 'lucide-react';
 import Image from 'next/image'
 import Link from 'next/link';
 import LikeButton from './LikeButton';
+import { createClient } from '@/lib/supabase/client';
+import { useEffect, useState } from 'react';
+import { User } from '@supabase/supabase-js';
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem
+} from './ui/dropdown-menu';
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogHeader,
+    AlertDialogTitle
+} from "@/components/ui/alert-dialog"
+import EditPostForm from './forms/EditPostForm';
 
-interface PostProps {
-    post: PostType;
-    userProfiles: { [key: string]: { first_name: string; last_name: string } };
-}
+const Post = (post: PostType) => {
 
-const Post = ({ post, userProfiles }: PostProps) => {
+    const [user, setUser] = useState<User | null>();
+    const [edit, setEdit] = useState(false);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const { data: { user } } = await createClient().auth.getUser();
+            setUser(user);
+        }
+        fetchUser();
+    }, [])
+
 
     return (
-        <>
+        <div>
             <div className="flex justify-between">
-                <h3>{userProfiles[post.user_id]?.first_name} {userProfiles[post.user_id]?.last_name}</h3>
-                <p className="text-gray-300">{new Date(post.created_at).toLocaleString()}</p>
+                <h3>{post.user_name}</h3>
+                <div className='flex items-center gap-2'>
+                    <p className="text-gray-300">{new Date(post.updated_at).toLocaleString()}</p>
+                    {user?.id === post.user_id &&
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <EllipsisVertical size={20} className='text-gray-300' />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className='bg-light-gray border-none'>
+                                <DropdownMenuItem onClick={() => setEdit(true)}
+                                    className='text-white'>Edit</DropdownMenuItem>
+                                <DropdownMenuItem className='text-red-400'>Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
+                    }
+                </div>
             </div>
             <Link href={'/community/posts/' + post.id}>
-                <h2 className="text-xl font-bold mt-4">{post.title}</h2>
-                <p>{post.content}</p>
+                <h2 className="text-xl font-bold mt-2">{post.title}</h2>
+                <p className="text-wrap break-words">{post.content}</p>
                 {post.posts_pictures.length > 0 && (
                     <div className="flex gap-4 overflow-hidden my-4">
                         {post.posts_pictures.map((pic, index) => (
@@ -43,9 +82,9 @@ const Post = ({ post, userProfiles }: PostProps) => {
                     </Link>
                     <span>{post.comments}</span>
                 </div>
-
             </div>
-        </>
+            <EditPostForm post={post} edit={edit} setEdit={setEdit} />
+        </div>
     )
 }
 

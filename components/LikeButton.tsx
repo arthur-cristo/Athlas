@@ -5,8 +5,6 @@ import { PostType } from '@/types/Post';
 import { User } from '@supabase/supabase-js';
 import { Heart } from 'lucide-react'
 import { useEffect, useState } from 'react';
-import { set } from 'zod';
-
 
 const LikeButton = (post: PostType) => {
 
@@ -35,6 +33,8 @@ const LikeButton = (post: PostType) => {
     }, [post.id]);
 
     const handleLike = async () => {
+        console.log('post',post)
+        console.log('postid',post.id)
         if (!user) return;
 
         const supabase = createClient();
@@ -57,7 +57,7 @@ const LikeButton = (post: PostType) => {
             .from('posts')
             .update({ likes: likes + 1 })
             .eq('id', post.id)
-            .select()
+            .select('likes')
             .single();
 
         if (updateError) {

@@ -13,10 +13,13 @@ export async function POST(req: NextRequest) {
         const content = body.content as string;
         const files = formData.getAll("image");
 
+        const user = await supabase.from("profiles").select().eq("id", user_id).single();
+        const user_name = user?.data?.first_name + " " + user?.data?.last_name;
+
         // Insert post data
         const { data: postData, error: postError } = await supabase
             .from("posts")
-            .insert({ title, content, user_id })
+            .insert({ title, content, user_id, user_name })
             .select("id")
             .single();
 
