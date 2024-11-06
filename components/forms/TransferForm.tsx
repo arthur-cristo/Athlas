@@ -142,9 +142,10 @@ const TransferForm = () => {
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <AlertDialogContent className="bg-dark_gray-gradient border-none rounded-md w-4/5 text-white">
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Transaction Successful!</AlertDialogTitle>
-                        <AlertDialogDescription className="space-y-3 text-gray-200">
-                            <p>You have transferred ${form.getValues("amount")} to {receiverData?.first_name} {receiverData?.last_name} ({receiverData?.email}).</p>
+                        <AlertDialogTitle className="text-center">Transaction Successful!</AlertDialogTitle>
+                        <AlertDialogDescription className="space-y-3 text-gray-200 text-center">
+                            <p>You have transferred <span className="text-green-400">${form.getValues("amount")}</span> to {receiverData?.first_name} {receiverData?.last_name} (<span className="text-green-400">{receiverData?.email}</span>).</p>
+                            <p className="text-sm text-gray-400">Your balance may take a few seconds to update.</p>
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <Button

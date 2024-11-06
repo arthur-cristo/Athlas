@@ -1,9 +1,6 @@
-'use client'
-
 import { dollarFormat } from '@/lib/utils';
 import { TransactionType } from '@/types/Transaction'
 import { Banknote } from "lucide-react";
-import { useEffect, useState } from 'react';
 
 interface BankStatementTransactionProps {
     transaction: TransactionType;
@@ -11,22 +8,6 @@ interface BankStatementTransactionProps {
 }
 
 const BankStatementTransaction: React.FC<BankStatementTransactionProps> = ({ transaction, user_id }) => {
-
-    const [fullName, setFullName] = useState('')
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-            const searchFor = transaction.sender_id === user_id ? transaction.receiver_id : transaction.sender_id;
-            const response = await fetch(`/api/users/id/${searchFor}`);
-            const data = await response.json();
-            setFullName(data.first_name + ' ' + data.last_name);
-        }
-        try {
-            fetchProfile();
-        } catch (error) {
-            console.error('Failed to fetch profile: ', error);
-        }
-    }, [user_id])
 
     //Enviou
     if (transaction.sender_id === user_id) {
@@ -37,7 +18,7 @@ const BankStatementTransaction: React.FC<BankStatementTransactionProps> = ({ tra
                 </div>
                 <div className='flex flex-col text-left'>
                     <h3 className='font-bold mb-1'>Sent Transfer</h3>
-                    <p>{fullName}</p>
+                    <p>{transaction.receiver_name}</p>
                     <p>${dollarFormat.format(transaction.amount).slice(1)}</p>
                 </div>
             </div>
@@ -50,7 +31,7 @@ const BankStatementTransaction: React.FC<BankStatementTransactionProps> = ({ tra
                 </div>
                 <div className='flex flex-col text-left'>
                     <h3 className='font-bold mb-1'>Received Transfer</h3>
-                    <p>{fullName}</p>
+                    <p>{transaction.sender_name}</p>
                     <p>${dollarFormat.format(transaction.amount).slice(1)}</p>
                 </div>
             </div>
