@@ -72,9 +72,5 @@ export async function signUp(values: z.infer<typeof registerSchema>) {
 }
 
 export async function signOut() {
-
-    const { error } = await createClient().auth.signOut();
-
-    if (error) throw error;
-
+    await createClient().auth.signOut();
 }
