@@ -16,7 +16,7 @@ const PostDetailPage = ({ params }: { params: Params }) => {
         <div className="bg-very_dark_gray min-h-screen">
             <Header />
             <Link href="/community" className="m-8">
-                <Button>
+                <Button className="mt-4">
                     <ChevronLeft size={24} />
                     Back
                 </Button>

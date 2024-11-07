@@ -1,5 +1,3 @@
-
-
 import { Dispatch, SetStateAction, useState } from 'react';
 import { AlertDialogContent, AlertDialogTitle, AlertDialogHeader, AlertDialog, AlertDialogDescription } from '../ui/alert-dialog';
 import { Button } from '../ui/button';
@@ -110,7 +108,7 @@ const EditPostForm = ({ post, edit, setEdit }: EditPostFormProps) => {
                             <Button
                                 type="submit"
                                 disabled={isLoading}
-                                className="px-12 w-48 py-6 rounded-md text-xl font-medium">
+                                className="px-12 w-48 py-6 rounded-md text-md font-medium">
                                 {isLoading ? 'Loading...' : 'Edit'}
                             </Button>
                         </div>
