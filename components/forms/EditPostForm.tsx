@@ -38,14 +38,12 @@ const EditPostForm = ({ post, edit, setEdit }: EditPostFormProps) => {
     async function onSubmit(values: z.infer<typeof editPost>) {
 
         setIsLoading(true);
-        console.log(values);
         try {
             const { data: { user } } = await createClient().auth.getUser();
             if (!user) return;
             const formData = new FormData();
             formData.append('title', values.title);
             formData.append('content', values.content);
-            console.log(formData);
             await fetch(`/api/posts/${post.id}`, {
                 method: 'PATCH',
                 body: formData

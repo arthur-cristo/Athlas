@@ -33,8 +33,6 @@ const LikeButton = (post: PostType) => {
     }, [post.id]);
 
     const handleLike = async () => {
-        console.log('post',post)
-        console.log('postid',post.id)
         if (!user) return;
 
         const supabase = createClient();

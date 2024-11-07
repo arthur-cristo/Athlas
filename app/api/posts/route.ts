@@ -82,7 +82,6 @@ export async function GET(req: NextRequest) {
             .order('created_at', { ascending: false });
 
         if (error) return handleError(error.message, 500);
-        console.log(posts);
         return NextResponse.json(posts, { status: 200 });
     } catch (error) {
         console.error("Unexpected error:", error);

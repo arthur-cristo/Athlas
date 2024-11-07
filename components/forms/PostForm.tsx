@@ -40,7 +40,6 @@ const PostForm = () => {
     async function onSubmit(values: z.infer<typeof postSchema>) {
 
         setIsLoading(true);
-        console.log(values);
         try {
             const { data: { user } } = await createClient().auth.getUser();
             if (!user) return;
@@ -53,7 +52,6 @@ const PostForm = () => {
                     formData.append('image', values.images[i]);
                 }
             }
-            console.log(formData);
             await fetch('/api/posts', {
                 method: 'POST',
                 body: formData

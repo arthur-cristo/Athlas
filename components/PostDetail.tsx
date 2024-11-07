@@ -21,8 +21,6 @@ const PostDetail = ({ id }: { id: string | null }) => {
             const response = await fetch(`/api/users/id/${postsData.user_id}`)
             const data = await response.json()
             setUserProfile(data)
-            console.log('postsData', postsData)
-            console.log('userProfile', userProfile)
         }
 
         fetchPosts()

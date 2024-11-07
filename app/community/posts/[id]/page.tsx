@@ -11,7 +11,6 @@ interface Params {
 const PostDetailPage = ({ params }: { params: Params }) => {
 
     const id = params.id
-    console.log(id)
     
     return (
         <div className="bg-very_dark_gray min-h-screen">
