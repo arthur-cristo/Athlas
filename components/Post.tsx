@@ -1,5 +1,5 @@
 import { PostType } from '@/types/Post'
-import { EllipsisVertical, MessageCircleMore } from 'lucide-react';
+import { EllipsisVertical, MessageCircleMore, X } from 'lucide-react';
 import Image from 'next/image'
 import Link from 'next/link';
 import LikeButton from './LikeButton';
@@ -20,11 +20,13 @@ import {
     AlertDialogTitle
 } from "@/components/ui/alert-dialog"
 import EditPostForm from './forms/EditPostForm';
+import { Button } from './ui/button';
 
 const Post = (post: PostType) => {
 
     const [user, setUser] = useState<User | null>();
     const [edit, setEdit] = useState(false);
+    const [deleteDialog, setDeleteDialog] = useState(false)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -33,7 +35,6 @@ const Post = (post: PostType) => {
         }
         fetchUser();
     }, [])
-
 
     return (
         <div>
@@ -46,10 +47,17 @@ const Post = (post: PostType) => {
                             <DropdownMenuTrigger>
                                 <EllipsisVertical size={20} className='text-gray-300' />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className='bg-light-gray border-none'>
-                                <DropdownMenuItem onClick={() => setEdit(true)}
-                                    className='text-white'>Edit</DropdownMenuItem>
-                                <DropdownMenuItem className='text-red-400'>Delete</DropdownMenuItem>
+                            <DropdownMenuContent className='bg-very_dark_gray border-none'>
+                                <DropdownMenuItem
+                                    onClick={() => setEdit(true)}
+                                    className='text-white focus:bg-light_gray'>
+                                    Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className='text-red-delete focus:bg-light_gray'
+                                    onClick={() => setDeleteDialog(true)}>
+                                    Delete
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
 
@@ -57,7 +65,7 @@ const Post = (post: PostType) => {
                 </div>
             </div>
             <Link href={'/community/posts/' + post.id}>
-                <h2 className="text-xl font-bold mt-2">{post.title}</h2>
+                <h2 className="text-xl font-bold mt-2 text-wrap break-words">{post.title}</h2>
                 <p className="text-wrap break-words">{post.content}</p>
                 {post.posts_pictures.length > 0 && (
                     <div className="flex gap-4 overflow-hidden my-4">
@@ -84,6 +92,42 @@ const Post = (post: PostType) => {
                 </div>
             </div>
             <EditPostForm post={post} edit={edit} setEdit={setEdit} />
+            <AlertDialog open={deleteDialog} onOpenChange={setDeleteDialog}>
+                <AlertDialogContent className="bg-very_dark_gray border-none rounded-md text-white w-fit">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Confirm post deletion</AlertDialogTitle>
+                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
+                                setDeleteDialog(false);
+                            }} />
+                        <AlertDialogDescription>
+                            <p className="text-sm text-gray-400">Are you sure you want to delete this posts?<br />This action cannot be undone.</p>
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <div className='flex gap-4 mt-4'>
+                        <Button
+                            onClick={() => setDeleteDialog(false)}
+                            className="bg-btn-dark_gray hover:bg-btn-dark_gray text-white py-6 px-16 "
+                            variant={'secondary'}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                const deletePost = async () => {
+                                    await fetch(`/api/posts/${post.id}`, {
+                                        method: 'DELETE'
+                                    })
+                                }
+                                deletePost();
+                                setDeleteDialog(false);
+                            }}
+                            className="px-16 py-6 bg-red-delete text-white hover:bg-red-delete"
+                        >
+                            Delete
+                        </Button>
+                    </div>  
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     )
 }

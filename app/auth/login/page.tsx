@@ -7,8 +7,8 @@ const Login = () => {
 
     return (
 
-        <div className='bg-dark_gray-gradient flex justify-center items-center h-screen'>
-            <div className='bg-register-gradient flex flex-col justify-center items-center h-screen w-screen'>
+        <div className='bg-very_dark_gray flex justify-center items-center h-screen'>
+            <div className='bg-register-gradient mx-8 flex flex-col justify-center items-center h-screen w-screen'>
                 <header className="hidden md:flex fixed top-0 left-0 right-0 z-50">
                     <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
                         <Link href="/" className="flex items-center space-x-2">
@@ -17,7 +17,7 @@ const Login = () => {
                         </Link>
                     </div>
                 </header>
-                <div className='md:bg-register-card-gradient p-8 md:rounded-md flex flex-col gap-6 md:h-[500px] md:w-[568px] items-center justify-center w-screen h-screen'>
+                <div className='bg-form-dark_gray p-8 md:rounded-md flex flex-col gap-6 md:h-[500px] md:w-[568px] items-center justify-center w-screen h-screen'>
                     <Link href="/" className="flex items-center space-x-2 md:hidden py-5 top-10 fixed">
                         <Sparkles className="h-10 w-10 text-green-500" />
                         <span className="font-bold text-4xl gradient-text">ATHLAS</span>

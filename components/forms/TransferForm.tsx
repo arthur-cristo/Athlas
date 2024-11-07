@@ -24,8 +24,8 @@ import { useForm } from "react-hook-form"
 import 'react-phone-number-input/style.css'
 import { useState } from "react"
 import { transferSchema } from "@/lib/validation"
-import { MailIcon } from "lucide-react"
-import { Label } from "@radix-ui/react-label"
+import { MailIcon, X } from "lucide-react"
+import { Label } from "@/components/ui/label"
 import { createClient } from "@/lib/supabase/client"
 
 const TransferForm = () => {
@@ -88,11 +88,11 @@ const TransferForm = () => {
                         name="email"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel className="text-white">Receiver Email</FormLabel>
-                                <div className="flex items-center bg-light-gray border-none text-white placeholder:text-gray-400 rounded-md">
-                                    <MailIcon className="mx-2 h-6 w-6 text-gray-300" />
+                                <FormLabel className="text-gray">Receiver Email</FormLabel>
+                                <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                    <MailIcon className="mx-2 h-6 w-6 text-gray" />
                                     <FormControl>
-                                        <Input type='email' placeholder='Receiver Email' {...field} className="border-none placeholder:text-gray-400" />
+                                        <Input type='email' placeholder='Receiver Email' {...field} className="border-none placeholder:text-gray" />
                                     </FormControl>
                                 </div>
                                 <FormDescription>
@@ -106,15 +106,15 @@ const TransferForm = () => {
                         name="amount"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel className="text-white">Amount</FormLabel>
-                                <div className="flex items-center bg-light-gray border-none text-white placeholder:text-gray-400 rounded-md">
-                                    <Label className='mx-2 text-gray-300'>$</Label>
+                                <FormLabel className="text-gray">Amount</FormLabel>
+                                <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                    <Label className='mx-2 text-gray'>$</Label>
                                     <FormControl>
                                         <Input
                                             type='number'
                                             placeholder='$100.00'
                                             {...field}
-                                            className="border-none placeholder:text-gray-400"
+                                            className="border-none placeholder:text-gray"
                                             onChange={(e) => {
 
                                                 const value = e.target.value.replace(/\D/g, '');
@@ -140,20 +140,23 @@ const TransferForm = () => {
                 </form>
             </Form>
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <AlertDialogContent className="bg-dark_gray-gradient border-none rounded-md w-4/5 text-white">
+                <AlertDialogContent className="bg-very_dark_gray border-none rounded-md w-4/5 text-white">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Transaction Successful!</AlertDialogTitle>
-                        <AlertDialogDescription className="space-y-3 text-gray-200 text-center">
+                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
+                                setIsDialogOpen(false);
+                            }} />
+                    </AlertDialogHeader>
+                    <AlertDialogDescription className="space-y-3 text-gray-200 text-center">
                             <p>You have transferred <span className="text-green-400">${form.getValues("amount")}</span> to {receiverData?.first_name} {receiverData?.last_name} (<span className="text-green-400">{receiverData?.email}</span>).</p>
                             <p className="text-sm text-gray-400">Your balance may take a few seconds to update.</p>
                         </AlertDialogDescription>
-                    </AlertDialogHeader>
                     <Button
                         onClick={() => {
                             setIsDialogOpen(false);
                             form.reset();
                         }}
-                        className="w-full"
+                        className="w-full mt-2"
                     >
                         Go Back
                     </Button>

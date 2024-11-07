@@ -14,7 +14,7 @@ const PostDetailPage = ({ params }: { params: Params }) => {
     console.log(id)
     
     return (
-        <div className="bg-dark_gray-gradient min-h-screen">
+        <div className="bg-very_dark_gray min-h-screen">
             <Header />
             <Link href="/community" className="m-8">
                 <Button>

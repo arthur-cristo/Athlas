@@ -5,9 +5,9 @@ import React from 'react'
 
 const Community = () => {
     return (
-        <div className='bg-dark_gray-gradient text-white text-center min-h-screen md:pb-8'>
+        <div className='bg-very_dark_gray text-white text-center min-h-screen md:pb-8'>
             <Header />
-            <div className="bg-register-card-gradient md:w-[768px] w-screen mx-auto h-full p-2 rounded-md pb-8 md:pb-0">
+            <div className="bg-dark_gray md:w-[768px] w-screen mx-auto h-full p-2 rounded-md pb-8 md:pb-0">
                 <PostForm />
                 <PostsFeed />
             </div>

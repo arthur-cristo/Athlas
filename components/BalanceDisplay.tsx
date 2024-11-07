@@ -39,7 +39,7 @@ const BalanceDisplay = () => {
     }, []);
 
     return (
-        <div className="md:bg-transparent bg-register-gradient md:p-8 md:w-[400px] md:mb-6 md:rounded-md flex flex-col gap-4 justify-center p-8 py-12">
+        <div className="bg-balance_display-gradient md:bg-transparent md:p-8 md:w-[400px] md:mb-6 md:rounded-md flex flex-col gap-4 justify-center p-8 py-16">
             <h2 className="text-2xl text-gray-200">Your Balance</h2>
             <h1 className="font-bold text-4xl">
                 <span className="text-green-500">$</span>

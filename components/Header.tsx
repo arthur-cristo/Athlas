@@ -12,7 +12,7 @@ const Header = async () => {
   const { first_name, last_name } = user?.user_metadata || {}
 
   return (
-    <header className="header-gradient py-2 flex flex-col">
+    <header className="bg-dark_gray py-2 flex flex-col">
       <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Sparkles className="h-6 w-6 text-green-500" />

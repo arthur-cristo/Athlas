@@ -67,7 +67,7 @@ const PostForm = () => {
     }
 
     return (
-        <div className='rounded-md p-4 flex flex-col gap-2 py-8'>
+        <div className='rounded-md p-4 flex flex-col gap-2 py-8 bg-form-dark_gray'>
             <div className='flex justify-center gap-4 py-4'>
                 <h2 className='capitalize font-semibold text-2xl'>Share your thoughts</h2>
                 <ChevronDown className='h-8 w-8 cursor-pointer' onClick={() => setWritePost(!writePost)} />
@@ -80,9 +80,9 @@ const PostForm = () => {
                             name="title"
                             render={({ field }) => (
                                 <FormItem className="flex justify-start flex-col">
-                                    <FormLabel className="text-white text-left">Title</FormLabel>
+                                    <FormLabel className="text-gray text-left">Title</FormLabel>
                                     <FormControl>
-                                        <Input placeholder='What are you thinking?' {...field} className="bg-light-gray border-none placeholder:text-gray-400" />
+                                        <Input placeholder='What are you thinking?' {...field} maxLength={50} className="bg-input-dark_gray border-none placeholder:text-gray" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -95,9 +95,9 @@ const PostForm = () => {
                             name="content"
                             render={({ field }) => (
                                 <FormItem className="flex justify-start flex-col">
-                                    <FormLabel className="text-white text-left">Content</FormLabel>
+                                    <FormLabel className="text-gray text-left">Content</FormLabel>
                                     <FormControl>
-                                        <Textarea placeholder='Write your thoughts here...' {...field} className="bg-light-gray border-none text-white placeholder:text-gray-400" />
+                                        <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="h-32 bg-input-dark_gray border-none text-white placeholder:text-gray" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -113,7 +113,7 @@ const PostForm = () => {
                                     <FormItem className="flex justify-start flex-col">
                                         <FormControl>
                                             <>
-                                                <Label htmlFor='images' className='cursor-pointer bg-light-gray rounded-full p-4 px-6 hover:bg-dark-gray flex gap-4'>
+                                                <Label htmlFor='images' className='cursor-pointer bg-input-dark_gray rounded-full p-4 px-6 hover:bg-dark-gray flex gap-4'>
                                                     <Images className="h-8 w-8 text-green-500 hover:text-green-400" />
                                                     <h3 className='text-xl'>{form.watch('images')?.length || 0}</h3>
                                                 </Label>
@@ -134,7 +134,7 @@ const PostForm = () => {
                                     </FormItem>
                                 )}
                             />
-                            <Button type="submit" disabled={isLoading} className="px-8 py-4 rounded-full text-xl font-medium">{isLoading ? 'Loading...' : 'Post'}</Button>
+                            <Button type="submit" disabled={isLoading} className="px-8 py-6 rounded-md text-xl font-medium">{isLoading ? 'Loading...' : 'Post'}</Button>
                             {error && (
                                 <Label className="pt-4 text-red-500 font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                             )}

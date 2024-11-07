@@ -12,8 +12,8 @@ const BankStatementTransaction: React.FC<BankStatementTransactionProps> = ({ tra
     //Enviou
     if (transaction.sender_id === user_id) {
         return (
-            <div className='flex my-2 bg-dark-gray p-6 w-full rounded-md'>
-                <div className='h-20 w-20 bg-light-gray flex items-center justify-center rounded-full mr-6'>
+            <div className='flex my-4 bg-dark_gray p-6 w-full rounded-md'>
+                <div className='h-20 w-20 bg-light_gray flex items-center justify-center rounded-full mr-6'>
                     <Banknote className="h-10 w-10" />
                 </div>
                 <div className='flex flex-col text-left'>
@@ -25,9 +25,9 @@ const BankStatementTransaction: React.FC<BankStatementTransactionProps> = ({ tra
         )
     } else {
         return (
-            <div className='flex my-2 bg-dark-gray p-6 w-full rounded-md'>
+            <div className='flex my-4 bg-dark_gray p-6 w-full rounded-md'>
                 <div className='h-20 w-20 bg-green-950 flex items-center justify-center rounded-full mr-6'>
-                    <Banknote className="h-10 w-10 text-green-700" />
+                    <Banknote className="h-10 w-10 text-green-600" />
                 </div>
                 <div className='flex flex-col text-left'>
                     <h3 className='font-bold mb-1'>Received Transfer</h3>

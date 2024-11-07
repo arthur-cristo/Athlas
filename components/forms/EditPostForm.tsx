@@ -61,9 +61,13 @@ const EditPostForm = ({ post, edit, setEdit }: EditPostFormProps) => {
 
     return (
         <AlertDialog open={edit} onOpenChange={setEdit}>
-            <AlertDialogContent className="bg-dark_gray-gradient border-none rounded-md w-4/5 text-white">
+            <AlertDialogContent className="max-w-[90vw] w-fit bg-very_dark_gray border-none rounded-md py-8 text-white flex flex-col items-center justify-center">
                 <AlertDialogHeader>
                     <AlertDialogTitle className="text-center">Edit Post</AlertDialogTitle>
+                    <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
+                        setSuccess(false);
+                        setEdit(false);
+                    }} />
                 </AlertDialogHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -71,10 +75,10 @@ const EditPostForm = ({ post, edit, setEdit }: EditPostFormProps) => {
                             control={form.control}
                             name="title"
                             render={({ field }) => (
-                                <FormItem className="flex justify-start flex-col">
-                                    <FormLabel className="text-white text-left">Title</FormLabel>
+                                <FormItem className="flex justify-start flex-col ">
+                                    <FormLabel className="text-gray text-left">Title</FormLabel>
                                     <FormControl>
-                                        <Input placeholder='What are you thinking?' {...field} className="bg-light-gray border-none placeholder:text-gray-400" />
+                                        <Input placeholder='What are you thinking?' {...field} maxLength={50} className="w-full bg-input-dark_gray border-none placeholder:text-gray" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -87,9 +91,9 @@ const EditPostForm = ({ post, edit, setEdit }: EditPostFormProps) => {
                             name="content"
                             render={({ field }) => (
                                 <FormItem className="flex justify-start flex-col">
-                                    <FormLabel className="text-white text-left">Content</FormLabel>
+                                    <FormLabel className="text-gray text-left">Content</FormLabel>
                                     <FormControl>
-                                        <Textarea placeholder='Write your thoughts here...' {...field} className="bg-light-gray border-none text-white placeholder:text-gray-400" />
+                                        <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="h-36 w-full bg-input-dark_gray border-none text-white placeholder:text-gray" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -97,14 +101,28 @@ const EditPostForm = ({ post, edit, setEdit }: EditPostFormProps) => {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" disabled={isLoading} className="w-full px-8 py-4 rounded-full text-xl font-medium">{isLoading ? 'Loading...' : 'Edit'}</Button>
+                        <div className='flex gap-4 mt-4'>
+                            <Button
+                                onClick={() => setEdit(false)}
+                                className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray text-white py-6  "
+                                variant={'secondary'}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                type="submit"
+                                disabled={isLoading}
+                                className="px-12 w-48 py-6 rounded-md text-xl font-medium">
+                                {isLoading ? 'Loading...' : 'Edit'}
+                            </Button>
+                        </div>
                         {error && (
                             <Label className="pt-4 text-red-500 font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                         )}
                     </form>
                 </Form>
                 <AlertDialog open={success} onOpenChange={setSuccess}>
-                    <AlertDialogContent className="bg-dark_gray-gradient border-none rounded-md w-4/5 text-white">
+                    <AlertDialogContent className="bg-very_dark_gray border-none rounded-md w-4/5 text-white">
                         <AlertDialogHeader className='flex flex-row justify-center gap-4'>
                             <AlertDialogTitle className="text-center w-full">Post Successfully Edited!</AlertDialogTitle>
                             <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
