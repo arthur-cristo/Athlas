@@ -97,7 +97,7 @@ const PostForm = () => {
                                 <FormItem className="flex justify-start flex-col">
                                     <FormLabel className="text-gray text-left">Content</FormLabel>
                                     <FormControl>
-                                        <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="h-32 bg-input-dark_gray border-none text-white placeholder:text-gray" />
+                                        <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="md:h-20 h-32 bg-input-dark_gray border-none text-white placeholder:text-gray" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
