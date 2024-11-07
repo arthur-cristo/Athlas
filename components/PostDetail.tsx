@@ -2,7 +2,7 @@
 
 import { PostType } from '@/types/Post'
 import { ProfileType } from '@/types/Profile'
-import { Link, MessageCircleMore } from 'lucide-react'
+import { MessageCircleMore } from 'lucide-react'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import LikeButton from './LikeButton'
@@ -10,24 +10,19 @@ import LikeButton from './LikeButton'
 const PostDetail = ({ id }: { id: string | null }) => {
 
     const [post, setPost] = useState<PostType>()
-    const [userProfile, setUserProfile] = useState<ProfileType>()
 
     useEffect(() => {
         const fetchPosts = async () => {
             const req = await fetch(`/api/posts/${id}`)
             const postsData = await req.json()
             setPost(postsData)
-
-            const response = await fetch(`/api/users/id/${postsData.user_id}`)
-            const data = await response.json()
-            setUserProfile(data)
         }
 
         fetchPosts()
 
     }, [])
 
-    if (!post || !userProfile) {
+    if (!post) {
         return (
             <div className='bg-dark-gray p-4 rounded-md my-4 text-left mx-8 text-white'>
                 <p>Loading...</p>
@@ -38,7 +33,7 @@ const PostDetail = ({ id }: { id: string | null }) => {
     return (
         <div className='bg-dark-gray p-4 rounded-md my-4 text-left mx-8 text-white'>
             <div className="flex justify-between">
-                <h3>{userProfile?.first_name} {userProfile?.last_name}</h3>
+                <h3>{post.user_name}</h3>
                 <p className="text-gray-300">{new Date(post.created_at).toLocaleString()}</p>
             </div>
             <h2 className="text-xl font-bold my-4">{post.title}</h2>

@@ -23,7 +23,7 @@ const DashboardNewsWindow = () => {
     }, [])
 
     return (
-        <aside className='md:m-0 md:pt-0 mt-8 md:w-1/2 p-8'>
+        <aside className='md:m-0 md:pt-0 mt-8 md:w-[30vw] p-8 md:fixed md:right-10'>
             <h2 className="my-2 font-bold text-3xl mb-8">Latest News</h2>
             <div className="mt-2 flex flex-col gap-6 md:max-h-[350px] max-h-[500px] overflow-y-auto bg-dark_gray rounded-md">
                 {news.length > 0 ? (

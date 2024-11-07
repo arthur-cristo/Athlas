@@ -49,7 +49,7 @@ const TransferForm = () => {
 
         try {
             const { data: { user }, } = await createClient().auth.getUser();
-            const userResponse = await fetch(`/api/users/email/${values.email}`);
+            const userResponse = await fetch(`/api/users?email=${values.email}`);
             const userData = await userResponse.json();
             if (userData.error) throw userData.error;
 
