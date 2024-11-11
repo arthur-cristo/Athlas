@@ -5,7 +5,6 @@ const PUBLIC_ROUTES = ['/', '/auth/login', '/auth/register', '/auth/reset-passwo
 
 export const updateSession = async (request: NextRequest) => {
 
-
   // Create an unmodified response
   let response = NextResponse.next({
     request: {
@@ -36,17 +35,10 @@ export const updateSession = async (request: NextRequest) => {
     },
   );
 
-  // This will refresh session if expired - required for Server Components
-  // https://supabase.com/docs/guides/auth/server-side/nextjs
+  const user = await supabase.auth.getUser();
 
-
-  // protected routes
-  if (!PUBLIC_ROUTES.includes(request.nextUrl.pathname)) {
-    const { data: { session } } = await supabase.auth.getSession();
-
-    if (!session) {
-      return NextResponse.redirect(new URL('/auth/login', request.url));
-    }
+  if (!PUBLIC_ROUTES.includes(request.nextUrl.pathname) && !user) {
+    return NextResponse.redirect(new URL('/auth/login', request.url));
   }
 
   return response;
