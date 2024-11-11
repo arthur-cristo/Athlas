@@ -1,5 +1,5 @@
 import { PostType } from "@/types/Post";
-import { SetStateAction, Dispatch } from "react";
+import { SetStateAction, Dispatch, useState } from "react";
 import { Button } from './ui/button';
 import {
     AlertDialog,
@@ -9,14 +9,42 @@ import {
     AlertDialogTitle
 } from "@/components/ui/alert-dialog"
 import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface DeletePostDialogProps {
     post: PostType;
     deleteDialog: boolean;
     setDeleteDialog: Dispatch<SetStateAction<boolean>>;
+    setFetch?: Dispatch<SetStateAction<boolean>>
 }
 
-const DeletePostDialog = ({ post, deleteDialog, setDeleteDialog }: DeletePostDialogProps) => {
+const DeletePostDialog = ({ post, deleteDialog, setDeleteDialog, setFetch }: DeletePostDialogProps) => {
+    const router = useRouter();
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const handleDelete = async () => {
+        setIsDeleting(true);
+        try {
+
+            const response = await fetch(`/api/posts/${post.id}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                const body = await response.json();
+                throw new Error(body.error);
+            }
+
+            setDeleteDialog(false);
+            (setFetch ? setFetch(prev => !prev) : router.push('/community'));
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsDeleting(false);
+        }
+    }
+
     return (
         <AlertDialog open={deleteDialog} onOpenChange={setDeleteDialog}>
             <AlertDialogContent className="bg-very_dark_gray border-none rounded-md text-white w-fit">
@@ -38,18 +66,13 @@ const DeletePostDialog = ({ post, deleteDialog, setDeleteDialog }: DeletePostDia
                         Cancel
                     </Button>
                     <Button
+                        disabled={isDeleting}
                         onClick={() => {
-                            const deletePost = async () => {
-                                await fetch(`/api/posts/${post.id}`, {
-                                    method: 'DELETE'
-                                })
-                            }
-                            deletePost();
-                            setDeleteDialog(false);
+                            handleDelete();
                         }}
                         className="px-16 py-6 bg-red-delete text-white hover:bg-red-delete"
                     >
-                        Delete
+                        {isDeleting ? 'Deleting...' : 'Delete'}
                     </Button>
                 </div>
             </AlertDialogContent>

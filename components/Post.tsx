@@ -1,11 +1,11 @@
+'use client'
+
 import { PostType } from '@/types/Post'
-import { EllipsisVertical, MessageCircleMore, X } from 'lucide-react';
+import { EllipsisVertical, MessageCircleMore } from 'lucide-react';
 import Image from 'next/image'
 import Link from 'next/link';
 import LikeButton from './LikeButton';
-import { createClient } from '@/lib/supabase/client';
-import { useEffect, useState } from 'react';
-import { User } from '@supabase/supabase-js';
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -14,20 +14,13 @@ import {
 } from './ui/dropdown-menu';
 import EditPostForm from './forms/EditPostForm';
 import DeletePostDialog from './DeletePostDialog';
+import { useUser } from '@/app/UserContext';
 
-const Post = (post: PostType) => {
+const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateAction<boolean>> }) => {
 
-    const [user, setUser] = useState<User | null>();
     const [edit, setEdit] = useState(false);
     const [deleteDialog, setDeleteDialog] = useState(false)
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const { data: { user } } = await createClient().auth.getUser();
-            setUser(user);
-        }
-        fetchUser();
-    }, [])
+    const user = useUser();
 
     return (
         <>
@@ -84,8 +77,8 @@ const Post = (post: PostType) => {
                     <span>{post.comments}</span>
                 </div>
             </div>
-            <EditPostForm post={post} edit={edit} setEdit={setEdit} />
-            <DeletePostDialog post={post} deleteDialog={deleteDialog} setDeleteDialog={setDeleteDialog} />
+            <EditPostForm post={post} edit={edit} setEdit={setEdit} setFetch={setFetch} />
+            <DeletePostDialog post={post} deleteDialog={deleteDialog} setDeleteDialog={setDeleteDialog} setFetch={setFetch} />
         </>
     )
 }

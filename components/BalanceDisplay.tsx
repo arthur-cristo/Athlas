@@ -4,24 +4,22 @@ import { createClient } from '@/lib/supabase/client'
 import { dollarFormat } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useUser } from '@/app/UserContext'
 
 const BalanceDisplay = () => {
 
     const [balance, setBalance] = useState(0);
+    const user = useUser();
 
     useEffect(() => {
         const supabase = createClient();
 
         const fetchBalance = async () => {
             try {
-                const { data: { user } } = await supabase.auth.getUser();
-
-                if (!user) return;
-
                 const { data, error } = await supabase
                     .from('profiles')
                     .select('balance')
-                    .eq('id', user.id)
+                    .eq('id', user!.id)
                     .single();
 
                 if (error) throw error;

@@ -1,13 +1,13 @@
+'use client'
+
 import Link from "next/link"
 import { Button } from "./ui/button"
 import { Sparkles } from "lucide-react"
-import { createClient } from "@/lib/supabase/server"
+import { useUser } from "@/app/UserContext"
 
-const Header = async () => {
+const Header = () => {
 
-  const {
-    data: { user },
-  } = await createClient().auth.getUser();
+  const user = useUser();
 
   const { first_name, last_name } = user?.user_metadata || {}
 

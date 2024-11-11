@@ -1,25 +1,22 @@
 'use client'
 
+import { useUser } from '@/app/UserContext';
 import { createClient } from '@/lib/supabase/client';
 import { PostType } from '@/types/Post';
-import { User } from '@supabase/supabase-js';
 import { Heart } from 'lucide-react'
 import { useEffect, useState } from 'react';
 
 const LikeButton = (post: PostType) => {
 
-    const [user, setUser] = useState<User | null>(null);
     const [liked, setLiked] = useState(false);
     const [likes, setLikes] = useState(post.likes);
+    const user = useUser();
+    const supabase = createClient();
 
     useEffect(() => {
         const fetchUser = async () => {
-            const { data: { user } } = await createClient().auth.getUser();
-            setUser(user);
-
             if (user) {
-                // Check if the user has already liked the post
-                const { data: postLikes } = await createClient()
+                const { data: postLikes } = await supabase
                     .from('posts_likes')
                     .select('user_id')
                     .eq('post_id', post.id)
@@ -28,16 +25,12 @@ const LikeButton = (post: PostType) => {
                 setLiked(!!postLikes);
             }
         };
-
         fetchUser();
-    }, [post.id]);
+    }, [user, post.id, supabase]);
 
     const handleLike = async () => {
         if (!user) return;
 
-        const supabase = createClient();
-
-        // Insert like in 'posts_likes' table
         const { error } = await supabase
             .from('posts_likes')
             .insert({
@@ -50,7 +43,6 @@ const LikeButton = (post: PostType) => {
             return;
         }
 
-        // Update like count in 'posts' table
         const { data: updatedPost, error: updateError } = await supabase
             .from('posts')
             .update({ likes: likes + 1 })
@@ -70,9 +62,6 @@ const LikeButton = (post: PostType) => {
     const handleUnlike = async () => {
         if (!user) return;
 
-        const supabase = createClient();
-
-        // Delete like from 'posts_likes' table
         const { error } = await supabase
             .from('posts_likes')
             .delete()
@@ -84,12 +73,11 @@ const LikeButton = (post: PostType) => {
             return;
         }
 
-        // Update like count in 'posts' table
         const { data: updatedPost, error: updateError } = await supabase
             .from('posts')
             .update({ likes: likes - 1 })
             .eq('id', post.id)
-            .select()
+            .select('likes')
             .single();
 
         if (updateError) {

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
@@ -19,14 +19,15 @@ import {
 } from "@/components/ui/form"
 import { Button } from '../ui/button'
 import { ChevronDown, Images } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
+import { useUser } from '@/app/UserContext'
 
-const PostForm = () => {
+const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
     const [writePost, setWritePost] = useState(true);
-    
+    const user = useUser();
+
     const form = useForm<z.infer<typeof postSchema>>({
         resolver: zodResolver(postSchema),
         defaultValues: {
@@ -41,7 +42,6 @@ const PostForm = () => {
 
         setIsLoading(true);
         try {
-            const { data: { user } } = await createClient().auth.getUser();
             if (!user) return;
             const formData = new FormData();
             formData.append('user_id', user.id);
@@ -57,6 +57,7 @@ const PostForm = () => {
                 body: formData
             });
             form.reset();
+            setFetch(prev => !prev);
         } catch (error: any) {
             setError(error.message);
         } finally {
@@ -123,7 +124,7 @@ const PostForm = () => {
                                                     {...fileRef}
                                                     className="hidden-input"
                                                 />
-                                                
+
                                             </>
                                         </FormControl>
                                         <FormDescription>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { UserProvider } from "./UserContext";
 
 export const metadata: Metadata = {
   title: "Athlas",
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeProvider>
-          {children}
+          <UserProvider>
+            {children}
+          </UserProvider>
         </ThemeProvider>
       </body>
     </html>

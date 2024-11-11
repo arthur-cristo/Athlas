@@ -16,33 +16,30 @@ import EditPostForm from './forms/EditPostForm';
 import DeletePostDialog from './DeletePostDialog';
 import { createClient } from '@/lib/supabase/client'
 import { User } from '@supabase/supabase-js'
+import { useRouter } from 'next/navigation'
+import { useUser } from '@/app/UserContext'
 
 const PostDetail = ({ id }: { id: string | null }) => {
 
     const [post, setPost] = useState<PostType>()
-    const [user, setUser] = useState<User | null>();
     const [edit, setEdit] = useState(false);
     const [deleteDialog, setDeleteDialog] = useState(false)
+    const router = useRouter();
+    const user = useUser();
 
     useEffect(() => {
-        const fetchUser = async () => {
-            const { data: { user } } = await createClient().auth.getUser();
-            setUser(user);
-        }
-        fetchUser();
-    }, [])
 
-
-    useEffect(() => {
         const fetchPosts = async () => {
             const req = await fetch(`/api/posts/${id}`)
             const postsData = await req.json()
+            if (req.status === 404) {
+                router.push('/community')
+                return
+            }
             setPost(postsData)
         }
-
         fetchPosts()
-
-    }, [])
+    }, []);
 
     if (!post) {
         return (

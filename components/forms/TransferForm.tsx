@@ -26,7 +26,7 @@ import { useState } from "react"
 import { transferSchema } from "@/lib/validation"
 import { MailIcon, X } from "lucide-react"
 import { Label } from "@/components/ui/label"
-import { createClient } from "@/lib/supabase/client"
+import { useUser } from "@/app/UserContext"
 
 const TransferForm = () => {
 
@@ -48,7 +48,7 @@ const TransferForm = () => {
         setIsLoading(true);
 
         try {
-            const { data: { user }, } = await createClient().auth.getUser();
+            const user = useUser();
             const userResponse = await fetch(`/api/users?email=${values.email}`);
             const userData = await userResponse.json();
             if (userData.error) throw userData.error;
@@ -57,9 +57,6 @@ const TransferForm = () => {
 
             const response = await fetch('/api/transactions', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 body: JSON.stringify({
                     sender_id: user?.id,
                     receiver_id: userData.id,
