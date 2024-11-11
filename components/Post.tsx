@@ -23,7 +23,7 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
     const user = useUser();
 
     return (
-        <>
+        <div className="bg-dark-gray p-4 rounded-md my-4 text-left w-full">
             <div className="flex justify-between">
                 <h3>{post.user_name}</h3>
                 <div className='flex items-center gap-2'>
@@ -57,6 +57,7 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
                     <div className="flex gap-4 overflow-hidden my-4">
                         {post.posts_pictures.map((pic, index) => (
                             <Image
+                                key={pic.image_url}
                                 src={pic.image_url}
                                 alt={post.title}
                                 width={250}
@@ -79,7 +80,7 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
             </div>
             <EditPostForm post={post} edit={edit} setEdit={setEdit} setFetch={setFetch} />
             <DeletePostDialog post={post} deleteDialog={deleteDialog} setDeleteDialog={setDeleteDialog} setFetch={setFetch} />
-        </>
+        </div>
     )
 }
 

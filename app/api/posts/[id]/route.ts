@@ -48,9 +48,12 @@ export async function PATCH(request: NextRequest) {
             }
         )
         .eq('id', id)
+        .select()
         .single();
 
-    if (!data || error) return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+
+    if (!data) return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+    if (error) return NextResponse.json({ error: error }, { status: 404 });
 
     return NextResponse.json(data);
 }
@@ -75,15 +78,12 @@ export async function DELETE(request: NextRequest) {
         return url.pathname.replace('/storage/v1/object/public/', '');
     });
 
-    console.log(imageUrls);
-
     if (imageUrls.length > 0) {
         const { error: deletesPicturesError } = await supabase.storage.from('posts_pictures').remove(imageUrls);
         if (deletesPicturesError) {
             console.error("Error deleting images:", deletesPicturesError.message);
             return NextResponse.json({ error: 'Failed to delete associated images' }, { status: 500 });
         }
-        console.log("Images deleted successfully");
     }
 
     const { error: deletePostError } = await supabase.from('posts').delete().eq('id', id);
@@ -92,5 +92,5 @@ export async function DELETE(request: NextRequest) {
         return NextResponse.json({ error: 'Failed to delete post' }, { status: 500 });
     }
 
-    return NextResponse.json({message: "The post was deleted succesfuly"}, { status: 200 });
+    return NextResponse.json({ message: "The post was deleted succesfuly" }, { status: 200 });
 }

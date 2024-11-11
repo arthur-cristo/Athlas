@@ -3,7 +3,7 @@
 import { PostType } from "@/types/Post"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Post from "./Post"
-import { set } from "zod";
+import { useRouter } from "next/navigation"
 
 interface PostFeedProps {
     reFetch: boolean;
@@ -13,6 +13,7 @@ interface PostFeedProps {
 const PostsFeed = ({ reFetch, setFetch }: PostFeedProps) => {
 
     const [posts, setPosts] = useState<PostType[]>([])
+    const router = useRouter()
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -20,16 +21,15 @@ const PostsFeed = ({ reFetch, setFetch }: PostFeedProps) => {
             const postsData = await req.json()
             setPosts(postsData)
         }
+        router.refresh()
         fetchPosts()
     }, [reFetch])
 
     return (
         <div className="p-4">
             {posts.length > 0 && (
-                posts.map((post, index) => (
-                    <div key={index} className="bg-dark-gray p-4 rounded-md my-4 text-left w-full">
-                        <Post post={post} setFetch={setFetch} />
-                    </div>
+                posts.map((post) => (
+                    <Post key={post.id} post={post} setFetch={setFetch} />
                 ))
             )}
         </div>

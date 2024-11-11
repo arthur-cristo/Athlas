@@ -70,7 +70,7 @@ const DeletePostDialog = ({ post, deleteDialog, setDeleteDialog, setFetch }: Del
                         onClick={() => {
                             handleDelete();
                         }}
-                        className="px-16 py-6 bg-red-delete text-white hover:bg-red-delete"
+                        className="px-16 w-40 py-6 bg-red-delete text-white hover:bg-red-delete"
                     >
                         {isDeleting ? 'Deleting...' : 'Delete'}
                     </Button>

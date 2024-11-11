@@ -10,16 +10,17 @@ const BalanceDisplay = () => {
 
     const [balance, setBalance] = useState(0);
     const user = useUser();
+    const supabase = createClient();
 
     useEffect(() => {
-        const supabase = createClient();
+        if (!user) return;
 
         const fetchBalance = async () => {
             try {
                 const { data, error } = await supabase
                     .from('profiles')
                     .select('balance')
-                    .eq('id', user!.id)
+                    .eq('id', user.id)
                     .single();
 
                 if (error) throw error;

@@ -50,7 +50,11 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                 method: 'PATCH',
                 body: formData
             });
-            if (!res.ok) { throw new Error('Failed to edit post') }
+            if (!res.ok) {
+                const body = await res.json();
+                console.error(body.error);
+                throw new Error(body.error || 'Failed to edit post')
+            }
             form.reset();
             setSuccess(true);
             setEdit(false);
@@ -70,11 +74,12 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
         <div>
 
             <AlertDialog open={edit} onOpenChange={setEdit}>
-                <AlertDialogContent aria-descriptby='Edit your post' className="max-w-[90vw] w-fit bg-very_dark_gray border-none rounded-md py-8 text-white flex flex-col items-center justify-center">
+                <AlertDialogContent aria-describedby='edit-post-description' className="max-w-[90vw] w-fit bg-very_dark_gray border-none rounded-md py-8 text-white flex flex-col items-center justify-center">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Edit Post</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={handleCancel} />
                     </AlertDialogHeader>
+                    <AlertDialogDescription id="edit-post-description" className="hidden">Edit the post title and content below.</AlertDialogDescription>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                             <FormField
