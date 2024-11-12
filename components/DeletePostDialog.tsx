@@ -54,7 +54,7 @@ const DeletePostDialog = ({ post, deleteDialog, setDeleteDialog, setFetch }: Del
                         setDeleteDialog(false);
                     }} />
                     <AlertDialogDescription>
-                        <p className="text-sm text-gray-400">Are you sure you want to delete this posts?<br />This action cannot be undone.</p>
+                        <p className="text-sm text-gray-400">Are you sure you want to delete this post?<br />This action cannot be undone.</p>
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <div className='flex gap-4 mt-4'>

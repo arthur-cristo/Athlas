@@ -1,11 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import LikeButton from './LikeButton'
 import { PostType } from '@/types/Post'
 import { EllipsisVertical, MessageCircleMore, X } from 'lucide-react';
-import Link from 'next/link';
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -14,40 +13,13 @@ import {
 } from './ui/dropdown-menu';
 import EditPostForm from './forms/EditPostForm';
 import DeletePostDialog from './DeletePostDialog';
-import { createClient } from '@/lib/supabase/client'
-import { User } from '@supabase/supabase-js'
-import { useRouter } from 'next/navigation'
 import { useUser } from '@/app/UserContext'
 
-const PostDetail = ({ id }: { id: string | null }) => {
+const PostDetail = (post: PostType) => {
 
-    const [post, setPost] = useState<PostType>()
     const [edit, setEdit] = useState(false);
     const [deleteDialog, setDeleteDialog] = useState(false)
-    const router = useRouter();
     const user = useUser();
-
-    useEffect(() => {
-
-        const fetchPosts = async () => {
-            const req = await fetch(`/api/posts/${id}`)
-            const postsData = await req.json()
-            if (req.status === 404) {
-                router.push('/community')
-                return
-            }
-            setPost(postsData)
-        }
-        fetchPosts()
-    }, []);
-
-    if (!post) {
-        return (
-            <div className='bg-dark-gray p-4 rounded-md my-4 text-left mx-8 text-white'>
-                <p>Loading...</p>
-            </div>
-        )
-    }
 
     return (
         <div className='bg-dark-gray p-4 rounded-md my-4 text-left mx-8 text-white'>
@@ -77,30 +49,26 @@ const PostDetail = ({ id }: { id: string | null }) => {
                     }
                 </div>
             </div>
-            <Link href={'/community/posts/' + post.id}>
-                <h2 className="text-xl font-bold mt-2 text-wrap break-words">{post.title}</h2>
-                <p className="text-wrap break-words">{post.content}</p>
-                {post.posts_pictures.length > 0 && (
-                    <div className="flex gap-4 overflow-hidden my-4">
-                        {post.posts_pictures.map((pic, index) => (
-                            <Image
-                                src={pic.image_url}
-                                alt={post.title}
-                                width={250}
-                                height={100}
-                                style={{ objectFit: 'cover' }}
-                            />
-                        ))}
-                    </div>
+            <h2 className="text-xl font-bold mt-2 text-wrap break-words">{post.title}</h2>
+            <p className="text-wrap break-words">{post.content}</p>
+            {post.posts_pictures.length > 0 && (
+                <div className="flex gap-4 overflow-hidden my-4">
+                    {post.posts_pictures.map((pic, index) => (
+                        <Image
+                            src={pic.image_url}
+                            alt={post.title}
+                            width={250}
+                            height={100}
+                            style={{ objectFit: 'cover' }}
+                        />
+                    ))}
+                </div>
 
-                )}
-            </Link>
+            )}
             <div className='flex gap-8 mt-4'>
-                <LikeButton {...post} />
+                <LikeButton post={post} />
                 <div className='flex gap-2'>
-                    <Link href={'/community/posts/' + post.id}>
-                        <MessageCircleMore size={24} />
-                    </Link>
+                    <MessageCircleMore size={24} />
                     <span>{post.comments}</span>
                 </div>
             </div>
