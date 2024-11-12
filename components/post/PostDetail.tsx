@@ -52,8 +52,8 @@ const PostDetail = (post: PostType) => {
             <h2 className="text-xl font-bold mt-2 text-wrap break-words">{post.title}</h2>
             <p className="text-wrap break-words">{post.content}</p>
             {post.posts_pictures.length > 0 && (
-                <div className="flex gap-4 overflow-hidden my-4">
-                    {post.posts_pictures.map((pic, index) => (
+                <div className="flex gap-4 overflow-y-scroll my-4">
+                    {post.posts_pictures.map((pic) => (
                         <Image
                             src={pic.image_url}
                             alt={post.title}

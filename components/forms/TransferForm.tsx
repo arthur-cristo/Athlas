@@ -34,6 +34,7 @@ const TransferForm = () => {
     const [error, setError] = useState<string | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [receiverData, setReceiverData] = useState<any | null>(null);
+    const user = useUser();
 
     const form = useForm<z.infer<typeof transferSchema>>({
         resolver: zodResolver(transferSchema),
@@ -48,13 +49,17 @@ const TransferForm = () => {
         setIsLoading(true);
 
         try {
-            const user = useUser();
+
             const userResponse = await fetch(`/api/users?email=${values.email}`);
             const userData = await userResponse.json();
             if (userData.error) throw userData.error;
-
+            console.log(userData.id)
             setReceiverData(userData);
-
+            console.log({
+                sender_id: user!.id,
+                receiver_id: userData.id,
+                amount: values.amount
+            })
             const response = await fetch('/api/transactions', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -64,13 +69,15 @@ const TransferForm = () => {
                 })
             });
             const data = await response.json();
+            console.log(data)
             if (data.error) throw data.error;
 
             setError(null);
             setIsDialogOpen(true);
 
-        } catch (error: string | any) {
-            setError(error);
+        } catch (error: any) {
+            console.log(error)
+            setError(error.message);
         } finally {
             setIsLoading(false);
         }
@@ -141,13 +148,13 @@ const TransferForm = () => {
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Transaction Successful!</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
-                                setIsDialogOpen(false);
-                            }} />
+                            setIsDialogOpen(false);
+                        }} />
                     </AlertDialogHeader>
                     <AlertDialogDescription className="space-y-3 text-gray-200 text-center">
-                            <p>You have transferred <span className="text-green-400">${form.getValues("amount")}</span> to {receiverData?.first_name} {receiverData?.last_name} (<span className="text-green-400">{receiverData?.email}</span>).</p>
-                            <p className="text-sm text-gray-400">Your balance may take a few seconds to update.</p>
-                        </AlertDialogDescription>
+                        <p>You have transferred <span className="text-green-400">${form.getValues("amount")}</span> to {receiverData?.first_name} {receiverData?.last_name} (<span className="text-green-400">{receiverData?.email}</span>).</p>
+                        <p className="text-sm text-gray-400">Your balance may take a few seconds to update.</p>
+                    </AlertDialogDescription>
                     <Button
                         onClick={() => {
                             setIsDialogOpen(false);
