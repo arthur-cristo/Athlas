@@ -5,7 +5,7 @@ import { Label } from '../ui/label'
 import { Textarea } from '../ui/textarea'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import { set, z } from 'zod'
 import { commentSchema } from '@/lib/validation'
 import {
     Form,
@@ -52,6 +52,7 @@ const CommentForm = ({ post, comment_id, setFetch }: CommentFormProps) => {
                 body: formData
             });
             form.reset();
+            setFetch(prev => !prev);
         } catch (error: any) {
             setError(error.message);
         } finally {

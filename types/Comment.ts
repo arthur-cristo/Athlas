@@ -5,5 +5,6 @@ export interface CommentType {
     content: string;
     user_name: string;
     created_at: string;
+    updated_at: string;
     likes: number;
 }

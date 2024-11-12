@@ -2,7 +2,7 @@
 
 import PostForm from '@/components/forms/PostForm'
 import Header from '@/components/Header'
-import PostsFeed from '@/components/PostsFeed'
+import PostsFeed from '@/components/post/PostsFeed'
 import { useState } from 'react'
 
 const Community = () => {

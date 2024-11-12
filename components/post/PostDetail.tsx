@@ -10,8 +10,8 @@ import {
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem
-} from './ui/dropdown-menu';
-import EditPostForm from './forms/EditPostForm';
+} from '../ui/dropdown-menu';
+import EditPostForm from '../forms/EditPostForm';
 import DeletePostDialog from './DeletePostDialog';
 import { useUser } from '@/app/UserContext'
 
@@ -66,7 +66,7 @@ const PostDetail = (post: PostType) => {
 
             )}
             <div className='flex gap-8 mt-4'>
-                <LikeButton post={post} />
+                <LikeButton {...post} />
                 <div className='flex gap-2'>
                     <MessageCircleMore size={24} />
                     <span>{post.comments}</span>

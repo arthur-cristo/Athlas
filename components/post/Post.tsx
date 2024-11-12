@@ -4,17 +4,17 @@ import { PostType } from '@/types/Post'
 import { EllipsisVertical, MessageCircleMore } from 'lucide-react';
 import Image from 'next/image'
 import Link from 'next/link';
-import LikeButton from './LikeButton';
 import { Dispatch, SetStateAction, useState } from 'react';
 import {
     DropdownMenu,
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem
-} from './ui/dropdown-menu';
-import EditPostForm from './forms/EditPostForm';
-import DeletePostDialog from './DeletePostDialog';
+} from '../ui/dropdown-menu';
+import EditPostForm from '../forms/EditPostForm';
 import { useUser } from '@/app/UserContext';
+import LikeButton from './LikeButton';
+import DeletePostDialog from './DeletePostDialog';
 
 const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateAction<boolean>> }) => {
 

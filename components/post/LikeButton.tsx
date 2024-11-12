@@ -2,22 +2,14 @@
 
 import { useUser } from '@/app/UserContext';
 import { createClient } from '@/lib/supabase/client';
-import { CommentType } from '@/types/Comment';
 import { PostType } from '@/types/Post';
 import { Heart } from 'lucide-react'
 import { useEffect, useState } from 'react';
 
-interface LikeButtonProps {
-    post?: PostType;
-    comment?: CommentType;
-}
-
-const LikeButton = ({ post, comment }: LikeButtonProps) => {
-
-    const type = post ? 'post' : 'comment';
+const LikeButton = (post: PostType) => {
 
     const [liked, setLiked] = useState(false);
-    const [likes, setLikes] = useState(type === 'post' ? post!.likes : comment!.likes);
+    const [likes, setLikes] = useState(post.likes);
     const user = useUser();
     const supabase = createClient();
 
@@ -25,24 +17,24 @@ const LikeButton = ({ post, comment }: LikeButtonProps) => {
         const fetchUser = async () => {
             if (user) {
                 const { data: likesData } = await supabase
-                    .from(`${type}s_likes`)
+                    .from(`posts_likes`)
                     .select('user_id')
-                    .eq(`${type}_id`, post ? post.id : comment!.id)
+                    .eq(`post_id`, post.id)
                     .eq('user_id', user.id)
                     .single();
                 setLiked(!!likesData);
             }
         };
         fetchUser();
-    }, [user, post, comment, supabase, type]);
+    }, [user, post, supabase]);
 
     const handleLike = async () => {
         if (!user) return;
 
         const { error } = await supabase
-            .from(`${type}s_likes`)
+            .from(`posts_likes`)
             .insert({
-                [`${type}_id`]: post ? post.id : comment!.id,
+                [`post_id`]: post.id,
                 user_id: user.id,
             });
 
@@ -52,9 +44,9 @@ const LikeButton = ({ post, comment }: LikeButtonProps) => {
         }
 
         const { data: updatedItem, error: updateError } = await supabase
-            .from(`${type}s`)
+            .from(`posts`)
             .update({ likes: likes + 1 })
-            .eq('id', post ? post.id : comment!.id)
+            .eq('id', post.id)
             .select('likes')
             .single();
 
@@ -71,9 +63,9 @@ const LikeButton = ({ post, comment }: LikeButtonProps) => {
         if (!user) return;
 
         const { error } = await supabase
-            .from(`${type}s_likes`)
+            .from(`posts_likes`)
             .delete()
-            .eq(`${type}_id`, post ? post.id : comment!.id)
+            .eq(`post_id`, post.id)
             .eq('user_id', user.id);
 
         if (error) {
@@ -82,9 +74,9 @@ const LikeButton = ({ post, comment }: LikeButtonProps) => {
         }
 
         const { data: updatedItem, error: updateError } = await supabase
-            .from(`${type}s`)
+            .from(`posts`)
             .update({ likes: likes - 1 })
-            .eq('id', post ? post.id : comment!.id)
+            .eq('id', post.id)
             .select('likes')
             .single();
 

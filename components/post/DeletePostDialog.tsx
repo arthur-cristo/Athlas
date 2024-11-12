@@ -1,6 +1,6 @@
 import { PostType } from "@/types/Post";
 import { SetStateAction, Dispatch, useState } from "react";
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import {
     AlertDialog,
     AlertDialogContent,
@@ -10,23 +10,27 @@ import {
 } from "@/components/ui/alert-dialog"
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { CommentType } from "@/types/Comment";
 
-interface DeletePostDialogProps {
-    post: PostType;
+interface DeleteDialogProps {
+    post?: PostType;
+    comment?: CommentType;
     deleteDialog: boolean;
     setDeleteDialog: Dispatch<SetStateAction<boolean>>;
-    setFetch?: Dispatch<SetStateAction<boolean>>
+    setFetch?: Dispatch<SetStateAction<boolean>>;
 }
 
-const DeletePostDialog = ({ post, deleteDialog, setDeleteDialog, setFetch }: DeletePostDialogProps) => {
+const DeletePostDialog = ({ post, comment, deleteDialog, setDeleteDialog, setFetch }: DeleteDialogProps) => {
     const router = useRouter();
     const [isDeleting, setIsDeleting] = useState(false);
 
     const handleDelete = async () => {
         setIsDeleting(true);
         try {
+            const id = post ? post.id : comment?.id;
+            const type = post ? 'posts' : 'comments';
 
-            const response = await fetch(`/api/posts/${post.id}`, {
+            const response = await fetch(`/api/${type}/${id}`, {
                 method: 'DELETE'
             });
 
@@ -49,12 +53,12 @@ const DeletePostDialog = ({ post, deleteDialog, setDeleteDialog, setFetch }: Del
         <AlertDialog open={deleteDialog} onOpenChange={setDeleteDialog}>
             <AlertDialogContent className="bg-very_dark_gray border-none rounded-md text-white w-fit">
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Confirm post deletion</AlertDialogTitle>
+                    <AlertDialogTitle>Confirm deletion</AlertDialogTitle>
                     <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
                         setDeleteDialog(false);
                     }} />
                     <AlertDialogDescription>
-                        <p className="text-sm text-gray-400">Are you sure you want to delete this post?<br />This action cannot be undone.</p>
+                        <p className="text-sm text-gray-400">Are you sure you want to delete this {post ? 'post' : 'comment'}?<br />This action cannot be undone.</p>
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <div className='flex gap-4 mt-4'>
@@ -80,4 +84,4 @@ const DeletePostDialog = ({ post, deleteDialog, setDeleteDialog, setFetch }: Del
     )
 }
 
-export default DeletePostDialog
+export default DeletePostDialog;
