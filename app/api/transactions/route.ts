@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import { TransactionType } from "@/types/Transaction";
 import { NextRequest, NextResponse } from "next/server";
 
 

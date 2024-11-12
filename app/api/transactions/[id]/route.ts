@@ -6,7 +6,6 @@ export async function GET(req: NextRequest) {
     const supabase = createClient();
 
     try {
-        // Validate request
         const user_id = req.url.split('/').pop();
         if (!user_id) return NextResponse.json({ error: 'User id is missing' }, { status: 400 });
         const { data: transactions, error } = await supabase

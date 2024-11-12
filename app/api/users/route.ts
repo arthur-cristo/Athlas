@@ -7,12 +7,15 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
     const id = searchParams.get('id');
+    let query;
 
-    if (!email && !id) return NextResponse.json({ error: 'Either email or id parameter is required' }, { status: 400 });
-
-    const query = email ?
-        supabase.from('profiles').select().eq('email', email) :
-        supabase.from('profiles').select().eq('id', id);
+    if (email) {
+        query = supabase.from('profiles').select().eq('email', email).single()
+    } else if (id) {
+        query = supabase.from('profiles').select().eq('email', email).single()
+    } else {
+        query = supabase.from('profiles').select().eq('email', email)
+    }
 
     const { data, error } = await query;
 
