@@ -8,8 +8,7 @@ interface BankStatementTransactionProps {
 }
 
 const BankStatementTransaction: React.FC<BankStatementTransactionProps> = ({ transaction, user_id }) => {
-    //Enviou
-    console.log(transaction.sender_id === user_id)
+
     return (
         <div className='flex my-4 w-80 mx-8 bg-dark_gray p-6 rounded-md items-center'>
             {transaction.sender_id === user_id ? (

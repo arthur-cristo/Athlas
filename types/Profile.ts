@@ -13,4 +13,8 @@ export interface ProfileType {
     balance: number
     created_at: string
     updated_at: string
+    bio: string
+    profile_picture: string
+    following: number
+    followers: number
 }

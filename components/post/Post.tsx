@@ -25,11 +25,11 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
     return (
         <div className="bg-dark-gray p-4 rounded-md my-4 text-left w-full">
             <div className="flex justify-between">
-                <h3>{post.user_name}</h3>
+                <Link href={`/community/users/${post.user_id}`}><h3>{post.user_name}</h3></Link>
                 <div className='flex items-center gap-2'>
-                    <p className="text-gray-300">{new Date(post.updated_at).toLocaleString()}</p>
+                    <p className="text-gray-300">{new Date(post.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
                     {user?.id === post.user_id &&
-                        <DropdownMenu>
+                        <DropdownMenu modal={false}>
                             <DropdownMenuTrigger>
                                 <EllipsisVertical size={20} className='text-gray-300' />
                             </DropdownMenuTrigger>
@@ -55,7 +55,7 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
                 <p className="text-wrap break-words">{post.content}</p>
                 {post.posts_pictures.length > 0 && (
                     <div className="flex gap-4 overflow-hidden my-4">
-                        {post.posts_pictures.map((pic, index) => (
+                        {post.posts_pictures.map((pic) => (
                             <Image
                                 key={pic.image_url}
                                 src={pic.image_url}
@@ -80,7 +80,7 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
             </div>
             <EditPostForm post={post} edit={edit} setEdit={setEdit} setFetch={setFetch} />
             <DeletePostDialog post={post} deleteDialog={deleteDialog} setDeleteDialog={setDeleteDialog} setFetch={setFetch} />
-        </div>
+        </div >
     )
 }
 

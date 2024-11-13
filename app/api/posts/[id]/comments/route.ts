@@ -71,7 +71,7 @@ export async function GET(req: NextRequest) {
         .from("comments")
         .select()
         .order("likes", { ascending: false })
-        .order("updated_at", { ascending: false })
+        .order("created_at", { ascending: false })
         .eq("post_id", post_id);
 
     if (!data || error) return NextResponse.json({ error: "Comment not found" }, { status: 404 });

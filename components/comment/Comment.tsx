@@ -19,7 +19,7 @@ const Comment = ({ comment, setFetch }: { comment: CommentType, setFetch: Dispat
     return (
         <div className="bg-dark-gray p-4 rounded-md my-4 text-left w-full text-white">
             <div className="flex justify-between pb-2">
-                <h3>{comment.user_name}</h3>
+                <Link href={`/community/users/${comment.user_id}`}><h3>{comment.user_name}</h3></Link>
                 <div className='flex items-center gap-2'>
                     <p className="text-gray-300">{new Date(comment.updated_at).toLocaleString()}</p>
                     {user?.id === comment.user_id &&

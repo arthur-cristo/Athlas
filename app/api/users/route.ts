@@ -10,15 +10,16 @@ export async function GET(request: NextRequest) {
     let query;
 
     if (email) {
-        query = supabase.from('profiles').select().eq('email', email).single()
+        query = supabase.from('profiles').select('*, profile_follows!profile_follows_following_fkey(follower)').eq('email', email).single();
     } else if (id) {
-        query = supabase.from('profiles').select().eq('email', email).single()
+        query = supabase.from('profiles').select('*, profile_follows!profile_follows_following_fkey(follower)').eq('id', id).single();
     } else {
-        query = supabase.from('profiles').select().eq('email', email)
+        query = supabase.from('profiles').select('*, profile_follows!profile_follows_following_fkey(follower)');
     }
 
     const { data, error } = await query;
-
+    console.log(data);
+    console.error(error);
     if (!data || error) return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
 
     return NextResponse.json(data);
