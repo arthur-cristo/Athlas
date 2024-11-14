@@ -24,7 +24,7 @@ const User = ({ params }: { params: Params }) => {
     useEffect(() => {
 
         const fetchProfile = async () => {
-            const res = await fetch(`/api/users?id=${params.id}`)
+            const res = await fetch(`/api/users/search?id=${params.id}`)
             const data = await res.json()
             setProfile(data)
 
