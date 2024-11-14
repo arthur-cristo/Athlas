@@ -17,4 +17,5 @@ export interface ProfileType {
     profile_picture: string
     following: number
     followers: number
+    profile_follows: { follower: string }[]
 }

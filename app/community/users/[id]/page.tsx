@@ -18,6 +18,7 @@ const User = ({ params }: { params: Params }) => {
     const [profile, setProfile] = useState<ProfileType | null>(null);
     const [posts, setPosts] = useState<PostType[]>([]);
     const [reFetch, setFetch] = useState(false);
+    const [loading, setLoading] = useState(false);
     const user = useUser();
 
     useEffect(() => {
@@ -30,9 +31,6 @@ const User = ({ params }: { params: Params }) => {
         }
         fetchProfile()
 
-    }, [params.id])
-
-    useEffect(() => {
         const fetchPosts = async () => {
             const res = await fetch(`/api/users/${params.id}/posts`)
             const data = await res.json()
@@ -40,8 +38,56 @@ const User = ({ params }: { params: Params }) => {
             setPosts(data)
         }
         fetchPosts()
+
     }, [params.id, reFetch])
 
+    const handleFollow = async () => {
+        setLoading(true)
+        try {
+            const formData = new FormData();
+            formData.append('follower_id', user!.id);
+            const res = await fetch(`/api/users/${params.id}/follow`, {
+                method: 'POST',
+                body: formData
+            })
+
+            if (!res.ok) {
+                throw new Error('Failed to follow user')
+            }
+
+            setFetch(prev => !prev)
+
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const handleUnfollow = async () => {
+        setLoading(true)
+        try {
+
+            const formData = new FormData();
+            formData.append('follower_id', user!.id);
+
+            const res = await fetch(`/api/users/${params.id}/follow`, {
+                method: 'DELETE',
+                body: formData,
+            })
+
+            if (!res.ok) {
+                throw new Error('Failed to unfollow user')
+            }
+
+            setFetch(prev => !prev)
+
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     return (
         <div className="bg-very_dark_gray min-h-screen text-white pb-8">
@@ -63,15 +109,25 @@ const User = ({ params }: { params: Params }) => {
                             <p className="text-gray"><span className="text-white font-bold">{profile.followers}</span> Followers</p>
                         </div>
                         <p className="px-4 text-wrap break-words">{profile.bio}</p>
-                        {user?.id === profile.id ? (
+
+                        {user && (user.id === profile.id ? (
                             <Button className="mt-4">
                                 Edit Profile
                             </Button>
                         ) : (
-                            <Button className="mt-4">
-                                Follow
-                            </Button>
-                        )}
+                            <>
+                                {profile.profile_follows.some((follow) => follow.follower === user.id) ? (
+                                    <Button className="mt-4 bg-red-delete hover:bg-red-delete" onClick={handleUnfollow} disabled={loading}>
+                                        Unfollow
+                                    </Button>
+                                ) : (
+                                    <Button className="mt-4" onClick={handleFollow} disabled={loading}>
+                                        Follow
+                                    </Button>
+                                )}
+                            </>
+                        ))
+                        }
                     </div>
 
                     {/* // User posts */}

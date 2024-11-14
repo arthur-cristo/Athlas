@@ -16,7 +16,7 @@ import EditPostForm from '../forms/EditPostForm';
 import DeletePostDialog from './DeletePostDialog';
 import { useUser } from '@/app/UserContext'
 
-const PostDetail = ({ post, userPfp }: { post: PostType, userPfp: string }) => {
+const PostDetail = ({ post }: { post: PostType }) => {
 
     const [edit, setEdit] = useState(false);
     const [deleteDialog, setDeleteDialog] = useState(false)
@@ -26,7 +26,7 @@ const PostDetail = ({ post, userPfp }: { post: PostType, userPfp: string }) => {
         <div className='bg-dark-gray p-4 rounded-md my-4 text-left mx-8 text-white'>
             <div className="flex justify-between">
                 <div className='flex gap-2 items-center'>
-                    <Image className="w-6 h-6 rounded-full" width={16} height={16} src={userPfp} alt={post.user_name} />
+                    {/* <Image className="w-6 h-6 rounded-full" width={16} height={16} src={userPfp} alt={post.user_name} /> */}
                     <Link href={`/community/users/${post.user_id}`}><h3>{post.user_name}</h3></Link>
                 </div>
                 <div className='flex items-center gap-2'>

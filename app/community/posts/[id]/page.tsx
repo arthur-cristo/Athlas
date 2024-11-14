@@ -21,7 +21,6 @@ const PostDetailPage = ({ params }: { params: Params }) => {
 
     const id = params.id
     const [post, setPost] = useState<PostType>()
-    const [profile, setProfile] = useState<ProfileType | null>(null);
     const [comments, setComments] = useState<CommentType[]>([])
     const [reFetch, setFetch] = useState(false)
     const router = useRouter();
@@ -45,19 +44,10 @@ const PostDetailPage = ({ params }: { params: Params }) => {
         fetchComments()
     }, [reFetch]);
 
-    useEffect(() => {
-        const fetchProfile = async () => {
-            const res = await fetch(`/api/users?id=${post?.user_id}`)
-            const data = await res.json()
-            setProfile(data)
-        }
-        fetchProfile()
-    }, [post?.user_id])
-
     return (
         <div className="bg-very_dark_gray min-h-screen pb-10">
             <Header />
-            {post && profile?.profile_picture && (
+            {post && (
                 <>
                     <Link href="/community" className="m-8">
                         <Button className="mt-4">
@@ -65,7 +55,7 @@ const PostDetailPage = ({ params }: { params: Params }) => {
                             Back
                         </Button>
                     </Link>
-                    <PostDetail post={post} userPfp={profile.profile_picture} />
+                    <PostDetail post={post} />
                     <CommentForm post={post} setFetch={setFetch} />
                     {post.id && <CommentsFeed comments={comments} setFetch={setFetch} />}
                 </>
