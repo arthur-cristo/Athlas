@@ -10,7 +10,7 @@ interface BankStatementTransactionProps {
 const BankStatementTransaction: React.FC<BankStatementTransactionProps> = ({ transaction, user_id }) => {
 
     return (
-        <div className='flex my-4 w-80 mx-8 bg-dark_gray p-6 rounded-md items-center'>
+        <div className='flex my-4 w-80 mx-8 py-6 border-b-2 border-opacity-40 border-black items-center'>
             {transaction.sender_id === user_id ? (
                 <>
                     <div className='h-fit bg-light_gray flex items-center justify-center rounded-full p-2'>

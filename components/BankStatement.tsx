@@ -11,8 +11,7 @@ interface BankStatementProps {
 
 const BankStatement: React.FC<BankStatementProps> = ({ user }) => {
 
-    const [bankStatement, setBankStatement] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [bankStatement, setBankStatement] = useState<TransactionType[] | null>(null);
 
     useEffect(() => {
         if (!user) return;
@@ -24,8 +23,6 @@ const BankStatement: React.FC<BankStatementProps> = ({ user }) => {
                 setBankStatement(data);
             } catch (error) {
                 console.error("Failed to fetch bank statement:", error);
-            } finally {
-                setLoading(false);
             }
         };
 
@@ -37,9 +34,9 @@ const BankStatement: React.FC<BankStatementProps> = ({ user }) => {
 
     return (
         <div className="m-8 flex flex-col items-center justify-center md:fixed md:right-10">
-            <h1 className="font-bold text-2xl my-6 mb-8">History of Transactions</h1>
-            <div className="md:max-h-[350px] max-h-[500px] overflow-y-auto">
-                {loading ? (
+            <h1 className="font-bold text-2xl mt-10 text-left">History</h1>
+            <div className="md:max-h-[350px] md:overflow-y-auto">
+                {!bankStatement ? (
                     <p>Loading your transactions...</p>
                 ) : bankStatement.length ? (
                     bankStatement.map((transaction: TransactionType) => (
