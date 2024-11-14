@@ -32,6 +32,7 @@ const TransferForm = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [showError, setShowError] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [receiverData, setReceiverData] = useState<any | null>(null);
     const user = useUser();
@@ -50,7 +51,7 @@ const TransferForm = () => {
 
         try {
 
-            const userResponse = await fetch(`/api/users?email=${values.email}`);
+            const userResponse = await fetch(`/api/users/search?email=${values.email}`);
             const userData = await userResponse.json();
             if (userData.error) throw userData.error;
             console.log(userData.id)
@@ -69,15 +70,14 @@ const TransferForm = () => {
                 })
             });
             const data = await response.json();
-            console.log(data)
             if (data.error) throw data.error;
 
             setError(null);
             setIsDialogOpen(true);
 
         } catch (error: any) {
-            console.log(error)
-            setError(error.message);
+            setError(error);
+            setShowError(true);
         } finally {
             setIsLoading(false);
         }
@@ -86,7 +86,7 @@ const TransferForm = () => {
     return (
         <>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-3">
                     <FormField
                         control={form.control}
                         name="email"
@@ -136,11 +136,6 @@ const TransferForm = () => {
                         )}
                     />
                     <Button type="submit" disabled={isLoading} className="w-full">{isLoading ? 'Loading...' : 'Transfer'}</Button>
-                    {
-                        error && (
-                            <Label className="pt-4 text-red-600 font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
-                        )
-                    }
                 </form>
             </Form>
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -161,6 +156,29 @@ const TransferForm = () => {
                             form.reset();
                         }}
                         className="w-full mt-2"
+                    >
+                        Go Back
+                    </Button>
+                </AlertDialogContent>
+            </AlertDialog>
+            <AlertDialog open={showError} onOpenChange={setShowError}>
+                <AlertDialogContent className="bg-very_dark_gray border-none rounded-md w-4/5 text-white">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle className="text-center text-red-500">Transaction wasn't Successful.</AlertDialogTitle>
+                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
+                            setShowError(false);
+                        }} />
+                    </AlertDialogHeader>
+                    <AlertDialogDescription className="space-y-3 text-gray-200 text-center">
+                        <p>{error}</p>
+                    </AlertDialogDescription>
+                    <Button
+                        variant={"ghost"}
+                        onClick={() => {
+                            setShowError(false);
+                            form.reset();
+                        }}
+                        className="mt-2 border-solid border-white bg-dark-gray hover:border-2 border-opacity-10 hover:bg-transparent"
                     >
                         Go Back
                     </Button>
