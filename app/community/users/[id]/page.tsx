@@ -34,7 +34,7 @@ const User = ({ params }: { params: Params }) => {
         const fetchPosts = async () => {
             const res = await fetch(`/api/users/${params.id}/posts`)
             const data = await res.json()
-            console.log(data)
+
             setPosts(data)
         }
         fetchPosts()

@@ -35,7 +35,16 @@ export const loginSchema = z.object({
 });
 
 export const transferSchema = z.object({
-    email: z.string().email('Invalid email address.'),
+    keyType: z.enum(["email", "phoneNumber", "randomKey"]),
+    email: z.string().email('Invalid email address.').optional().or(z.literal('')),
+    phoneNumber: z
+        .string()
+        .optional()
+        .refine((phone: string | undefined) => {
+            if (phone) return /^\+\d{10,15}$/.test(phone);
+            return false;
+        }, { message: "Invalid phone number" }).optional(),
+    randomKey: z.string().optional(),
     amount: z.coerce.number().gte(0.01, "Amount must be at least $0.01."),
 });
 

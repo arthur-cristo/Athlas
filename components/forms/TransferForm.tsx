@@ -1,6 +1,13 @@
 'use client'
 
 import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import {
     AlertDialog,
     AlertDialogContent,
     AlertDialogDescription,
@@ -22,11 +29,14 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import 'react-phone-number-input/style.css'
-import { useState } from "react"
+import PhoneInput from 'react-phone-number-input'
+import { useEffect, useState } from "react"
 import { transferSchema } from "@/lib/validation"
-import { MailIcon, X } from "lucide-react"
+import { KeyRound, MailIcon, Shuffle, X } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/app/UserContext"
+import { createClient } from "@/lib/supabase/client"
+import { dollarFormat } from "@/lib/utils"
 
 const TransferForm = () => {
 
@@ -36,31 +46,66 @@ const TransferForm = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [receiverData, setReceiverData] = useState<any | null>(null);
     const user = useUser();
+    const supabase = createClient();
+    const [balance, setBalance] = useState<number | null>(null);
 
     const form = useForm<z.infer<typeof transferSchema>>({
         resolver: zodResolver(transferSchema),
         defaultValues: {
+            amount: 0.00,
+            keyType: "email",
             email: "",
-            amount: 0
+            phoneNumber: "",
+            randomKey: ""
         },
     })
+
+
+    useEffect(() => {
+
+        const fetchBalance = async () => {
+            try {
+                if (!user) return;
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('balance')
+                    .eq('id', user.id)
+                    .single();
+
+                if (error) throw error;
+
+                setBalance(data.balance ?? 0);
+            } catch (error) {
+                console.error('Failed to fetch balance:', error);
+            }
+        };
+
+        fetchBalance();
+        const intervalId = setInterval(fetchBalance, 10000);
+
+        return () => clearInterval(intervalId);
+    }, [user]);
 
     async function onSubmit(values: z.infer<typeof transferSchema>) {
 
         setIsLoading(true);
+        console.log(values)
 
         try {
+            let query = '/api/users/search?';
+            const { keyType, randomKey, email, phoneNumber } = values
 
-            const userResponse = await fetch(`/api/users/search?email=${values.email}`);
+            if (keyType === 'email' && email) query += `email=${email}`;
+            else if (keyType === 'phoneNumber' && phoneNumber) query += `phone_number=${phoneNumber}`;
+            else if (keyType === 'randomKey' && randomKey) query += `random_key=${randomKey}`;
+            else throw new Error('Invalid Key Type')
+
+            const userResponse = await fetch(query);
             const userData = await userResponse.json();
             if (userData.error) throw userData.error;
-            console.log(userData.id)
+
             setReceiverData(userData);
-            console.log({
-                sender_id: user!.id,
-                receiver_id: userData.id,
-                amount: values.amount
-            })
+
             const response = await fetch('/api/transactions', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -86,37 +131,20 @@ const TransferForm = () => {
     return (
         <>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-3">
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-gray">Receiver Email</FormLabel>
-                                <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
-                                    <MailIcon className="mx-2 h-6 w-6 text-gray" />
-                                    <FormControl>
-                                        <Input type='email' placeholder='Receiver Email' {...field} className="border-none placeholder:text-gray" />
-                                    </FormControl>
-                                </div>
-                                <FormDescription>
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 text-left md:w-[768px] w-full">
                     <FormField
                         control={form.control}
                         name="amount"
                         render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-gray">Amount</FormLabel>
+                            <FormItem className="space-y-2">
+                                <h1 className="text-3xl font-bold w-[60vw]">How much do you want to send?</h1>
+                                <p className="text-gray text-xl">Your balance: <span className="text-white font-medium">$ {balance && (dollarFormat.format(balance).slice(1))}</span></p>
                                 <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
                                     <Label className='mx-2 text-gray'>$</Label>
                                     <FormControl>
                                         <Input
                                             type='number'
-                                            placeholder='$100.00'
+                                            placeholder='0.00'
                                             {...field}
                                             className="border-none placeholder:text-gray"
                                             onChange={(e) => {
@@ -135,7 +163,98 @@ const TransferForm = () => {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" disabled={isLoading} className="w-full">{isLoading ? 'Loading...' : 'Transfer'}</Button>
+                    <FormField
+                        control={form.control}
+                        name="keyType"
+                        render={({ field }) => (
+                            <FormItem>
+                                <p className="text-gray text-md">What is the type of the receiver's key?</p>
+                                <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                    <KeyRound className="mx-2 h-6 w-6 text-gray" />
+                                    <FormControl>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
+                                            <SelectTrigger className="border-none">
+                                                <SelectValue placeholder="Email" />
+                                            </SelectTrigger>
+                                            <SelectContent className="bg-input-dark_gray w-fit text-white border-none">
+                                                <SelectItem value="email">Email</SelectItem>
+                                                <SelectItem value="phoneNumber">Phone Number</SelectItem>
+                                                <SelectItem value="randomKey">Random Key</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                                <FormDescription>
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )} />
+                    {form.getValues("keyType") === 'email' && (
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <p className="text-gray text-md">Receiver's Email</p>
+                                    <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                        <MailIcon className="mx-2 h-6 w-6 text-gray" />
+                                        <FormControl>
+                                            <Input type='email' placeholder='Receiver Email' {...field} className="border-none placeholder:text-gray" />
+                                        </FormControl>
+                                    </div>
+                                    <FormDescription>
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />)}
+                    {form.getValues("keyType") === 'randomKey' && (
+                        <FormField
+                            control={form.control}
+                            name="randomKey"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <p className="text-gray text-md">Receiver's Random Key</p>
+                                    <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                        <Shuffle className="mx-2 h-6 w-6 text-gray" />
+                                        <FormControl>
+                                            <Input type='text' placeholder="Receiver's Random Key" {...field} className="border-none placeholder:text-gray" />
+                                        </FormControl>
+                                    </div>
+                                    <FormDescription>
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />)}
+                    {form.getValues('keyType') === 'phoneNumber' && (
+                        <FormField
+                            control={form.control}
+                            name="phoneNumber"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <p className="text-gray text-md">Receiver's Phone Number</p>
+                                    <FormControl>
+                                        <PhoneInput
+                                            defaultCountry="US"
+                                            placeholder='+1 (702) 123-4567'
+                                            international
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            className="input-phone"
+                                        />
+                                    </FormControl>
+                                    <FormDescription>
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    )}
+                    <Button type="submit" disabled={isLoading} className="w-full" onClick={() => {console.log(form.formState.errors, form.getValues())}}>{isLoading ? 'Loading...' : 'Transfer'}</Button>
                 </form>
             </Form>
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -144,6 +263,7 @@ const TransferForm = () => {
                         <AlertDialogTitle className="text-center">Transaction Successful!</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
                             setIsDialogOpen(false);
+                            form.reset();
                         }} />
                     </AlertDialogHeader>
                     <AlertDialogDescription className="space-y-3 text-gray-200 text-center">
@@ -167,6 +287,7 @@ const TransferForm = () => {
                         <AlertDialogTitle className="text-center text-red-500">Transaction wasn't Successful.</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
                             setShowError(false);
+                            form.reset();
                         }} />
                     </AlertDialogHeader>
                     <AlertDialogDescription className="space-y-3 text-gray-200 text-center">
