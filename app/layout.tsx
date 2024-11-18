@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { UserProvider } from "./UserContext";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Athlas",
@@ -20,6 +21,7 @@ export default function RootLayout({
         <ThemeProvider>
           <UserProvider>
             {children}
+            <Toaster />
           </UserProvider>
         </ThemeProvider>
       </body>
