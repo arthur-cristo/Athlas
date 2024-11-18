@@ -8,13 +8,29 @@ import { ProfileType } from '@/types/Profile';
 import { Button } from './ui/button';
 import { useToast } from '@/hooks/use-toast';
 
+const CopyButton = ({ type, value }: { type: string, value: string }) => {
+
+    const { toast } = useToast();
+    const handleCopy = (type: string, value: string) => {
+        navigator.clipboard.writeText(value);
+        toast({
+            title: type + " Key Copied",
+            description: value,
+            className: 'bg-dark_gray text-white border-none ring-1 ring-green-500',
+        });
+    }
+    return (
+        <Copy className="h-6 w-6 cursor-pointer mx-2 text-white"
+            onClick={() => handleCopy(type, value)} />
+    )
+}
+
 const Keys = () => {
 
     const user = useUser();
     const [profile, setProfile] = useState<ProfileType | null>(null);
     const [randomKey, setRandomKey] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const { toast } = useToast();
 
     useEffect(() => {
         if (!user) return;
@@ -47,32 +63,22 @@ const Keys = () => {
         }
     }
 
-    const handleCopy = (type: string, value: string) => {
-        navigator.clipboard.writeText(value);
-        toast({
-            title: type+" Key Copied",
-            description: value,
-            className: 'bg-dark_gray text-white border-none ring-1 ring-green-500',
-        });
-    }
-
     return (
         <div className='flex flex-col gap-4 mx-4 w-full sm:w-[640px]'>
             <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
                 <MailIcon className="mx-2 h-6 w-6 text-gray" />
                 <Input placeholder='Email' className="border-none placeholder:text-gray focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.email} />
-                {profile && (<Copy className="h-6 w-6 cursor-pointer mx-2 text-white"
-                    onClick={() => handleCopy('Email', profile.email)} />)}
+                {profile && (<CopyButton type='Email' value={profile.email} />)}
             </div>
             <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
                 <Phone className="mx-2 h-6 w-6 text-gray" />
                 <Input placeholder='Phone Number' className="border-none placeholder:text-gray focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.phone_number} />
-                {profile && (<Copy className="h-6 w-6 cursor-pointer mx-2 text-white" onClick={() => handleCopy('Phone Number', profile.phone_number)} />)}
+                {profile && (<CopyButton type='Phone Number' value={profile.phone_number} />)}
             </div>
             <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
                 <Shuffle className="mx-2 h-6 w-6 text-gray" />
                 <Input placeholder='Random Key' className="border-none placeholder:text-gray focus-visible:ring-0 cursor-default" readOnly={true} value={randomKey || ''} />
-                {profile && randomKey && (<Copy className="h-6 w-6 cursor-pointer mx-2 text-white" onClick={() => handleCopy('Random Key', randomKey)} />)}
+                {profile && randomKey && (<CopyButton type='Random Key' value={randomKey} />)}
             </div>
             <Button onClick={handleGenerateRandomKey} disabled={loading}>Generate New Random Key</Button>
         </div>
