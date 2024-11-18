@@ -268,7 +268,7 @@ const TransferForm = () => {
                             )}
                         />
                     )}
-                    <Button type="submit" disabled={isLoading} className="w-full" onClick={() => { console.log(form.formState.errors, form.getValues()) }}>{isLoading ? 'Loading...' : 'Transfer'}</Button>
+                    <Button type="submit" disabled={isLoading} className="w-full">{isLoading ? 'Loading...' : 'Transfer'}</Button>
                 </form>
             </Form>
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

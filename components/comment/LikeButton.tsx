@@ -38,10 +38,7 @@ const LikeButton = (comment: CommentType) => {
                 user_id: user.id,
             });
 
-        if (error) {
-            console.error(error);
-            return;
-        }
+        if (error) return;
 
         const { data: updatedItem, error: updateError } = await supabase
             .from(`comments`)
@@ -50,10 +47,7 @@ const LikeButton = (comment: CommentType) => {
             .select('likes')
             .single();
 
-        if (updateError) {
-            console.error(updateError);
-            return;
-        }
+        if (updateError) return;
 
         setLikes(updatedItem.likes);
         setLiked(true);
@@ -68,10 +62,7 @@ const LikeButton = (comment: CommentType) => {
             .eq(`comment_id`, comment.id)
             .eq('user_id', user.id);
 
-        if (error) {
-            console.error(error);
-            return;
-        }
+        if (error) return;
 
         const { data: updatedItem, error: updateError } = await supabase
             .from(`comments`)
@@ -80,10 +71,7 @@ const LikeButton = (comment: CommentType) => {
             .select('likes')
             .single();
 
-        if (updateError) {
-            console.error(updateError);
-            return;
-        }
+        if (updateError) return;
 
         setLikes(updatedItem.likes);
         setLiked(false);

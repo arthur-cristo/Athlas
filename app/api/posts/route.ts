@@ -62,7 +62,6 @@ export async function POST(req: NextRequest) {
         }
 
     } catch (error) {
-        console.error("Unexpected error:", error);
         return handleError("An unexpected error occurred", 500);
     }
 
@@ -83,9 +82,8 @@ export async function GET(req: NextRequest) {
 
         if (error) return handleError(error.message, 500);
         return NextResponse.json(posts, { status: 200 });
-    } catch (error) {
-        console.error("Unexpected error:", error);
-        return handleError("An unexpected error occurred", 500);
+    } catch (error: any) {
+        return handleError(error.message, 500);
     }
 }
 

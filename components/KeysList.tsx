@@ -54,7 +54,6 @@ const Keys = () => {
             setLoading(true);
             const response = await fetch(`/api/users/${user?.id}/random_key`, { method: 'PATCH' });
             const data = await response.json();
-            console.log(data)
             setRandomKey(data.random_key);
         } catch (error) {
             console.error("Failed to generate random key:", error);

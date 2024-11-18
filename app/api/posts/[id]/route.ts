@@ -80,17 +80,11 @@ export async function DELETE(request: NextRequest) {
 
     if (imageUrls.length > 0) {
         const { error: deletesPicturesError } = await supabase.storage.from('posts_pictures').remove(imageUrls);
-        if (deletesPicturesError) {
-            console.error("Error deleting images:", deletesPicturesError.message);
-            return NextResponse.json({ error: 'Failed to delete associated images' }, { status: 500 });
-        }
+        if (deletesPicturesError) return NextResponse.json({ error: 'Failed to delete associated images' }, { status: 500 });
     }
 
     const { error: deletePostError } = await supabase.from('posts').delete().eq('id', id);
-    if (deletePostError) {
-        console.error("Error deleting post:", deletePostError.message);
-        return NextResponse.json({ error: 'Failed to delete post' }, { status: 500 });
-    }
+    if (deletePostError) return NextResponse.json({ error: 'Failed to delete post' }, { status: 500 });
 
     return NextResponse.json({ message: "The post was deleted succesfuly" }, { status: 200 });
 }

@@ -18,25 +18,16 @@ export async function DELETE(request: NextRequest) {
 
     const { data: postData, error: postError } = await supabase.from("posts").select("comments").eq("id", comment.post_id).single();
 
-    if (!postData) {
-        console.error("Post not found:", comment.post_id);
-        return NextResponse.json({ error: "Post not found" }, { status: 404 });
-    }
+    if (!postData) return NextResponse.json({ error: "Post not found" }, { status: 404 });
 
-    if (postError) {
-        console.error("Error fetching post:", postError);
-        return NextResponse.json({ error: "Failed to fetch post" }, { status: 500 });
-    }
+    if (postError) return NextResponse.json({ error: "Failed to fetch post" }, { status: 500 });
 
     const { error: updatedPostError } = await supabase
         .from("posts")
         .update({ comments: postData.comments - 1 })
         .eq("id", comment.post_id);
 
-    if (updatedPostError) {
-        console.error("Error updating post:", updatedPostError);
-        return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
-    }
+    if (updatedPostError) return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
 
     return NextResponse.json({ message: "The comment was deleted succesfuly" }, { status: 200 });
 }

@@ -25,11 +25,8 @@ export async function PUT(req: NextRequest) {
                 contentType: file.type,
             });
 
-        if (uploadError) {
-            console.log(uploadError)
-            return NextResponse.json({ error: uploadError.message }, { status: 500 });
-        }
-
+        if (uploadError) return NextResponse.json({ error: uploadError.message }, { status: 500 });
+        
         const { data: urlData } = supabase.storage
             .from("profile_pictures")
             .getPublicUrl(fileName);
@@ -50,10 +47,7 @@ export async function PUT(req: NextRequest) {
         .select()
         .single();
 
-    if (updateError || !data) {
-        console.log(updateError, data);
-        return NextResponse.json({ error: updateError?.message || 'User Not Found' }, { status: 500 });
-    }
+    if (updateError || !data) return NextResponse.json({ error: updateError?.message || 'User Not Found' }, { status: 500 });
 
     return NextResponse.json({ success: true, message: "Profile successfully updated" }, { status: 200 });
 }
