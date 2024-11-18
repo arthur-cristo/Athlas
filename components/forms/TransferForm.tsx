@@ -86,6 +86,22 @@ const TransferForm = () => {
         return () => clearInterval(intervalId);
     }, [user]);
 
+    const { watch, resetField, getValues, handleSubmit } = form
+    const keyType = watch("keyType")
+
+    useEffect(() => {
+        if (keyType === "email") {
+            resetField("phoneNumber")
+            resetField("randomKey")
+        } else if (keyType === "phoneNumber") {
+            resetField("email")
+            resetField("randomKey")
+        } else if (keyType === "randomKey") {
+            resetField("email")
+            resetField("phoneNumber")
+        }
+    }, [keyType, resetField])
+
     async function onSubmit(values: z.infer<typeof transferSchema>) {
 
         setIsLoading(true);
@@ -192,7 +208,7 @@ const TransferForm = () => {
                                 <FormMessage />
                             </FormItem>
                         )} />
-                    {form.getValues("keyType") === 'email' && (
+                    {keyType === 'email' && (
                         <FormField
                             control={form.control}
                             name="email"
@@ -211,7 +227,7 @@ const TransferForm = () => {
                                 </FormItem>
                             )}
                         />)}
-                    {form.getValues("keyType") === 'randomKey' && (
+                    {keyType === 'randomKey' && (
                         <FormField
                             control={form.control}
                             name="randomKey"

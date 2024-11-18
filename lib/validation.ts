@@ -39,14 +39,28 @@ export const transferSchema = z.object({
     email: z.string().email('Invalid email address.').optional().or(z.literal('')),
     phoneNumber: z
         .string()
-        .optional()
-        .refine((phone: string | undefined) => {
+        .refine((phone: string) => {
             if (phone) return /^\+\d{10,15}$/.test(phone);
-            return false;
-        }, { message: "Invalid phone number" }).optional(),
-    randomKey: z.string().optional(),
+        }, { message: "Invalid phone number" }).optional().or(z.literal('')),
+    randomKey: z.string().optional().or(z.literal('')),
     amount: z.coerce.number().gte(0.01, "Amount must be at least $0.01."),
-});
+}).refine((data) => {
+    const { keyType, email, phoneNumber, randomKey } = data;
+
+    if (keyType === "email") {
+        return !!email; // Ensure email is provided if keyType is email
+    }
+    if (keyType === "phoneNumber") {
+        return !!phoneNumber; // Ensure phoneNumber is provided if keyType is phoneNumber
+    }
+    if (keyType === "randomKey") {
+        return !!randomKey; // Ensure randomKey is provided if keyType is randomKey
+    }
+    return false; // Fail validation if none match (should not happen in practice)
+}, {
+    message: "The selected key type requires a valid value.",
+    path: ["keyType"], // Error associated with the keyType field
+});;
 
 export const postSchema = z.object({
     title: z.string().min(2, "Title must be at least 2 characters.").max(50, "Title must be at most 50 characters."),
