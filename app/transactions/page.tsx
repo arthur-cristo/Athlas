@@ -3,12 +3,6 @@ import BankStatement from '@/components/BankStatement'
 import Header from '@/components/Header'
 import TransferOptions from '@/components/TransferOptions';
 import { createClient } from '@/lib/supabase/server';
-import { HandCoins, KeyRound } from 'lucide-react';
-
-export const options = [
-    { label: 'Transfer', link: '/transactions/transfer', Icon: HandCoins },
-    { label: 'My Keys', link: '/transactions/keys', Icon: KeyRound },
-]
 
 export default async function Transactions() {
 
