@@ -78,3 +78,10 @@ export const editPost = z.object({
 export const commentSchema = z.object({
     content: z.string().min(2, "Content must be at least 2 characters.").max(280, "Content must be at most 140 characters."),
 });
+
+export const editProfileSchema = z.object({
+    bio: z.string().min(2, "Bio must be at least 2 characters.").max(50, "Bio must be at most 50 characters."),
+    image: z.unknown().transform(value => {
+        return value as FileList
+    }).refine((image) => image.length <= 1, "Please, upload at most one image."),
+});

@@ -8,17 +8,15 @@ import { useUser } from "@/app/UserContext";
 import { PostType } from "@/types/Post";
 import Post from "@/components/post/Post";
 import { Button } from "@/components/ui/button";
+import EditProfileForm from "@/components/forms/EditProfile";
 
-interface Params {
-    id: string;
-}
-
-const User = ({ params }: { params: Params }) => {
+const User = ({ params }: { params: { id: string } }) => {
 
     const [profile, setProfile] = useState<ProfileType | null>(null);
     const [posts, setPosts] = useState<PostType[]>([]);
     const [reFetch, setFetch] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [editProfile, setEditProfile] = useState(false);
     const user = useUser();
 
     useEffect(() => {
@@ -100,8 +98,8 @@ const User = ({ params }: { params: Params }) => {
                         <div className="flex gap-4 justify-center">
                             <Image className="w-16 h-16 rounded-full" width={100} height={100} src={profile.profile_picture} alt={`${profile.first_name} ${profile.last_name}`} />
                             <div className="flex flex-col gap-2 text-left ">
-                                <h1 className="text-2xl font-bold">{`${profile.first_name} ${profile.last_name}`}</h1>
-                                <h2 className="text-gray">{profile.email}</h2>
+                                <h1 className="text-3xl font-bold">{`${profile.first_name} ${profile.last_name}`}</h1>
+                                <h2 className="text-gray text-sm">{profile.email}</h2>
                             </div>
                         </div>
                         <div className="flex gap-8 justify-center my-4">
@@ -111,7 +109,7 @@ const User = ({ params }: { params: Params }) => {
                         <p className="px-4 text-wrap break-words">{profile.bio}</p>
 
                         {user && (user.id === profile.id ? (
-                            <Button className="mt-4">
+                            <Button className="mt-4" onClick={() => { setEditProfile(true) }}>
                                 Edit Profile
                             </Button>
                         ) : (
@@ -141,6 +139,7 @@ const User = ({ params }: { params: Params }) => {
                 </div>
             )
             }
+            {profile && (<EditProfileForm profile={profile} edit={editProfile} setEdit={setEditProfile} setFetch={setFetch} />)}
         </div >
     )
 }
