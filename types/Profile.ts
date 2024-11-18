@@ -18,4 +18,5 @@ export interface ProfileType {
     following: number
     followers: number
     profile_follows: { follower: string }[]
+    random_key: string
 }

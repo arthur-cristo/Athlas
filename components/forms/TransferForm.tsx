@@ -20,8 +20,7 @@ import {
     FormDescription,
     FormField,
     FormItem,
-    FormLabel,
-    FormMessage,
+        FormMessage,
 } from "@/components/ui/form"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -86,7 +85,7 @@ const TransferForm = () => {
         return () => clearInterval(intervalId);
     }, [user]);
 
-    const { watch, resetField, getValues, handleSubmit } = form
+    const { watch, resetField } = form
     const keyType = watch("keyType")
 
     useEffect(() => {
@@ -105,8 +104,7 @@ const TransferForm = () => {
     async function onSubmit(values: z.infer<typeof transferSchema>) {
 
         setIsLoading(true);
-        console.log(values)
-
+        
         try {
             let query = '/api/users/search?';
             const { keyType, randomKey, email, phoneNumber } = values
@@ -270,7 +268,7 @@ const TransferForm = () => {
                             )}
                         />
                     )}
-                    <Button type="submit" disabled={isLoading} className="w-full" onClick={() => {console.log(form.formState.errors, form.getValues())}}>{isLoading ? 'Loading...' : 'Transfer'}</Button>
+                    <Button type="submit" disabled={isLoading} className="w-full" onClick={() => { console.log(form.formState.errors, form.getValues()) }}>{isLoading ? 'Loading...' : 'Transfer'}</Button>
                 </form>
             </Form>
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

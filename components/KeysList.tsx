@@ -1,0 +1,82 @@
+'use client'
+
+import { useUser } from '@/app/UserContext';
+import { Input } from './ui/input';
+import { Copy, MailIcon, Phone, Shuffle } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ProfileType } from '@/types/Profile';
+import { Button } from './ui/button';
+import { useToast } from '@/hooks/use-toast';
+
+const Keys = () => {
+
+    const user = useUser();
+    const [profile, setProfile] = useState<ProfileType | null>(null);
+    const [randomKey, setRandomKey] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    const { toast } = useToast();
+
+    useEffect(() => {
+        if (!user) return;
+
+        const fetchProfile = async () => {
+            try {
+                const response = await fetch(`/api/users/search?id=${user.id}`);
+                const data = await response.json();
+                setProfile(data);
+                setRandomKey(data.random_key);
+            } catch (error) {
+                console.error("Failed to fetch profile:", error);
+            }
+        };
+
+        fetchProfile();
+    }, [user]);
+
+    const handleGenerateRandomKey = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch(`/api/users/${user?.id}/random_key`, { method: 'PATCH' });
+            const data = await response.json();
+            console.log(data)
+            setRandomKey(data.random_key);
+        } catch (error) {
+            console.error("Failed to generate random key:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const handleCopy = (type: string, value: string) => {
+        navigator.clipboard.writeText(value);
+        toast({
+            title: type+" Key Copied",
+            description: value,
+            className: 'bg-dark_gray text-white border-none ring-1 ring-green-500',
+        });
+    }
+
+    return (
+        <div className='flex flex-col gap-4 mx-4 w-full sm:w-[640px]'>
+            <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                <MailIcon className="mx-2 h-6 w-6 text-gray" />
+                <Input placeholder='Email' className="border-none placeholder:text-gray focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.email} />
+                {profile && (<Copy className="h-6 w-6 cursor-pointer mx-2 text-white"
+                    onClick={() => handleCopy('Email', profile.email)} />)}
+            </div>
+            <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                <Phone className="mx-2 h-6 w-6 text-gray" />
+                <Input placeholder='Phone Number' className="border-none placeholder:text-gray focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.phone_number} />
+                {profile && (<Copy className="h-6 w-6 cursor-pointer mx-2 text-white" onClick={() => handleCopy('Phone Number', profile.phone_number)} />)}
+            </div>
+            <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                <Shuffle className="mx-2 h-6 w-6 text-gray" />
+                <Input placeholder='Random Key' className="border-none placeholder:text-gray focus-visible:ring-0 cursor-default" readOnly={true} value={randomKey || ''} />
+                {profile && randomKey && (<Copy className="h-6 w-6 cursor-pointer mx-2 text-white" onClick={() => handleCopy('Random Key', randomKey)} />)}
+            </div>
+            <Button onClick={handleGenerateRandomKey} disabled={loading}>Generate New Random Key</Button>
+        </div>
+    )
+}
+
+export default Keys
