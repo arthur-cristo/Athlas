@@ -1,0 +1,31 @@
+export interface StockType {
+    "language": string
+    "region": string
+    "quoteType": string
+    "typeDisp": string
+    "quoteSourceName": string
+    "triggerable": boolean,
+    "customPriceAlertConfidence": string
+    "hasPrePostMarketData": boolean,
+    "firstTradeDateMilliseconds": number,
+    "priceHint": number,
+    "regularMarketChange": number,
+    "regularMarketChangePercent": number,
+    "regularMarketTime": number,
+    "regularMarketPrice": number,
+    "regularMarketPreviousClose": number,
+    "exchange": string
+    "market": string
+    "fullExchangeName": string
+    "shortName": string
+    "marketState": string
+    "sourceInterval": number,
+    "exchangeDataDelayedBy": number,
+    "exchangeTimezoneName": string
+    "exchangeTimezoneShortName": string
+    "gmtOffSetMilliseconds": number,
+    "esgPopulated": boolean,
+    "tradeable": boolean,
+    "cryptoTradeable": boolean,
+    "symbol": string
+}
