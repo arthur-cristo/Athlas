@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { UserProvider } from "./UserContext";
@@ -21,6 +21,7 @@ export default function RootLayout({
         <ThemeProvider>
           <UserProvider>
             {children}
+            <SpeedInsights />
             <Toaster />
           </UserProvider>
         </ThemeProvider>
