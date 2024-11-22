@@ -1,4 +1,4 @@
-import StocksFeed from "@/components/StocksFeed"
+import StocksFeed from "@/components/stock/StocksFeed"
 import Header from "@/components/Header"
 
 const Stocks = () => {
