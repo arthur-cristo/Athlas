@@ -153,7 +153,7 @@ const TransferForm = () => {
                             <FormItem className="space-y-2">
                                 <h1 className="text-3xl font-bold w-[60vw]">How much do you want to send?</h1>
                                 <p className="text-muted-foreground text-xl">Your balance: <span className="text-foreground font-medium">$ {balance && (dollarFormat.format(balance).slice(1))}</span></p>
-                                <div className="flex items-center border-none placeholder:text-muted-foreground rounded-md">
+                                <div className="flex bg-input items-center border-none placeholder:text-muted-foreground rounded-md">
                                     <Label className='mx-2 text-muted-foreground'>$</Label>
                                     <FormControl>
                                         <Input
@@ -183,7 +183,7 @@ const TransferForm = () => {
                         render={({ field }) => (
                             <FormItem>
                                 <p className="text-muted-foreground text-md">What is the type of the receiver's key?</p>
-                                <div className="flex items-center border-none placeholder:text-muted-foreground rounded-md">
+                                <div className="flex bg-input items-center border-none placeholder:text-muted-foreground rounded-md">
                                     <KeyRound className="mx-2 h-6 w-6 text-muted-foreground" />
                                     <FormControl>
                                         <Select
@@ -213,7 +213,7 @@ const TransferForm = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <p className="text-muted-foreground text-md">Receiver's Email</p>
-                                    <div className="flex items-center border-none placeholder:text-muted-foreground rounded-md">
+                                    <div className="flex items-center border-none bg-input placeholder:text-muted-foreground rounded-md">
                                         <MailIcon className="mx-2 h-6 w-6 text-muted-foreground" />
                                         <FormControl>
                                             <Input type='email' placeholder='Receiver Email' {...field} className="border-none placeholder:text-muted-foreground" />
@@ -232,7 +232,7 @@ const TransferForm = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <p className="text-muted-foreground text-md">Receiver's Random Key</p>
-                                    <div className="flex items-center border-none text-white placeholder:text-muted-foreground rounded-md">
+                                    <div className="flex items-center border-none bg-input placeholder:text-muted-foreground rounded-md">
                                         <Shuffle className="mx-2 h-6 w-6 text-muted-foreground" />
                                         <FormControl>
                                             <Input type='text' placeholder="Receiver's Random Key" {...field} className="border-none placeholder:text-muted-foreground" />

@@ -4,6 +4,7 @@ import { TransactionType } from "@/types/Transaction";
 import { useEffect, useState } from "react";
 import BankStatementTransaction from "./BankStatementTransaction";
 import { User } from "@supabase/supabase-js";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
 interface BankStatementProps {
     user: User | null;
@@ -33,9 +34,10 @@ const BankStatement: React.FC<BankStatementProps> = ({ user }) => {
     }, [user]);
 
     return (
-        <div className="m-8 flex flex-col items-center justify-center md:fixed md:right-10">
+        <div className="m-8 flex flex-col items-center justify-center md:fixed md:right-10 md:max-h-[480px]">
             <h1 className="font-bold text-2xl mt-10 text-left">History</h1>
-            <div className="md:max-h-[350px] md:overflow-y-auto">
+            <ScrollArea className="flex flex-col">
+                <ScrollBar />
                 {!bankStatement ? (
                     <p>Loading your transactions...</p>
                 ) : bankStatement.length ? (
@@ -49,7 +51,8 @@ const BankStatement: React.FC<BankStatementProps> = ({ user }) => {
                 ) : (
                     <p>No transactions found.</p>
                 )}
-            </div>
+
+            </ScrollArea>
         </div>
     );
 };
