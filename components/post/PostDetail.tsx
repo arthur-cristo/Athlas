@@ -57,7 +57,7 @@ const PostDetail = ({ post }: { post: PostType }) => {
             <h2 className="text-xl font-bold mt-2 text-wrap break-words">{post.title}</h2>
             <p className="text-wrap break-words">{post.content}</p>
             {post.posts_pictures.length > 0 && (
-                <ScrollArea>
+                <ScrollArea className='flex flex-row'>
                     <div className="flex gap-4 my-4">
                         {post.posts_pictures.map((pic) => (
                             <Image
