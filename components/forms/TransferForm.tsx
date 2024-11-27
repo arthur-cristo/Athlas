@@ -152,8 +152,8 @@ const TransferForm = () => {
                         render={({ field }) => (
                             <FormItem className="space-y-2">
                                 <h1 className="text-3xl font-bold w-[60vw]">How much do you want to send?</h1>
-                                <p className="text-gray text-xl">Your balance: <span className="text-white font-medium">$ {balance && (dollarFormat.format(balance).slice(1))}</span></p>
-                                <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                <p className="text-gray text-xl">Your balance: <span className="text-foreground font-medium">$ {balance && (dollarFormat.format(balance).slice(1))}</span></p>
+                                <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
                                     <Label className='mx-2 text-gray'>$</Label>
                                     <FormControl>
                                         <Input
@@ -183,7 +183,7 @@ const TransferForm = () => {
                         render={({ field }) => (
                             <FormItem>
                                 <p className="text-gray text-md">What is the type of the receiver's key?</p>
-                                <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
                                     <KeyRound className="mx-2 h-6 w-6 text-gray" />
                                     <FormControl>
                                         <Select
@@ -193,7 +193,7 @@ const TransferForm = () => {
                                             <SelectTrigger className="border-none">
                                                 <SelectValue placeholder="Email" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-input-dark_gray w-fit text-white border-none">
+                                            <SelectContent className="bg-input-dark_gray w-fit text-foreground border-none">
                                                 <SelectItem value="email">Email</SelectItem>
                                                 <SelectItem value="phoneNumber">Phone Number</SelectItem>
                                                 <SelectItem value="randomKey">Random Key</SelectItem>
@@ -213,7 +213,7 @@ const TransferForm = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <p className="text-gray text-md">Receiver's Email</p>
-                                    <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                    <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
                                         <MailIcon className="mx-2 h-6 w-6 text-gray" />
                                         <FormControl>
                                             <Input type='email' placeholder='Receiver Email' {...field} className="border-none placeholder:text-gray" />
@@ -232,7 +232,7 @@ const TransferForm = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <p className="text-gray text-md">Receiver's Random Key</p>
-                                    <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                    <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
                                         <Shuffle className="mx-2 h-6 w-6 text-gray" />
                                         <FormControl>
                                             <Input type='text' placeholder="Receiver's Random Key" {...field} className="border-none placeholder:text-gray" />
@@ -272,7 +272,7 @@ const TransferForm = () => {
                 </form>
             </Form>
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <AlertDialogContent className="bg-very_dark_gray border-none rounded-md w-4/5 text-white">
+                <AlertDialogContent className="bg-background border-none rounded-md w-4/5 text-foreground">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Transaction Successful!</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
@@ -296,7 +296,7 @@ const TransferForm = () => {
                 </AlertDialogContent>
             </AlertDialog>
             <AlertDialog open={showError} onOpenChange={setShowError}>
-                <AlertDialogContent className="bg-very_dark_gray border-none rounded-md w-4/5 text-white">
+                <AlertDialogContent className="bg-background border-none rounded-md w-4/5 text-foreground">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center text-red-500">Transaction wasn't Successful.</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {

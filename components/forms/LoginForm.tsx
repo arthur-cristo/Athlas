@@ -61,7 +61,7 @@ const LoginForm = () => {
                         render={({ field }) => (
                             <FormItem className="w-full">
                                 <FormLabel className="text-light_gray">Email</FormLabel>
-                                <div className="flex items-center bg-input-dark_gray border-none text-white rounded-md">
+                                <div className="flex items-center bg-input-dark_gray border-none text-foreground rounded-md">
                                     <MailIcon className="mx-2 h-6 w-6 text-gray" />
                                     <FormControl>
                                         <Input type='email' placeholder='Email' {...field} className="border-none placeholder:text-dark_gray" />
@@ -79,9 +79,9 @@ const LoginForm = () => {
                         render={({ field }) => (
                             <FormItem className="w-full">
                                 <FormLabel className="text-light_gray">Password</FormLabel>
-                                <div className="flex items-center bg-input-dark_gray border-none text-white placeholder:text-gray rounded-md">
+                                <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
                                     <FormControl>
-                                        <Input type={showPassword ? 'true' : 'password'} placeholder='Password' {...field} className="border-none text-white placeholder:text-gray-400" />
+                                        <Input type={showPassword ? 'true' : 'password'} placeholder='Password' {...field} className="border-none text-foreground placeholder:text-gray-400" />
                                     </FormControl>
                                     {showPassword ? (
                                         <EyeClosedIcon className="mx-2 h-6 w-6 text-gray cursor-pointer" onClick={() => setShowPassword(false)} />

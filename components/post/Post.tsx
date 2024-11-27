@@ -33,10 +33,10 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
                             <DropdownMenuTrigger>
                                 <EllipsisVertical size={20} className='text-gray-300' />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className='bg-very_dark_gray border-none'>
+                            <DropdownMenuContent className='bg-background border-none'>
                                 <DropdownMenuItem
                                     onClick={() => setEdit(true)}
-                                    className='text-white focus:bg-light_gray'>
+                                    className='text-foreground focus:bg-light_gray'>
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem

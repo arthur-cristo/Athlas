@@ -7,7 +7,7 @@ const Login = () => {
 
     return (
 
-        <div className='bg-very_dark_gray flex justify-center items-center h-screen'>
+        <div className='bg-background flex justify-center items-center h-screen'>
             <div className='bg-register-gradient mx-8 flex flex-col justify-center items-center h-screen w-screen'>
                 <header className="hidden md:flex fixed top-0 left-0 right-0 z-50">
                     <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
@@ -22,12 +22,12 @@ const Login = () => {
                         <Sparkles className="h-10 w-10 text-green-500" />
                         <span className="font-bold text-4xl gradient-text">ATHLAS</span>
                     </Link>
-                    <h2 className="text-3xl font-bold capitalize text-center text-white">Login</h2 >
+                    <h2 className="text-3xl font-bold capitalize text-center text-foreground">Login</h2 >
                     <LoginForm />
-                    <p className="text-white text-sm text-center">Forgot your password?&nbsp;
+                    <p className="text-foreground text-sm text-center">Forgot your password?&nbsp;
                         <Link href="/auth/reset-password" className="text-green-400 font-bold">Reset Password</Link>
                     </p>
-                    <p className="text-white text-sm text-center">You don't have an account?&nbsp;
+                    <p className="text-foreground text-sm text-center">You don't have an account?&nbsp;
                         <Link href="/auth/register" className="text-green-400 font-bold">Register Now</Link>
                     </p>
                 </div>

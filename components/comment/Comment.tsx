@@ -17,7 +17,7 @@ const Comment = ({ comment, setFetch }: { comment: CommentType, setFetch: Dispat
     const user = useUser();
 
     return (
-        <div className="bg-dark-gray p-4 rounded-md my-4 text-left w-full text-white">
+        <div className="bg-dark-gray p-4 rounded-md my-4 text-left w-full text-foregroundround">
             <div className="flex justify-between pb-2">
                 <Link href={`/community/users/${comment.user_id}`}><h3>{comment.user_name}</h3></Link>
                 <div className='flex items-center gap-2'>
@@ -27,10 +27,10 @@ const Comment = ({ comment, setFetch }: { comment: CommentType, setFetch: Dispat
                             <DropdownMenuTrigger>
                                 <EllipsisVertical size={20} className='text-gray-300' />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className='bg-very_dark_gray border-none'>
+                            <DropdownMenuContent className='bg-background border-none'>
                                 <DropdownMenuItem
                                     onClick={() => setEdit(true)}
-                                    className='text-white focus:bg-light_gray'>
+                                    className='text-foregroundround focus:bg-light_gray'>
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem

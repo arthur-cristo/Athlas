@@ -88,7 +88,7 @@ const User = ({ params }: { params: { id: string } }) => {
     }
 
     return (
-        <div className="bg-very_dark_gray min-h-screen text-white pb-8">
+        <div className="bg-background min-h-screen text-foreground pb-8">
             <Header />
             {profile && (
                 <div className="mt-4 mx-8 flex flex-col items-center">
@@ -103,8 +103,8 @@ const User = ({ params }: { params: { id: string } }) => {
                             </div>
                         </div>
                         <div className="flex gap-8 justify-center my-4">
-                            <p className="text-gray"><span className="text-white font-bold">{profile.following}</span> Following</p>
-                            <p className="text-gray"><span className="text-white font-bold">{profile.followers}</span> Followers</p>
+                            <p className="text-gray"><span className="text-foreground font-bold">{profile.following}</span> Following</p>
+                            <p className="text-gray"><span className="text-foreground font-bold">{profile.followers}</span> Followers</p>
                         </div>
                         <p className="px-4 text-wrap break-words">{profile.bio}</p>
 

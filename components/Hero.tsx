@@ -32,7 +32,7 @@ const Hero = () => {
                 <Link href="/dashboard">
                   <Button
                     size="lg"
-                    className="group bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-900/25"
+                    className="group bg-green-600 hover:bg-green-700 text-foreground shadow-lg shadow-green-900/25"
                   >
                     Dashboard
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -42,7 +42,7 @@ const Hero = () => {
                 <Link href="/auth/register">
                   <Button
                     size="lg"
-                    className="group bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-900/25"
+                    className="group bg-green-600 hover:bg-green-700 text-foreground shadow-lg shadow-green-900/25"
                   >
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

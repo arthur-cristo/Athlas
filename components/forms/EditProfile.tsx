@@ -70,7 +70,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
         <div>
 
             <AlertDialog open={edit} onOpenChange={setEdit}>
-                <AlertDialogContent aria-describedby='edit-profile-description' className="max-w-[90vw] w-fit bg-very_dark_gray border-none rounded-md py-8 text-white flex flex-col items-center justify-center">
+                <AlertDialogContent aria-describedby='edit-profile-description' className="max-w-[90vw] w-fit bg-background border-none rounded-md py-8 text-foregroundround flex flex-col items-center justify-center">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Edit Profile</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={handleCancel} />
@@ -123,7 +123,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                             <div className='flex gap-4 mt-4'>
                                 <Button
                                     onClick={handleCancel}
-                                    className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray text-white py-6  "
+                                    className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray text-foregroundround py-6  "
                                     variant={'secondary'}
                                 >
                                     Cancel

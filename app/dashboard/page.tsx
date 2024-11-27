@@ -10,7 +10,7 @@ import BalanceDisplay from '@/components/BalanceDisplay'
 export default async function DashboardPage() {
 
   return (
-    <div className='bg-very_dark_gray text-white text-center md:h-screen min-h-screen md:pb-2 pb-8'>
+    <div className='bg-background text-foreground text-center md:h-screen min-h-screen md:pb-2 pb-8'>
       <Header />
       <div className="flex flex-col justify-center items-center md:mt-10">
         <div className="flex flex-col justify-center md:h-fit h-[80vh]">

@@ -49,7 +49,7 @@ const DeleteCommentDialog = ({ comment, deleteDialog, setDeleteDialog, setFetch 
 
     return (
         <AlertDialog open={deleteDialog} onOpenChange={setDeleteDialog}>
-            <AlertDialogContent className="bg-very_dark_gray border-none rounded-md text-white w-fit">
+            <AlertDialogContent className="bg-background border-none rounded-md text-foreground w-fit">
                 <AlertDialogHeader>
                     <AlertDialogTitle>Confirm deletion</AlertDialogTitle>
                     <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
@@ -62,7 +62,7 @@ const DeleteCommentDialog = ({ comment, deleteDialog, setDeleteDialog, setFetch 
                 <div className='flex gap-4 mt-4'>
                     <Button
                         onClick={() => setDeleteDialog(false)}
-                        className="bg-btn-dark_gray hover:bg-btn-dark_gray text-white py-6 px-16 "
+                        className="bg-btn-dark_gray hover:bg-btn-dark_gray text-foreground py-6 px-16 "
                         variant={'secondary'}
                     >
                         Cancel
@@ -72,7 +72,7 @@ const DeleteCommentDialog = ({ comment, deleteDialog, setDeleteDialog, setFetch 
                         onClick={() => {
                             handleDelete();
                         }}
-                        className="px-16 w-40 py-6 bg-red-delete text-white hover:bg-red-delete"
+                        className="px-16 w-40 py-6 bg-red-delete text-foreground hover:bg-red-delete"
                     >
                         {isDeleting ? 'Deleting...' : 'Delete'}
                     </Button>

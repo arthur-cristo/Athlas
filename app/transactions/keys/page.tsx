@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default async function Keys() {
 
     return (
-        <div className='bg-very_dark_gray text-white text-center min-h-screen'>
+        <div className='bg-background text-foreground text-center min-h-screen'>
             <Header />
             <div className='mx-8 mt-8 flex justify-center items-center flex-col'>
                 <Link href='/transactions' className='flex w-full justify-start mb-8 md:w-[640px]'>

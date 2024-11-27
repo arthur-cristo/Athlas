@@ -6,7 +6,7 @@ const Register = () => {
 
     return (
 
-        <div className='bg-very_dark_gray flex justify-center items-center'>
+        <div className='bg-background flex justify-center items-center'>
             <div className='bg-register-gradient flex flex-col justify-center items-center md:h-screen w-screen'>
                 <header className="hidden md:flex fixed top-0 left-0 right-0 z-50">
                     <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
@@ -21,13 +21,13 @@ const Register = () => {
                         <Sparkles className="h-10 w-10 text-green-500" />
                         <span className="font-bold text-4xl gradient-text">ATHLAS</span>
                     </Link>
-                    <h2 className="mt-5 text-2xl font-bold capitalize text-center text-white">Create your account</h2 >
+                    <h2 className="mt-5 text-2xl font-bold capitalize text-center text-foreground">Create your account</h2 >
                     <RegisterForm />
-                    <p className="text-white text-sm text-center">Alredy have an account?&nbsp;
+                    <p className="text-foreground text-sm text-center">Alredy have an account?&nbsp;
                         <Link href="/auth/login" className="text-green-400 font-bold">Login</Link>
                     </p>
                     <p className="mb-10 text-gray-400 text-sm text-center">By creating an account, you agree to the&nbsp;
-                        <Link href="/terms-of-use" className="text-white underline">Terms of Use</Link>
+                        <Link href="/terms-of-use" className="text-foreground underline">Terms of Use</Link>
                         .</p>
 
                 </div>
