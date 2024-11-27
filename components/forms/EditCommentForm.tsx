@@ -71,7 +71,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
         <div>
 
             <AlertDialog open={edit} onOpenChange={setEdit}>
-                <AlertDialogContent aria-describedby='edit-comment-description' className="max-w-[90vw] w-fit bg-background border-none rounded-md py-8 text-foreground flex flex-col items-center justify-center">
+                <AlertDialogContent aria-describedby='edit-comment-description' className="max-w-[90vw] w-fit  border-none rounded-md py-8  flex flex-col items-center justify-center">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Edit Comment</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={handleCancel} />
@@ -84,9 +84,9 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                                 name="content"
                                 render={({ field }) => (
                                     <FormItem className="flex justify-start flex-col">
-                                        <FormLabel className="text-gray text-left">Content</FormLabel>
+                                        <FormLabel className="text-muted-foreground text-left">Content</FormLabel>
                                         <FormControl>
-                                            <Textarea placeholder='Write your thoughts here...' {...field} maxLength={140} className="h-36 w-full bg-input-dark_gray border-none text-foreground placeholder:text-gray" />
+                                            <Textarea placeholder='Write your thoughts here...' {...field} maxLength={140} className="h-36 w-full border-none  placeholder:text-muted-foreground" />
                                         </FormControl>
                                         <FormDescription>
                                         </FormDescription>
@@ -97,7 +97,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                             <div className='flex gap-4 mt-4'>
                                 <Button
                                     onClick={handleCancel}
-                                    className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray text-foreground py-6  "
+                                    className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray  py-6  "
                                     variant={'secondary'}
                                 >
                                     Cancel
@@ -117,7 +117,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                 </AlertDialogContent>
             </AlertDialog >
             <AlertDialog open={success} onOpenChange={setSuccess}>
-                <AlertDialogContent className="bg-background border-none rounded-md w-4/5 text-foreground">
+                <AlertDialogContent className=" border-none rounded-md w-4/5 ">
                     <AlertDialogHeader className='flex flex-row justify-center gap-4'>
                         <AlertDialogTitle className="text-center w-full">Comment Successfully Edited!</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
@@ -125,8 +125,8 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                             if (setFetch) setFetch(prev => !prev);
                         }} />
                     </AlertDialogHeader>
-                    <AlertDialogDescription className="space-y-3 text-gray-200 text-center">
-                        <p className="text-sm text-gray-400">Your comment was successfully edited.</p>
+                    <AlertDialogDescription className="space-y-3 text-muted-foreground-200 text-center">
+                        <p className="text-sm text-muted-foreground-400">Your comment was successfully edited.</p>
                     </AlertDialogDescription>
                 </AlertDialogContent>
             </AlertDialog>

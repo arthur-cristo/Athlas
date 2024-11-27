@@ -16,11 +16,11 @@ const CopyButton = ({ type, value }: { type: string, value: string }) => {
         toast({
             title: type + " Key Copied",
             description: value,
-            className: 'bg-dark_gray text-foreground border-none ring-1 ring-green-500',
+            className: 'border-none ring-1 ring-green-500',
         });
     }
     return (
-        <Copy className="h-6 w-6 cursor-pointer mx-2 text-foreground"
+        <Copy className="h-6 w-6 cursor-pointer mx-2 "
             onClick={() => handleCopy(type, value)} />
     )
 }
@@ -64,19 +64,19 @@ const Keys = () => {
 
     return (
         <div className='flex flex-col gap-4 mx-4 w-full sm:w-[640px]'>
-            <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
-                <MailIcon className="mx-2 h-6 w-6 text-gray" />
-                <Input placeholder='Email' className="border-none placeholder:text-gray focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.email} />
+            <div className="flex items-center border-none placeholder:text-muted-foreground rounded-md">
+                <MailIcon className="mx-2 h-6 w-6 text-muted-foreground" />
+                <Input placeholder='Email' className="border-none placeholder:text-muted-foreground focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.email} />
                 {profile && (<CopyButton type='Email' value={profile.email} />)}
             </div>
-            <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
-                <Phone className="mx-2 h-6 w-6 text-gray" />
-                <Input placeholder='Phone Number' className="border-none placeholder:text-gray focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.phone_number} />
+            <div className="flex items-center border-none  placeholder:text-muted-foreground rounded-md">
+                <Phone className="mx-2 h-6 w-6 text-muted-foreground" />
+                <Input placeholder='Phone Number' className="border-none placeholder:text-muted-foreground focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.phone_number} />
                 {profile && (<CopyButton type='Phone Number' value={profile.phone_number} />)}
             </div>
-            <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
-                <Shuffle className="mx-2 h-6 w-6 text-gray" />
-                <Input placeholder='Random Key' className="border-none placeholder:text-gray focus-visible:ring-0 cursor-default" readOnly={true} value={randomKey || ''} />
+            <div className="flex items-center border-none  placeholder:text-muted-foreground rounded-md">
+                <Shuffle className="mx-2 h-6 w-6 text-muted-foreground" />
+                <Input placeholder='Random Key' className="border-none placeholder:text-muted-foreground focus-visible:ring-0 cursor-default" readOnly={true} value={randomKey || ''} />
                 {profile && randomKey && (<CopyButton type='Random Key' value={randomKey} />)}
             </div>
             <Button onClick={handleGenerateRandomKey} disabled={loading}>Generate New Random Key</Button>

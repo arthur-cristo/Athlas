@@ -69,7 +69,7 @@ const CommentForm = ({ post, comment_id, setFetch }: CommentFormProps) => {
                     render={({ field }) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <Textarea placeholder='Write a comment' {...field} maxLength={140} className="md:h-fit h-28 bg-input-dark_gray border-none text-foregroundround placeholder:text-gray" />
+                                <Textarea placeholder='Write a comment' {...field} maxLength={140} className="md:h-fit h-28 border-none round placeholder:text-muted-foreground" />
                             </FormControl>
                             <FormDescription>
                             </FormDescription>

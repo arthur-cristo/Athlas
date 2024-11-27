@@ -86,9 +86,9 @@ const RegisterForm = () => {
                             name="firstName"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-gray">{values[0]}</FormLabel>
+                                    <FormLabel className="text-muted-foreground">{values[0]}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder={values[0]} {...field} className="bg-input-dark_gray border-none text-foreground placeholder:text-gray" />
+                                        <Input placeholder={values[0]} {...field} className="-dark_gray border-none  placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -101,9 +101,9 @@ const RegisterForm = () => {
                             name="lastName"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-gray">{values[1]}</FormLabel>
+                                    <FormLabel className="text-muted-foreground">{values[1]}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder={values[1]} {...field} className="bg-input-dark_gray border-none text-foreground placeholder:text-gray" />
+                                        <Input placeholder={values[1]} {...field} className="-dark_gray border-none  placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -118,11 +118,11 @@ const RegisterForm = () => {
                             name="email"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-gray">{values[2]}</FormLabel>
-                                    <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
-                                        <MailIcon className="mx-2 h-6 w-6 text-gray-300" />
+                                    <FormLabel className="text-muted-foreground">{values[2]}</FormLabel>
+                                    <div className="flex items-center border-none  placeholder:text-muted-foreground rounded-md">
+                                        <MailIcon className="mx-2 h-6 w-6 text-muted-foreground-300" />
                                         <FormControl>
-                                            <Input type='email' placeholder={values[2]} {...field} className="border-none placeholder:text-gray" />
+                                            <Input type='email' placeholder={values[2]} {...field} className="border-none placeholder:text-muted-foreground" />
                                         </FormControl>
                                     </div>
                                     <FormDescription>
@@ -136,7 +136,7 @@ const RegisterForm = () => {
                             name="phoneNumber"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-gray">{values[3]}</FormLabel>
+                                    <FormLabel className="text-muted-foreground">{values[3]}</FormLabel>
                                     <FormControl>
                                         <PhoneInput
                                             defaultCountry="US"
@@ -160,15 +160,15 @@ const RegisterForm = () => {
                             name="password"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-gray">{values[4]}</FormLabel>
-                                    <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
+                                    <FormLabel className="text-muted-foreground">{values[4]}</FormLabel>
+                                    <div className="flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                                         <FormControl>
-                                            <Input type={showPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="bg-input-dark_gray border-none text-foreground placeholder:text-gray" />
+                                            <Input type={showPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="-dark_gray border-none  placeholder:text-muted-foreground" />
                                         </FormControl>
                                         {showPassword ? (
-                                            <EyeClosedIcon className="mx-2 h-6 w-6 text-gray-300 cursor-pointer" onClick={() => setShowPassword(false)} />
+                                            <EyeClosedIcon className="mx-2 h-6 w-6 text-muted-foreground-300 cursor-pointer" onClick={() => setShowPassword(false)} />
                                         ) : (
-                                            <EyeIcon className="mx-2 h-6 w-6 text-gray-300 cursor-pointer" onClick={() => setShowPassword(true)} />
+                                            <EyeIcon className="mx-2 h-6 w-6 text-muted-foreground-300 cursor-pointer" onClick={() => setShowPassword(true)} />
                                         )}
                                     </div>
                                     <FormDescription>
@@ -182,15 +182,15 @@ const RegisterForm = () => {
                             name="confirmPassword"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-gray">{values[5]}</FormLabel>
-                                    <div className="flex items-center bg-input-dark_gray border-none text-foreground placeholder:text-gray rounded-md">
+                                    <FormLabel className="text-muted-foreground">{values[5]}</FormLabel>
+                                    <div className="flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                                         <FormControl>
-                                            <Input type={showConfirmPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="bg-input-dark_gray border-none text-foreground placeholder:text-gray" />
+                                            <Input type={showConfirmPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="-dark_gray border-none  placeholder:text-muted-foreground" />
                                         </FormControl>
                                         {showConfirmPassword ? (
-                                            <EyeClosedIcon className="mx-2 h-6 w-6 text-gray-300 cursor-pointer" onClick={() => setShowConfirmPassword(false)} />
+                                            <EyeClosedIcon className="mx-2 h-6 w-6 text-muted-foreground-300 cursor-pointer" onClick={() => setShowConfirmPassword(false)} />
                                         ) : (
-                                            <EyeIcon className="mx-2 h-6 w-6 text-gray-300 cursor-pointer" onClick={() => setShowConfirmPassword(true)} />
+                                            <EyeIcon className="mx-2 h-6 w-6 text-muted-foreground-300 cursor-pointer" onClick={() => setShowConfirmPassword(true)} />
                                         )}
                                     </div>
                                     <FormDescription>
@@ -207,10 +207,10 @@ const RegisterForm = () => {
                 </form>
             </Form>
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <AlertDialogContent className="bg-backgroundder-none text-foreground">
+                <AlertDialogContent className="-foreground">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Check your email</AlertDialogTitle>
-                        <AlertDialogDescription className="space-y-3 text-gray-200">
+                        <AlertDialogDescription className="space-y-3 text-muted-foreground-200">
                             <p>We've sent a confirmation email to:</p>
                             <p className="font-medium text-primary">{registeredEmail}</p>
                             <p>Please check your email and click the confirmation link to complete your registration.</p>

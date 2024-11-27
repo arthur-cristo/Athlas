@@ -70,7 +70,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
         <div>
 
             <AlertDialog open={edit} onOpenChange={setEdit}>
-                <AlertDialogContent aria-describedby='edit-profile-description' className="max-w-[90vw] w-fit bg-background border-none rounded-md py-8 text-foregroundround flex flex-col items-center justify-center">
+                <AlertDialogContent aria-describedby='edit-profile-description' className="max-w-[90vw] w-fit border-none rounded-md py-8 round flex flex-col items-center justify-center">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Edit Profile</AlertDialogTitle>
                         <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={handleCancel} />
@@ -83,9 +83,9 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                                 name="bio"
                                 render={({ field }) => (
                                     <FormItem className="flex justify-start flex-col ">
-                                        <FormLabel className="text-gray text-left">Bio</FormLabel>
+                                        <FormLabel className="text-muted-foreground text-left">Bio</FormLabel>
                                         <FormControl>
-                                            <Input placeholder='Bio' {...field} maxLength={50} className="w-full bg-input-dark_gray border-none placeholder:text-gray" />
+                                            <Input placeholder='Bio' {...field} maxLength={50} className="w-full border-none placeholder:text-muted-foreground" />
                                         </FormControl>
                                         <FormDescription>
                                         </FormDescription>
@@ -100,7 +100,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                                     <FormItem className="flex justify-start flex-col">
                                         <FormControl>
                                             <>
-                                                <Label htmlFor='image' className='text-green-500 hover:text-green-400 text-md cursor-pointer bg-input-dark_gray rounded-md p-4 py-2 px-6 hover:bg-dark-gray flex gap-2 items-center justify-center'>
+                                                <Label htmlFor='image' className='text-primary hover:text-green-400 text-md cursor-pointerrounded-md p-4 py-2 px-6 hover:bg-dark-gray flex gap-2 items-center justify-center'>
                                                     <Image className="h-6 w-6" />
                                                     {form.watch('image')?.[0]?.name || 'Upload New Profile Picture'}
                                                 </Label>
@@ -123,7 +123,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                             <div className='flex gap-4 mt-4'>
                                 <Button
                                     onClick={handleCancel}
-                                    className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray text-foregroundround py-6  "
+                                    className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray round py-6  "
                                     variant={'secondary'}
                                 >
                                     Cancel

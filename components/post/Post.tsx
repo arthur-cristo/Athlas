@@ -27,16 +27,16 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
             <div className="flex justify-between">
                 <Link href={`/community/users/${post.user_id}`}><h3>{post.user_name}</h3></Link>
                 <div className='flex items-center gap-2'>
-                    <p className="text-gray-300">{new Date(post.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                    <p className="text-muted-foreground-300">{new Date(post.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
                     {user?.id === post.user_id &&
                         <DropdownMenu modal={false}>
                             <DropdownMenuTrigger>
-                                <EllipsisVertical size={20} className='text-gray-300' />
+                                <EllipsisVertical size={20} className='text-muted-foreground-300' />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className='bg-background border-none'>
+                            <DropdownMenuContent className=' border-none'>
                                 <DropdownMenuItem
                                     onClick={() => setEdit(true)}
-                                    className='text-foreground focus:bg-light_gray'>
+                                    className=' focus:bg-light_gray'>
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem

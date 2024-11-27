@@ -51,20 +51,20 @@ const DeletePostDialog = ({ post, comment, deleteDialog, setDeleteDialog, setFet
 
     return (
         <AlertDialog open={deleteDialog} onOpenChange={setDeleteDialog}>
-            <AlertDialogContent className="bg-background border-none rounded-md text-foregroundround w-fit">
+            <AlertDialogContent className=" border-none rounded-md round w-fit">
                 <AlertDialogHeader>
                     <AlertDialogTitle>Confirm deletion</AlertDialogTitle>
                     <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
                         setDeleteDialog(false);
                     }} />
                     <AlertDialogDescription>
-                        <p className="text-sm text-gray-400">Are you sure you want to delete this {post ? 'post' : 'comment'}?<br />This action cannot be undone.</p>
+                        <p className="text-sm text-muted-foreground-400">Are you sure you want to delete this {post ? 'post' : 'comment'}?<br />This action cannot be undone.</p>
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <div className='flex gap-4 mt-4'>
                     <Button
                         onClick={() => setDeleteDialog(false)}
-                        className="bg-btn-dark_gray hover:bg-btn-dark_gray text-foregroundround py-6 px-16 "
+                        className="bg-btn-dark_gray hover:bg-btn-dark_gray round py-6 px-16 "
                         variant={'secondary'}
                     >
                         Cancel
@@ -74,7 +74,7 @@ const DeletePostDialog = ({ post, comment, deleteDialog, setDeleteDialog, setFet
                         onClick={() => {
                             handleDelete();
                         }}
-                        className="px-16 w-40 py-6 bg-red-delete text-foregroundround hover:bg-red-delete"
+                        className="px-16 w-40 py-6 bg-red-delete round hover:bg-red-delete"
                     >
                         {isDeleting ? 'Deleting...' : 'Delete'}
                     </Button>

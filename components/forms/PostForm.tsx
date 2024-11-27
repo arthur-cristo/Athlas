@@ -79,9 +79,9 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
                             name="title"
                             render={({ field }) => (
                                 <FormItem className="flex justify-start flex-col">
-                                    <FormLabel className="text-gray text-left">Title</FormLabel>
+                                    <FormLabel className="text-muted-foreground text-left">Title</FormLabel>
                                     <FormControl>
-                                        <Input placeholder='What are you thinking?' {...field} maxLength={50} className="bg-input-dark_gray border-none placeholder:text-gray" />
+                                        <Input placeholder='What are you thinking?' {...field} maxLength={50} className="-dark_gray border-none placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -94,9 +94,9 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
                             name="content"
                             render={({ field }) => (
                                 <FormItem className="flex justify-start flex-col">
-                                    <FormLabel className="text-gray text-left">Content</FormLabel>
+                                    <FormLabel className="text-muted-foreground text-left">Content</FormLabel>
                                     <FormControl>
-                                        <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="md:h-20 h-32 bg-input-dark_gray border-none text-foreground placeholder:text-gray" />
+                                        <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="md:h-20 h-32 border-none  placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -112,8 +112,8 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
                                     <FormItem className="flex justify-start flex-col">
                                         <FormControl>
                                             <>
-                                                <Label htmlFor='images' className='cursor-pointer bg-input-dark_gray rounded-full p-4 px-6 hover:bg-dark-gray flex gap-4'>
-                                                    <Images className="h-8 w-8 text-green-500 hover:text-green-400" />
+                                                <Label htmlFor='images' className='cursor-pointer rounded-full p-4 px-6 hover:bg-dark-gray flex gap-4'>
+                                                    <Images className="h-8 w-8 text-primary hover:text-green-400" />
                                                     <h3 className='text-xl'>{form.watch('images')?.length || 0}</h3>
                                                 </Label>
                                                 <Input

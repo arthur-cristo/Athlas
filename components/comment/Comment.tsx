@@ -17,20 +17,20 @@ const Comment = ({ comment, setFetch }: { comment: CommentType, setFetch: Dispat
     const user = useUser();
 
     return (
-        <div className="bg-dark-gray p-4 rounded-md my-4 text-left w-full text-foregroundround">
+        <div className="bg-dark-gray p-4 rounded-md my-4 text-left w-full round">
             <div className="flex justify-between pb-2">
                 <Link href={`/community/users/${comment.user_id}`}><h3>{comment.user_name}</h3></Link>
                 <div className='flex items-center gap-2'>
-                    <p className="text-gray-300">{new Date(comment.updated_at).toLocaleString()}</p>
+                    <p className="text-muted-foreground-300">{new Date(comment.updated_at).toLocaleString()}</p>
                     {user?.id === comment.user_id &&
                         <DropdownMenu>
                             <DropdownMenuTrigger>
-                                <EllipsisVertical size={20} className='text-gray-300' />
+                                <EllipsisVertical size={20} className='text-muted-foreground-300' />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className='bg-background border-none'>
+                            <DropdownMenuContent className='border-none'>
                                 <DropdownMenuItem
                                     onClick={() => setEdit(true)}
-                                    className='text-foregroundround focus:bg-light_gray'>
+                                    className='round focus:bg-light_gray'>
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem

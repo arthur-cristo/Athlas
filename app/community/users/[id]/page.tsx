@@ -88,7 +88,7 @@ const User = ({ params }: { params: { id: string } }) => {
     }
 
     return (
-        <div className="bg-background min-h-screen text-foreground pb-8">
+        <div className=" min-h-screen  pb-8">
             <Header />
             {profile && (
                 <div className="mt-4 mx-8 flex flex-col items-center">
@@ -99,12 +99,12 @@ const User = ({ params }: { params: { id: string } }) => {
                             <Image className="w-16 h-16 rounded-full" width={100} height={100} src={profile.profile_picture} alt={`${profile.first_name} ${profile.last_name}`} />
                             <div className="flex flex-col gap-2 text-left ">
                                 <h1 className="text-3xl font-bold">{`${profile.first_name} ${profile.last_name}`}</h1>
-                                <h2 className="text-gray text-sm">{profile.email}</h2>
+                                <h2 className="text-muted-foreground text-sm">{profile.email}</h2>
                             </div>
                         </div>
                         <div className="flex gap-8 justify-center my-4">
-                            <p className="text-gray"><span className="text-foreground font-bold">{profile.following}</span> Following</p>
-                            <p className="text-gray"><span className="text-foreground font-bold">{profile.followers}</span> Followers</p>
+                            <p className="text-muted-foreground"><span className=" font-bold">{profile.following}</span> Following</p>
+                            <p className="text-muted-foreground"><span className=" font-bold">{profile.followers}</span> Followers</p>
                         </div>
                         <p className="px-4 text-wrap break-words">{profile.bio}</p>
 

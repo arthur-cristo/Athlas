@@ -23,23 +23,23 @@ const PostDetail = ({ post }: { post: PostType }) => {
     const user = useUser();
 
     return (
-        <div className='bg-dark-gray p-4 rounded-md my-4 text-left mx-8 text-foreground'>
+        <div className='bg-dark-gray p-4 rounded-md my-4 text-left mx-8 '>
             <div className="flex justify-between">
                 <div className='flex gap-2 items-center'>
                     {/* <Image className="w-6 h-6 rounded-full" width={16} height={16} src={userPfp} alt={post.user_name} /> */}
                     <Link href={`/community/users/${post.user_id}`}><h3>{post.user_name}</h3></Link>
                 </div>
                 <div className='flex items-center gap-2'>
-                    <p className="text-gray-300">{new Date(post.updated_at).toLocaleString()}</p>
+                    <p className="text-muted-foreground-300">{new Date(post.updated_at).toLocaleString()}</p>
                     {user?.id === post.user_id &&
                         <DropdownMenu modal={false}>
                             <DropdownMenuTrigger>
-                                <EllipsisVertical size={20} className='text-gray-300' />
+                                <EllipsisVertical size={20} className='text-muted-foreground-300' />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className='bg-background border-none'>
+                            <DropdownMenuContent className=' border-none'>
                                 <DropdownMenuItem
                                     onClick={() => setEdit(true)}
-                                    className='text-foreground focus:bg-light_gray'>
+                                    className=' focus:bg-light_gray'>
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem

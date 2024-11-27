@@ -45,7 +45,7 @@ const PostDetailPage = ({ params }: { params: Params }) => {
     }, [reFetch]);
 
     return (
-        <div className="bg-background min-h-screen pb-10">
+        <div className=" min-h-screen pb-10">
             <Header />
             {post && (
                 <>
