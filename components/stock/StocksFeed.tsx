@@ -19,9 +19,13 @@ const StocksFeed = () => {
             }
         };
         const fetchOptions = async () => {
-            const response = await fetch(url, options);
-            const result = await response.json();
-            setStocks(result.finance.result[0].quotes);
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                setStocks(result.finance.result[0].quotes);
+            } catch (error) {
+                console.error('Error fetching stock data:', error);
+            }
         }
         fetchOptions();
     }, [])
