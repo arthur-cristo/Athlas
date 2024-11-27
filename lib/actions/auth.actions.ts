@@ -18,7 +18,7 @@ export async function signIn(values: z.infer<typeof loginSchema>) {
     })
 
     if (error) throw error;
-    
+
     return redirect('/dashboard')
 }
 

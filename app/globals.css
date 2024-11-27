@@ -91,13 +91,13 @@
 }
 
 .input-phone {
-  @apply bg-input-dark_gray border-none text-white placeholder:text-gray-400 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50
+  @apply bg-input border-none flex h-9 w-full rounded-md border border-input px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50
 }
 
 /* Phone Input Styles */
 
 .PhoneInputCountrySelect {
-  @apply text-white border-none rounded-md py-2 px-1;
+  @apply border-none rounded-md py-2 px-1;
 }
 
 .PhoneInputCountryIcon {
@@ -105,7 +105,7 @@
 }
 
 .PhoneInputInput {
-  @apply bg-input-dark_gray text-white border-none rounded-md py-2 px-3 w-full placeholder:text-gray-400;
+  @apply bg-transparent border-none rounded-md py-2 px-3 w-full placeholder:text-muted-foreground;
 }
 
 .PhoneInputInput:focus {

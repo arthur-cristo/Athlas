@@ -3,9 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
     try {
-        await signOut();
-
-        return NextResponse.redirect(new URL('/auth/login', request.url));
+        await signOut().then(() => {
+            return NextResponse.redirect(new URL('/auth/login', request.url));
+        });
     } catch (error: any) {
         console.error('Sign out error:', error)
         return NextResponse.redirect(

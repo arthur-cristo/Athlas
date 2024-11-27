@@ -15,6 +15,7 @@ import {
 import EditPostForm from '../forms/EditPostForm';
 import DeletePostDialog from './DeletePostDialog';
 import { useUser } from '@/app/UserContext'
+import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 
 const PostDetail = ({ post }: { post: PostType }) => {
 
@@ -23,27 +24,27 @@ const PostDetail = ({ post }: { post: PostType }) => {
     const user = useUser();
 
     return (
-        <div className='bg-dark-gray p-4 rounded-md my-4 text-left mx-8 '>
+        <div className='p-4 rounded-md mb-4 mt-2 text-left mx-8 '>
             <div className="flex justify-between">
-                <div className='flex gap-2 items-center'>
+                <div className='flex gap-2 items-center mt-2'>
                     {/* <Image className="w-6 h-6 rounded-full" width={16} height={16} src={userPfp} alt={post.user_name} /> */}
                     <Link href={`/community/users/${post.user_id}`}><h3>{post.user_name}</h3></Link>
                 </div>
                 <div className='flex items-center gap-2'>
-                    <p className="text-muted-foreground-300">{new Date(post.updated_at).toLocaleString()}</p>
+                    <p className="text-muted-foreground">{new Date(post.updated_at).toLocaleString()}</p>
                     {user?.id === post.user_id &&
                         <DropdownMenu modal={false}>
                             <DropdownMenuTrigger>
-                                <EllipsisVertical size={20} className='text-muted-foreground-300' />
+                                <EllipsisVertical size={20} className='text-muted-foreground' />
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className=' border-none'>
                                 <DropdownMenuItem
                                     onClick={() => setEdit(true)}
-                                    className=' focus:bg-light_gray'>
+                                    className='focus:bg-muted-foreground focus:text-muted'>
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    className='text-red-delete focus:bg-light_gray'
+                                    className='text-red-delete focus:bg-destructive'
                                     onClick={() => setDeleteDialog(true)}>
                                     Delete
                                 </DropdownMenuItem>
@@ -56,17 +57,20 @@ const PostDetail = ({ post }: { post: PostType }) => {
             <h2 className="text-xl font-bold mt-2 text-wrap break-words">{post.title}</h2>
             <p className="text-wrap break-words">{post.content}</p>
             {post.posts_pictures.length > 0 && (
-                <div className="flex gap-4 overflow-y-scroll my-4">
-                    {post.posts_pictures.map((pic) => (
-                        <Image
-                            src={pic.image_url}
-                            alt={post.title}
-                            width={250}
-                            height={100}
-                            style={{ objectFit: 'cover' }}
-                        />
-                    ))}
-                </div>
+                <ScrollArea>
+                    <div className="flex gap-4 my-4">
+                        {post.posts_pictures.map((pic) => (
+                            <Image
+                                src={pic.image_url}
+                                alt={post.title}
+                                width={500}
+                                height={250}
+                                style={{ objectFit: 'cover' }}
+                            />
+                        ))}
+                    </div>
+                    <ScrollBar orientation='horizontal' />
+                </ScrollArea>
 
             )}
             <div className='flex gap-8 mt-4'>

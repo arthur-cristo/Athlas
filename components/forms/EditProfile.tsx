@@ -85,7 +85,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                                     <FormItem className="flex justify-start flex-col ">
                                         <FormLabel className="text-muted-foreground text-left">Bio</FormLabel>
                                         <FormControl>
-                                            <Input placeholder='Bio' {...field} maxLength={50} className="w-full border-none placeholder:text-muted-foreground" />
+                                            <Input placeholder='Bio' {...field} maxLength={50} className="bg-input w-full border-none placeholder:text-muted-foreground" />
                                         </FormControl>
                                         <FormDescription>
                                         </FormDescription>
@@ -100,7 +100,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                                     <FormItem className="flex justify-start flex-col">
                                         <FormControl>
                                             <>
-                                                <Label htmlFor='image' className='text-primary hover:text-green-400 text-md cursor-pointerrounded-md p-4 py-2 px-6 hover:bg-dark-gray flex gap-2 items-center justify-center'>
+                                                <Label htmlFor='image' className='bg-input rounded-md text-primary hover:text-primary/80 text-md p-4 py-2 px-6 cursor-pointer flex gap-2 items-center justify-center'>
                                                     <Image className="h-6 w-6" />
                                                     {form.watch('image')?.[0]?.name || 'Upload New Profile Picture'}
                                                 </Label>
@@ -123,7 +123,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                             <div className='flex gap-4 mt-4'>
                                 <Button
                                     onClick={handleCancel}
-                                    className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray round py-6  "
+                                    className="px-12 py-6 bg-muted border-muted-foreground/20 border-2 hover:bg-muted-foreground/20"
                                     variant={'secondary'}
                                 >
                                     Cancel
@@ -131,7 +131,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                                 <Button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="px-12 w-48 py-6 rounded-md text-md font-medium">
+                                    className="px-12 w-48 py-6 rounded-md text-md font-medium border-2 border-primary">
                                     {isLoading ? 'Loading...' : 'Edit'}
                                 </Button>
                             </div>

@@ -62,14 +62,14 @@ const CommentForm = ({ post, comment_id, setFetch }: CommentFormProps) => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='rounded-md p-4 flex items-center bg-red-50 md:flex-row flex-col gap-4 bg-dark-gray mx-8'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='rounded-md p-4 flex items-center bg-muted md:flex-row flex-col gap-4 bg-dark-gray mx-8'>
                 <FormField
                     control={form.control}
                     name="content"
                     render={({ field }) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <Textarea placeholder='Write a comment' {...field} maxLength={140} className="md:h-fit h-28 border-none round placeholder:text-muted-foreground" />
+                                <Textarea placeholder='Write a comment' {...field} maxLength={140} className="md:h-fit h-28 border-none bg-input placeholder:text-muted-foreground" />
                             </FormControl>
                             <FormDescription>
                             </FormDescription>
@@ -77,7 +77,7 @@ const CommentForm = ({ post, comment_id, setFetch }: CommentFormProps) => {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" disabled={isLoading} className="md:w-fit w-full px-8 py-6 rounded-md text-xl font-medium">{isLoading ? 'Loading...' : 'Comment'}</Button>
+                <Button type="submit" disabled={isLoading} className="md:w-fit w-full px-8 py-6 rounded-md text-xl font-medium border-2 border-primary">{isLoading ? 'Loading...' : 'Comment'}</Button>
                 {error && (
                     <Label className="pt-4 text-red-500 font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                 )}

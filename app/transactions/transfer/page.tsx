@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default async function Transactions() {
 
     return (
-        <div className='  text-center min-h-screen'>
+        <div className='text-center min-h-screen'>
             <Header />
             <div className='mx-8 mt-8 flex justify-center items-center flex-col'>
                 <Link href='/transactions' className='flex w-full justify-start mb-8 md:w-[788px]'>

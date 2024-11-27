@@ -8,7 +8,7 @@ const Stock = ({ stock }: { stock: StockType }) => {
 
     return (
         <Link href={`/stocks/${stock.symbol}`}>
-            <div className="flex flex-col w-full border-y-2 border-gray my-2 py-4  p-3 cursor-pointer">
+            <div className="flex flex-col w-full border-y-2 border-muted my-2 py-4 p-3 cursor-pointer">
                 <div className="flex justify-between text-muted-foreground">
                     <h3>{stock.shortName}</h3>
                     <h3>{stock.symbol}</h3>

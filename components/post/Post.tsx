@@ -23,24 +23,24 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
     const user = useUser();
 
     return (
-        <div className="bg-dark-gray p-4 rounded-md my-4 text-left w-full">
+        <div className="p-4 rounded-md my-4 text-left w-full">
             <div className="flex justify-between">
                 <Link href={`/community/users/${post.user_id}`}><h3>{post.user_name}</h3></Link>
                 <div className='flex items-center gap-2'>
-                    <p className="text-muted-foreground-300">{new Date(post.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                    <p className="text-muted-foreground">{new Date(post.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
                     {user?.id === post.user_id &&
                         <DropdownMenu modal={false}>
                             <DropdownMenuTrigger>
-                                <EllipsisVertical size={20} className='text-muted-foreground-300' />
+                                <EllipsisVertical size={20} className='text-muted-foreground' />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className=' border-none'>
+                            <DropdownMenuContent className='border-none'>
                                 <DropdownMenuItem
                                     onClick={() => setEdit(true)}
-                                    className=' focus:bg-light_gray'>
+                                    className='focus:bg-muted-foreground focus:text-muted'>
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    className='text-red-delete focus:bg-light_gray'
+                                    className='text-red-delete focus:bg-destructive'
                                     onClick={() => setDeleteDialog(true)}>
                                     Delete
                                 </DropdownMenuItem>

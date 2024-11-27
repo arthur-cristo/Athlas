@@ -76,7 +76,7 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                 <AlertDialogContent aria-describedby='edit-post-description' className="max-w-[90vw] w-fit border-none rounded-md py-8  flex flex-col items-center justify-center">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Edit Post</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={handleCancel} />
+                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={handleCancel} />
                     </AlertDialogHeader>
                     <AlertDialogDescription id="edit-post-description" className="hidden">Edit the post title and content below.</AlertDialogDescription>
                     <Form {...form}>
@@ -88,7 +88,7 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                                     <FormItem className="flex justify-start flex-col ">
                                         <FormLabel className="text-muted-foreground text-left">Title</FormLabel>
                                         <FormControl>
-                                            <Input placeholder='What are you thinking?' {...field} maxLength={50} className="w-full border-none placeholder:text-muted-foreground" />
+                                            <Input placeholder='What are you thinking?' {...field} maxLength={50} className="bg-input w-full border-none placeholder:text-muted-foreground" />
                                         </FormControl>
                                         <FormDescription>
                                         </FormDescription>
@@ -103,7 +103,7 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                                     <FormItem className="flex justify-start flex-col">
                                         <FormLabel className="text-muted-foreground text-left">Content</FormLabel>
                                         <FormControl>
-                                            <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="h-36 w-full border-none  placeholder:text-muted-foreground" />
+                                            <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="bg-input h-36 w-full border-none  placeholder:text-muted-foreground" />
                                         </FormControl>
                                         <FormDescription>
                                         </FormDescription>
@@ -114,7 +114,7 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                             <div className='flex gap-4 mt-4'>
                                 <Button
                                     onClick={handleCancel}
-                                    className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray  py-6  "
+                                    className="px-12 bg-muted border-muted-foreground/20 border-2 hover:bg-muted-foreground/20 py-6  "
                                     variant={'secondary'}
                                 >
                                     Cancel
@@ -122,7 +122,7 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                                 <Button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="px-12 w-48 py-6 rounded-md text-md font-medium">
+                                    className="px-12 w-48 py-6 rounded-md text-md font-medium border-2 border-primary">
                                     {isLoading ? 'Loading...' : 'Edit'}
                                 </Button>
                             </div>
@@ -134,10 +134,10 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                 </AlertDialogContent>
             </AlertDialog >
             <AlertDialog open={success} onOpenChange={setSuccess}>
-                <AlertDialogContent className=" border-none rounded-md w-4/5 ">
+                <AlertDialogContent className=" border-none rounded-md w-fit p-10">
                     <AlertDialogHeader className='flex flex-row justify-center gap-4'>
                         <AlertDialogTitle className="text-center w-full">Post Successfully Edited!</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
+                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={() => {
                             setSuccess(false);
                             if (setFetch) setFetch(prev => !prev);
                         }} />

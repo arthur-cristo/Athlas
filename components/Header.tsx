@@ -29,10 +29,10 @@ const Header = () => {
           <span className="font-bold text-xl">ATHLAS</span>
         </Link>
         {user ? (
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-1">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" className="border-none shadow-none text-muted-foreground hover:text-primary hover:bg-transparent focus-visible:ring-0">
+                <Button variant="outline" size="icon" className="m-0 border-none shadow-none text-muted-foreground hover:text-primary hover:bg-transparent focus-visible:ring-0">
                   <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                   <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                   <span className="sr-only">Toggle theme</span>

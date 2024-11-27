@@ -66,7 +66,7 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
     }
 
     return (
-        <div className='rounded-md p-4 flex flex-col gap-2 py-8 bg-form-dark_gray'>
+        <div className='rounded-md p-4 flex flex-col gap-2 py-8'>
             <div className='flex justify-center gap-4 py-4'>
                 <h2 className='capitalize font-semibold text-2xl'>Share your thoughts</h2>
                 <ChevronDown className='h-8 w-8 cursor-pointer' onClick={() => setWritePost(!writePost)} />
@@ -81,7 +81,7 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
                                 <FormItem className="flex justify-start flex-col">
                                     <FormLabel className="text-muted-foreground text-left">Title</FormLabel>
                                     <FormControl>
-                                        <Input placeholder='What are you thinking?' {...field} maxLength={50} className="-dark_gray border-none placeholder:text-muted-foreground" />
+                                        <Input placeholder='What are you thinking?' {...field} maxLength={50} className="bg-input border-none placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -96,7 +96,7 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
                                 <FormItem className="flex justify-start flex-col">
                                     <FormLabel className="text-muted-foreground text-left">Content</FormLabel>
                                     <FormControl>
-                                        <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="md:h-20 h-32 border-none  placeholder:text-muted-foreground" />
+                                        <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="bg-input md:h-20 h-32 border-none placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -112,8 +112,8 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
                                     <FormItem className="flex justify-start flex-col">
                                         <FormControl>
                                             <>
-                                                <Label htmlFor='images' className='cursor-pointer rounded-full p-4 px-6 hover:bg-dark-gray flex gap-4'>
-                                                    <Images className="h-8 w-8 text-primary hover:text-green-400" />
+                                                <Label htmlFor='images' className='cursor-pointer rounded-full p-4 px-6 bg-muted-foreground/10 flex gap-4'>
+                                                    <Images className="h-8 w-8 text-primary hover:text-primary/80" />
                                                     <h3 className='text-xl'>{form.watch('images')?.length || 0}</h3>
                                                 </Label>
                                                 <Input
@@ -135,7 +135,7 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
                             />
                             <Button type="submit" disabled={isLoading} className="px-8 py-6 rounded-md text-xl font-medium">{isLoading ? 'Loading...' : 'Post'}</Button>
                             {error && (
-                                <Label className="pt-4 text-red-500 font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+                                <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                             )}
                         </div>
                     </form>

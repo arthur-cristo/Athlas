@@ -8,9 +8,9 @@ import { useState } from 'react'
 const Community = () => {
     const [fetch, setFetch] = useState(false)
     return (
-        <div className='  text-center min-h-screen md:pb-8'>
+        <div className='text-center min-h-screen md:pb-8'>
             <Header />
-            <div className="bg-dark_gray md:w-[768px] w-screen mx-auto h-full p-2 rounded-md pb-8 md:pb-0">
+            <div className="md:w-[768px] w-screen mx-auto h-full p-2 rounded-md pb-8 md:pb-0">
                 <PostForm setFetch={setFetch}/>
                 <PostsFeed reFetch={fetch} setFetch={setFetch} />
             </div>

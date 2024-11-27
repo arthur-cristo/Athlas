@@ -28,7 +28,6 @@ const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
-    // const { toast } = useToast();
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -60,8 +59,8 @@ const LoginForm = () => {
                         name="email"
                         render={({ field }) => (
                             <FormItem className="w-full">
-                                <FormLabel className="text-light_gray">Email</FormLabel>
-                                <div className="flex items-center border-none  rounded-md">
+                                <FormLabel className="text-muted-foreground">Email</FormLabel>
+                                <div className="bg-input flex items-center border-none  rounded-md">
                                     <MailIcon className="mx-2 h-6 w-6 text-muted-foreground" />
                                     <FormControl>
                                         <Input type='email' placeholder='Email' {...field} className="border-none placeholder:text-dark_gray" />
@@ -78,8 +77,8 @@ const LoginForm = () => {
                         name="password"
                         render={({ field }) => (
                             <FormItem className="w-full">
-                                <FormLabel className="text-light_gray">Password</FormLabel>
-                                <div className="flex items-center border-none  placeholder:text-muted-foreground rounded-md">
+                                <FormLabel className="text-muted-foreground">Password</FormLabel>
+                                <div className="bg-input flex items-center border-none placeholder:text-muted-foreground rounded-md">
                                     <FormControl>
                                         <Input type={showPassword ? 'true' : 'password'} placeholder='Password' {...field} className="border-none  placeholder:text-muted-foreground-400" />
                                     </FormControl>

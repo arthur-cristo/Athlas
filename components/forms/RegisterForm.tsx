@@ -88,7 +88,7 @@ const RegisterForm = () => {
                                 <FormItem className="w-full">
                                     <FormLabel className="text-muted-foreground">{values[0]}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder={values[0]} {...field} className="-dark_gray border-none  placeholder:text-muted-foreground" />
+                                        <Input placeholder={values[0]} {...field} className="bg-input border-none  placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -103,7 +103,7 @@ const RegisterForm = () => {
                                 <FormItem className="w-full">
                                     <FormLabel className="text-muted-foreground">{values[1]}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder={values[1]} {...field} className="-dark_gray border-none  placeholder:text-muted-foreground" />
+                                        <Input placeholder={values[1]} {...field} className="bg-input border-none  placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -119,7 +119,7 @@ const RegisterForm = () => {
                             render={({ field }) => (
                                 <FormItem className="w-full">
                                     <FormLabel className="text-muted-foreground">{values[2]}</FormLabel>
-                                    <div className="flex items-center border-none  placeholder:text-muted-foreground rounded-md">
+                                    <div className="bg-input flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                                         <MailIcon className="mx-2 h-6 w-6 text-muted-foreground-300" />
                                         <FormControl>
                                             <Input type='email' placeholder={values[2]} {...field} className="border-none placeholder:text-muted-foreground" />
@@ -161,9 +161,9 @@ const RegisterForm = () => {
                             render={({ field }) => (
                                 <FormItem className="w-full">
                                     <FormLabel className="text-muted-foreground">{values[4]}</FormLabel>
-                                    <div className="flex items-center border-none  placeholder:text-muted-foreground rounded-md">
+                                    <div className="bg-input flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                                         <FormControl>
-                                            <Input type={showPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="-dark_gray border-none  placeholder:text-muted-foreground" />
+                                            <Input type={showPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="bg-input border-none  placeholder:text-muted-foreground" />
                                         </FormControl>
                                         {showPassword ? (
                                             <EyeClosedIcon className="mx-2 h-6 w-6 text-muted-foreground-300 cursor-pointer" onClick={() => setShowPassword(false)} />
@@ -183,9 +183,9 @@ const RegisterForm = () => {
                             render={({ field }) => (
                                 <FormItem className="w-full">
                                     <FormLabel className="text-muted-foreground">{values[5]}</FormLabel>
-                                    <div className="flex items-center border-none  placeholder:text-muted-foreground rounded-md">
+                                    <div className="bg-input flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                                         <FormControl>
-                                            <Input type={showConfirmPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="-dark_gray border-none  placeholder:text-muted-foreground" />
+                                            <Input type={showConfirmPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="bg-input border-none  placeholder:text-muted-foreground" />
                                         </FormControl>
                                         {showConfirmPassword ? (
                                             <EyeClosedIcon className="mx-2 h-6 w-6 text-muted-foreground-300 cursor-pointer" onClick={() => setShowConfirmPassword(false)} />
@@ -202,15 +202,15 @@ const RegisterForm = () => {
                     </div>
                     <Button type="submit" disabled={isLoading} className="w-full">{isLoading ? 'Loading...' : 'Sign Up'}</Button>
                     {error && (
-                        <Label className="text-red-600 font-bold text-sm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+                        <Label className="text-destructive font-bold text-sm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                     )}
                 </form>
             </Form>
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <AlertDialogContent className="-foreground">
+                <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Check your email</AlertDialogTitle>
-                        <AlertDialogDescription className="space-y-3 text-muted-foreground-200">
+                        <AlertDialogDescription className="space-y-3 text-muted-foreground">
                             <p>We've sent a confirmation email to:</p>
                             <p className="font-medium text-primary">{registeredEmail}</p>
                             <p>Please check your email and click the confirmation link to complete your registration.</p>

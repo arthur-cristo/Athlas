@@ -1,8 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import DashboardNews from './DashboardNews'
-
+import { ScrollArea, ScrollBar } from './ui/scroll-area'
 
 interface NewsType {
     title: string
@@ -25,12 +24,16 @@ const DashboardNewsWindow = () => {
     return (
         <aside className='md:m-0 md:pt-0 mt-8 md:w-[30vw] p-8 md:fixed md:right-10'>
             <h2 className="my-2 font-bold text-3xl mb-8">Latest News</h2>
-            <div className="mt-2 flex flex-col gap-6 md:max-h-[350px] max-h-[500px] overflow-y-auto bg-dark_gray rounded-md">
+            <ScrollArea className="md:h-[320px] pr-2 mt-2 flex flex-col gap-6 md:max-h-[350px] max-h-[500px] bg-muted rounded-md">
                 {news.length > 0 && (
                     news.map((n, index) => (
-                        <DashboardNews key={index} {...n} />
+                        <div key={index} className='w-full h-full p-6 rounded-md flex flex-col gap-2 text-foreground'>
+                            <h2 className="text-2xl font-bold text-muted-foreground-100 text-left">{n.title}</h2>
+                            <p className="text-muted-foreground-200 text-left">{n.content}</p>
+                        </div>
                     )))}
-            </div>
+                <ScrollBar />
+            </ScrollArea>
         </aside>
     )
 }

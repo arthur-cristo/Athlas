@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { CommentType } from "@/types/Comment";
 import CommentsFeed from "@/components/comment/CommentsFeed";
-import { ProfileType } from "@/types/Profile";
 
 interface Params {
     id: string;
@@ -50,7 +49,7 @@ const PostDetailPage = ({ params }: { params: Params }) => {
             {post && (
                 <>
                     <Link href="/community" className="m-8">
-                        <Button className="mt-4">
+                        <Button className="mt-8 ml-3">
                             <ChevronLeft size={24} />
                             Back
                         </Button>
