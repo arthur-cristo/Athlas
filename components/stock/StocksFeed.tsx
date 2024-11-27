@@ -31,7 +31,7 @@ const StocksFeed = () => {
             {stocks.length > 0 && (
                 <>
                     <h1 className="text-2xl font-medium">Trending Stocks</h1>
-                    <p className="text-xl text-gray pr-5 mb-4 mt-2">Here are some rising stocks worth keeping an eye on.</p>
+                    <p className="text-xl text-muted-foreground pr-5 mb-4 mt-2">Here are some rising stocks worth keeping an eye on.</p>
                     <ScrollArea className="md:h-[320px] pr-2">
                         {stocks.map((stock, index) => (<Stock key={index} stock={stock} />))}
                         <ScrollBar />
