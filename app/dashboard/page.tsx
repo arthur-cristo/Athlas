@@ -15,12 +15,12 @@ export default async function DashboardPage() {
       <main className="flex flex-col justify-center items-center md:mt-10">
         <div className="flex flex-col justify-center md:h-fit h-[80vh]">
           <BalanceDisplay />
-          <div className="flex md:mt-0 mt-14 justify-center">
+          {/* <div className="flex md:mt-0 mt-14 justify-center">
             <Button className="flex my-8 py-6 mt-0 md:w-[400px] px-20 text-xl">
               <PiggyBank className="h-full w-full mr-2" />
               My Savings
             </Button>
-          </div>
+          </div> */}
           <div className="px-3 flex gap-6 items-center md:my-0 my-8 py-5 bg-muted dark:bg-muted/50 dark:md:bg-transparent md:bg-background md:w-fit w-screen justify-center text-foreground">
             {dashboardOptions.map((option, index) => (
               <DashboardOption key={index} {...option} />
