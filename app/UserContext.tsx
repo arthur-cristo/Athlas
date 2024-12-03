@@ -15,7 +15,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             setUser(user);
         };
         fetchUser();
-    }, []);
+    });
 
     return (
         <UserContext.Provider value={user}>
@@ -24,5 +24,4 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-// Custom hook to access user data
 export const useUser = () => useContext(UserContext);

@@ -43,6 +43,7 @@ const LoginForm = () => {
 
         try {
             await signIn(values);
+            router.refresh();
         } catch (error: any) {
             setError(error.message);
         } finally {
