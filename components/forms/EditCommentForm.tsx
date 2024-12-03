@@ -97,7 +97,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                             <div className='flex gap-4 mt-4'>
                                 <Button
                                     onClick={handleCancel}
-                                    className="px-12 bg-btn-dark_gray hover:bg-btn-dark_gray  py-6  "
+                                    className="bg-muted border-muted-foreground/20 border-2 py-6 px-16 hover:bg-muted-foreground/20"
                                     variant={'secondary'}
                                 >
                                     Cancel
@@ -105,7 +105,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                                 <Button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="px-12 w-48 py-6 rounded-md text-md font-medium">
+                                    className="px-12 w-48 py-6 rounded-md text-md font-medium border-2 border-primary">
                                     {isLoading ? 'Loading...' : 'Edit'}
                                 </Button>
                             </div>

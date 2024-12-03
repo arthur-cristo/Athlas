@@ -62,7 +62,7 @@ const DeleteCommentDialog = ({ comment, deleteDialog, setDeleteDialog, setFetch 
                 <div className='flex gap-4 mt-4'>
                     <Button
                         onClick={() => setDeleteDialog(false)}
-                        className="bg-btn-dark_gray hover:bg-btn-dark_gray  py-6 px-16 "
+                        className="bg-muted border-muted-foreground/20 border-2 py-6 px-16 hover:bg-muted-foreground/20"
                         variant={'secondary'}
                     >
                         Cancel
@@ -72,7 +72,7 @@ const DeleteCommentDialog = ({ comment, deleteDialog, setDeleteDialog, setFetch 
                         onClick={() => {
                             handleDelete();
                         }}
-                        className="px-16 w-40 py-6 bg-red-delete  hover:bg-red-delete"
+                        className="px-16 w-40 py-6 bg-destructive hover:bg-destructive/80 border-destructive border-2"
                     >
                         {isDeleting ? 'Deleting...' : 'Delete'}
                     </Button>
