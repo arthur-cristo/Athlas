@@ -12,7 +12,7 @@ export default async function DashboardPage() {
   return (
     <div className='text-center md:h-screen min-h-screen md:pb-2 pb-8'>
       <Header />
-      <main className="flex flex-col justify-center items-center md:mt-10">
+      <main className="flex flex-col justify-center items-center md:mt-16">
         <div className="flex flex-col justify-center md:h-fit h-[80vh]">
           <BalanceDisplay />
           {/* <div className="flex md:mt-0 mt-14 justify-center">

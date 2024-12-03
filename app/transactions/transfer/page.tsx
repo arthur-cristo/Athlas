@@ -8,7 +8,7 @@ export default async function Transactions() {
     return (
         <div className='text-center min-h-screen'>
             <Header />
-            <div className='mx-8 mt-8 flex justify-center items-center flex-col'>
+            <div className='mx-8 mt-8 flex justify-center items-center flex-col md:mt-12'>
                 <Link href='/transactions' className='flex w-full justify-start mb-8 md:w-[788px]'>
                     <ChevronLeft className='h-8 w-8' />
                 </Link>
