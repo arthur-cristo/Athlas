@@ -5,8 +5,12 @@ import { Button } from "./ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import heroImage from "@/public/assets/images/hero_image.avif"
+import { useUser } from "@/app/UserContext";
 
 const Hero = () => {
+
+  const user = useUser();
+
   const features = [
     "User-Friendly Interface",
     "Real-Time Trading",
@@ -28,7 +32,7 @@ const Hero = () => {
 
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-4">
-              {true ? (
+              {user ? (
                 <Link href="/dashboard">
                   <Button
                     size="lg"
