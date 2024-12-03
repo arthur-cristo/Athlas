@@ -63,14 +63,14 @@ const Header = () => {
           </div>
         ) : (
           <>
-            <nav className="hidden md:flex items-center space-x-8 fixed right-1/2 translate-x-1/2">
-              <Link className="text-muted-foreground hover:text-primary transition-colors" href="/about">
+            <nav className="hidden md:flex items-center space-x-8 absolute right-1/2 translate-x-1/2">
+              <Link className="text-muted-foreground hover:text-primary transition-colors" href="#about">
                 About
               </Link>
-              <Link className="text-muted-foreground hover:text-primary transition-colors" href="/solutions">
+              <Link className="text-muted-foreground hover:text-primary transition-colors" href="#solutions">
                 Solutions
               </Link>
-              <Link className="text-muted-foreground hover:text-primary transition-colors" href="/contact">
+              <Link className="text-muted-foreground hover:text-primary transition-colors" href="#contact">
                 Contact
               </Link>
             </nav>
