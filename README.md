@@ -19,10 +19,10 @@
 
 ## 🛠 Deployment
 The website is deployed on Vercel. You can access it using this link:
-👉 [athlas.vercel.app](athlas.vercel.app)
+👉 [athlas.vercel.app](https://athlas.vercel.app/)
 
 ## 🤝 Contributing
 Contributions are welcome! If you have ideas or encounter issues, feel free to open an issue or submit a pull request.
 
 ## 📄 License
-This project is licensed under the [MIT License](https://github.com/arthur-cristo/Athlas/blob/main/LICENSE).
+This project is licensed under the [MIT License](/LICENSE).
