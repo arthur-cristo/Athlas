@@ -7,10 +7,13 @@ import { useUser } from "@/app/UserContext"
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
 
 const Header = () => {
 
   const user = useUser();
+  const router = useRouter();
   const { theme, setTheme } = useTheme()
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -43,14 +46,17 @@ const Header = () => {
               />
               <span className="sr-only">Toggle theme</span>
             </Button>
-            <Link href='/auth/signout'>
-              <Button
-                variant="ghost"
-                className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent"
-              >
-                Sign Out
-              </Button>
-            </Link>
+            <Button
+              onClick={async () => {
+                await createClient().auth.signOut();
+                router.push('/auth/login');
+                router.push('/')
+              }}
+              variant="ghost"
+              className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent"
+            >
+              Sign Out
+            </Button>
             <Link href="/dashboard">
               <Button className="text-sm font-medium bg-primary hover:bg-primary/80  shadow-lg shadow-green-900/25">
                 Dashboard

@@ -70,7 +70,3 @@ export async function signUp(values: z.infer<typeof registerSchema>) {
         throw profileError
     }
 }
-
-export async function signOut() {
-    await createClient().auth.signOut();
-}
