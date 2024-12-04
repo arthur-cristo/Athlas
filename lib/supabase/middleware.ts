@@ -35,9 +35,9 @@ export const updateSession = async (request: NextRequest) => {
     },
   );
 
-  const user = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
 
-  if (!PUBLIC_ROUTES.includes(request.nextUrl.pathname) && !user.data.user) {
+  if (!PUBLIC_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route)) && !data?.user) {
     return NextResponse.redirect(new URL('/auth/login', request.url));
   }
 
