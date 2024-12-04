@@ -11,8 +11,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const fetchUser = async () => {
+            await createClient().auth.refreshSession();
             const { data: { user } } = await createClient().auth.getUser();
-            setUser(user);
+        setUser(user);
         };
         fetchUser();
     });
