@@ -79,7 +79,7 @@ const CommentForm = ({ post, comment_id, setFetch }: CommentFormProps) => {
                 />
                 <Button type="submit" disabled={isLoading} className="md:w-fit w-full px-8 py-6 rounded-md text-xl font-medium border-2 border-primary">{isLoading ? 'Loading...' : 'Comment'}</Button>
                 {error && (
-                    <Label className="pt-4 text-red-500 font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+                    <Label className="pt-4 text-destructive font-bold text-md text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                 )}
             </form>
         </Form>

@@ -97,7 +97,7 @@ const LoginForm = () => {
                     />
                     <Button type="submit" disabled={isLoading} className="w-full">{isLoading ? 'Loading...' : 'Sign In'}</Button>
                     {error && (
-                        <Label className="pt-4 text-red-600 font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+                        <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                     )}
                 </form>
             </Form>

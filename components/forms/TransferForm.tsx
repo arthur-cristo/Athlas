@@ -275,7 +275,7 @@ const TransferForm = () => {
                 <AlertDialogContent className="bg-background border-none rounded-md w-4/5">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Transaction Successful!</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
+                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={() => {
                             setIsDialogOpen(false);
                             form.reset();
                         }} />
@@ -298,8 +298,8 @@ const TransferForm = () => {
             <AlertDialog open={showError} onOpenChange={setShowError}>
                 <AlertDialogContent className="border-none rounded-md w-4/5">
                     <AlertDialogHeader>
-                        <AlertDialogTitle className="text-center text-red-500">Transaction wasn't Successful.</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
+                        <AlertDialogTitle className="text-center text-destructive">Transaction wasn't Successful.</AlertDialogTitle>
+                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={() => {
                             setShowError(false);
                             form.reset();
                         }} />

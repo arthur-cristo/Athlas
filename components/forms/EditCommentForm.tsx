@@ -73,7 +73,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                 <AlertDialogContent aria-describedby='edit-comment-description' className="max-w-[90vw] w-fit  border-none rounded-md py-8  flex flex-col items-center justify-center">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Edit Comment</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={handleCancel} />
+                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={handleCancel} />
                     </AlertDialogHeader>
                     <AlertDialogDescription id="edit-comment-description" className="hidden">Edit the comment content below.</AlertDialogDescription>
                     <Form {...form}>
@@ -109,7 +109,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                                 </Button>
                             </div>
                             {error && (
-                                <Label className="pt-4 text-red-500 font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+                                <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                             )}
                         </form>
                     </Form>

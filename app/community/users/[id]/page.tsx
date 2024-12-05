@@ -103,8 +103,8 @@ const User = ({ params }: { params: { id: string } }) => {
                             </div>
                         </div>
                         <div className="flex gap-8 justify-center my-4">
-                            <p className="text-muted-foreground"><span className=" font-bold">{profile.following}</span> Following</p>
-                            <p className="text-muted-foreground"><span className=" font-bold">{profile.followers}</span> Followers</p>
+                            <p className="text-muted-foreground"><span className="text-foreground font-bold">{profile.following}</span> Following</p>
+                            <p className="text-muted-foreground"><span className="text-foreground font-bold">{profile.followers}</span> Followers</p>
                         </div>
                         <p className="px-4 text-wrap break-words">{profile.bio}</p>
 
@@ -115,7 +115,7 @@ const User = ({ params }: { params: { id: string } }) => {
                         ) : (
                             <>
                                 {profile.profile_follows.some((follow) => follow.follower === user.id) ? (
-                                    <Button className="mt-4 bg-red-delete hover:bg-red-delete" onClick={handleUnfollow} disabled={loading}>
+                                    <Button className="mt-4 bg-destructive hover:bg-destructive/80" onClick={handleUnfollow} disabled={loading}>
                                         Unfollow
                                     </Button>
                                 ) : (

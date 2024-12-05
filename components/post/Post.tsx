@@ -40,7 +40,7 @@ const Post = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateA
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    className='text-red-delete focus:bg-destructive'
+                                    className='text-destructive focus:bg-destructive'
                                     onClick={() => setDeleteDialog(true)}>
                                     Delete
                                 </DropdownMenuItem>

@@ -44,7 +44,7 @@ const PostDetail = ({ post }: { post: PostType }) => {
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    className='text-red-delete focus:bg-destructive'
+                                    className='text-destructive focus:bg-destructive'
                                     onClick={() => setDeleteDialog(true)}>
                                     Delete
                                 </DropdownMenuItem>

@@ -52,7 +52,7 @@ const DeleteCommentDialog = ({ comment, deleteDialog, setDeleteDialog, setFetch 
             <AlertDialogContent className=" border-none rounded-md  w-fit">
                 <AlertDialogHeader>
                     <AlertDialogTitle>Confirm deletion</AlertDialogTitle>
-                    <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
+                    <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={() => {
                         setDeleteDialog(false);
                     }} />
                     <AlertDialogDescription>

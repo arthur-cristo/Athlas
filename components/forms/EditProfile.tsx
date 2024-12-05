@@ -73,7 +73,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                 <AlertDialogContent aria-describedby='edit-profile-description' className="max-w-[90vw] w-fit border-none rounded-md py-8 round flex flex-col items-center justify-center">
                     <AlertDialogHeader>
                         <AlertDialogTitle className="text-center">Edit Profile</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={handleCancel} />
+                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={handleCancel} />
                     </AlertDialogHeader>
                     <AlertDialogDescription id="edit-profile-description" className="hidden">Edit the profile title and content below.</AlertDialogDescription>
                     <Form {...form}>
@@ -136,7 +136,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                                 </Button>
                             </div>
                             {error && (
-                                <Label className="pt-4 text-red-500 font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+                                <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                             )}
                         </form>
                     </Form>
