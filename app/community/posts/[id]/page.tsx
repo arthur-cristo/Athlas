@@ -55,7 +55,7 @@ const PostDetailPage = ({ params }: { params: Params }) => {
                                 Back
                             </Button>
                         </Link>
-                        <PostDetail post={post} />
+                        <PostDetail post={post} setFetch={setFetch} />
                         <CommentForm post={post} setFetch={setFetch} />
                         {post.id && <CommentsFeed comments={comments} setFetch={setFetch} />}
                     </>

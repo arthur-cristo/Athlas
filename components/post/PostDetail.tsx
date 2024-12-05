@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import LikeButton from './LikeButton'
 import { PostType } from '@/types/Post'
 import { EllipsisVertical, MessageCircleMore, X } from 'lucide-react';
@@ -17,7 +17,7 @@ import DeletePostDialog from './DeletePostDialog';
 import { useUser } from '@/app/UserContext'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 
-const PostDetail = ({ post }: { post: PostType }) => {
+const PostDetail = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<SetStateAction<boolean>> }) => {
 
     const [edit, setEdit] = useState(false);
     const [deleteDialog, setDeleteDialog] = useState(false)
@@ -80,7 +80,7 @@ const PostDetail = ({ post }: { post: PostType }) => {
                     <span>{post.comments}</span>
                 </div>
             </div>
-            <EditPostForm post={post} edit={edit} setEdit={setEdit} />
+            <EditPostForm post={post} edit={edit} setEdit={setEdit} setFetch={setFetch} />
             <DeletePostDialog post={post} deleteDialog={deleteDialog} setDeleteDialog={setDeleteDialog} />
         </div>
     )
