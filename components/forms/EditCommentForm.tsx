@@ -24,7 +24,6 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
     const user = useUser();
 
     const form = useForm<z.infer<typeof commentSchema>>({
@@ -53,7 +52,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                 throw new Error(body.error || 'Failed to edit comment')
             }
             form.reset();
-            setSuccess(true);
+            if (setFetch) setFetch(prev => !prev);
             setEdit(false);
         } catch (error: any) {
             setError(error.message);
@@ -116,20 +115,6 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                     </Form>
                 </AlertDialogContent>
             </AlertDialog >
-            <AlertDialog open={success} onOpenChange={setSuccess}>
-                <AlertDialogContent className=" border-none rounded-md w-4/5 ">
-                    <AlertDialogHeader className='flex flex-row justify-center gap-4'>
-                        <AlertDialogTitle className="text-center w-full">Comment Successfully Edited!</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-3 cursor-pointer m-0' onClick={() => {
-                            setSuccess(false);
-                            if (setFetch) setFetch(prev => !prev);
-                        }} />
-                    </AlertDialogHeader>
-                    <AlertDialogDescription className="space-y-3 text-muted-foreground-200 text-center">
-                        <p className="text-sm text-muted-foreground-400">Your comment was successfully edited.</p>
-                    </AlertDialogDescription>
-                </AlertDialogContent>
-            </AlertDialog>
         </div>
     )
 }

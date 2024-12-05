@@ -8,7 +8,6 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, For
 import { Textarea } from '../ui/textarea';
 import { editPost } from '@/lib/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createClient } from '@/lib/supabase/client';
 import { z } from 'zod';
 import { Label } from '../ui/label';
 import { X } from 'lucide-react';
@@ -25,7 +24,6 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
     const user = useUser();
 
     const form = useForm<z.infer<typeof editPost>>({
@@ -55,7 +53,7 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                 throw new Error(body.error || 'Failed to edit post')
             }
             form.reset();
-            setSuccess(true);
+            if (setFetch) setFetch(prev => !prev);
             setEdit(false);
         } catch (error: any) {
             setError(error.message);
@@ -133,20 +131,6 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                     </Form>
                 </AlertDialogContent>
             </AlertDialog >
-            <AlertDialog open={success} onOpenChange={setSuccess}>
-                <AlertDialogContent className=" border-none rounded-md w-fit p-10">
-                    <AlertDialogHeader className='flex flex-row justify-center gap-4'>
-                        <AlertDialogTitle className="text-center w-full">Post Successfully Edited!</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={() => {
-                            setSuccess(false);
-                            if (setFetch) setFetch(prev => !prev);
-                        }} />
-                    </AlertDialogHeader>
-                    <AlertDialogDescription className="space-y-3 text-muted-foreground-200 text-center">
-                        <p className="text-sm text-muted-foreground-400">Your post was successfully edited.</p>
-                    </AlertDialogDescription>
-                </AlertDialogContent>
-            </AlertDialog>
         </div>
     )
 }
