@@ -18,7 +18,7 @@ const Hero = () => {
   ];
 
   return (
-    <main className="px-8 pt-10 py-6 overflow-hidden flex w-screen">
+    <main className="px-8 md:pt-10 py-6 overflow-hidden flex w-screen pt-28">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         <div className="flex-1 space-y-8">
 
@@ -66,9 +66,8 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="flex-1 relative">
+        <div className="flex-1 relative z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent rounded-3xl -rotate-6 scale-95 w-full max-w-1/2 blur-2xl" />
-          <div className="relative">
             <Image
               src={heroImage}
               alt="Financial dashboard"
@@ -77,7 +76,6 @@ const Hero = () => {
               height={400}
               className="rounded-3xl shadow-2xl"
             />
-          </div>
         </div>
       </div >
     </main >

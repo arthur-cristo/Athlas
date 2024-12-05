@@ -88,10 +88,10 @@ const User = ({ params }: { params: { id: string } }) => {
     }
 
     return (
-        <div className=" min-h-screen  pb-8">
+        <div className="min-h-screen pb-8">
             <Header />
             {profile && (
-                <div className="mt-4 mx-8 flex flex-col items-center">
+                <div className="mt-4 mx-8 flex flex-col items-center pt-32 md:pt-0">
 
                     {/* // User Card */}
                     <div className="w-full my-8 text-center md:w-[768px]" >

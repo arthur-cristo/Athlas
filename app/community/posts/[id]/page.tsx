@@ -46,19 +46,21 @@ const PostDetailPage = ({ params }: { params: Params }) => {
     return (
         <div className=" min-h-screen pb-10">
             <Header />
-            {post && (
-                <>
-                    <Link href="/community" className="m-8">
-                        <Button className="mt-8 ml-3">
-                            <ChevronLeft size={24} />
-                            Back
-                        </Button>
-                    </Link>
-                    <PostDetail post={post} />
-                    <CommentForm post={post} setFetch={setFetch} />
-                    {post.id && <CommentsFeed comments={comments} setFetch={setFetch} />}
-                </>
-            )}
+            <main className="pt-32 md:pt-0">
+                {post && (
+                    <>
+                        <Link href="/community" className="m-8">
+                            <Button className="mt-8 ml-3">
+                                <ChevronLeft size={24} />
+                                Back
+                            </Button>
+                        </Link>
+                        <PostDetail post={post} />
+                        <CommentForm post={post} setFetch={setFetch} />
+                        {post.id && <CommentsFeed comments={comments} setFetch={setFetch} />}
+                    </>
+                )}
+            </main>
         </div>
     )
 }

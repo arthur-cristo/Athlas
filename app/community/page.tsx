@@ -10,7 +10,7 @@ const Community = () => {
     return (
         <div className='text-center min-h-screen md:pb-8'>
             <Header />
-            <div className="md:w-[768px] w-screen mx-auto h-full p-2 rounded-md pb-8 md:pb-0">
+            <div className="md:w-[768px] w-screen mx-auto h-full p-2 rounded-md pb-8 md:pb-0 md:pt-0 pt-28">
                 <PostForm setFetch={setFetch}/>
                 <PostsFeed reFetch={fetch} setFetch={setFetch} />
             </div>

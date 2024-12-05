@@ -53,7 +53,7 @@ const Header = () => {
   const { first_name, last_name } = user?.user_metadata || {}
 
   return (
-    <header className="py-2 shadow-md flex flex-col">
+    <header className="py-2 shadow-md flex flex-col fixed left-0 right-0 top-0 bg-background md:relative z-20">
       <div className="container mx-auto px-8 md:px-3 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Sparkles className="h-6 w-6 text-primary" />
@@ -105,7 +105,7 @@ const Header = () => {
           </>
         ) : (
           <>
-            <div className="hidden md:flex">
+            <div className="hidden md:flex md:items-center">
               <nav className="hidden md:flex items-center space-x-8 absolute right-1/2 translate-x-1/2">
                 <Link className="text-muted-foreground hover:text-primary transition-colors" href="#about">
                   About
