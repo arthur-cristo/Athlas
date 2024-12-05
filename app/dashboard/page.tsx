@@ -21,7 +21,7 @@ export default async function DashboardPage() {
               My Savings
             </Button>
           </div> */}
-          <div className="px-3 flex gap-6 items-center md:my-0 my-8 py-5 bg-muted dark:bg-muted/50 dark:md:bg-transparent md:bg-background md:w-fit w-screen justify-center text-foreground">
+          <div className="md:w-full px-3 flex gap-6 items-center md:my-0 my-8 py-5 bg-muted dark:bg-muted/50 dark:md:bg-transparent md:bg-background w-screen justify-center text-foreground">
             {dashboardOptions.map((option, index) => (
               <DashboardOption key={index} {...option} />
             ))}
