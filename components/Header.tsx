@@ -2,22 +2,50 @@
 
 import Link from "next/link"
 import { Button } from "./ui/button"
-import { Sparkles } from "lucide-react"
+import { Ellipsis, Sparkles } from "lucide-react"
 import { useUser } from "@/app/UserContext"
-import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
+import { useEffect, useState } from "react"
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from "./ui/navigation-menu"
+
+const ChangeThemeButton = () => {
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "light" ? "dark" : "light");
+  };
+
+  if (!mounted) return;
+
+  return (
+    <Button
+      onClick={toggleTheme}
+      variant="outline"
+      size="icon"
+      className="m-0 border-none shadow-none text-muted-foreground hover:text-primary hover:bg-transparent focus-visible:ring-0"
+    >
+      {resolvedTheme === "light" ? (
+        <Moon className="h-8 w-8 transition-transform" />
+      ) : (
+        <Sun className="h-8 w-8 transition-transform" />
+      )}
+      <span className="sr-only">Toggle theme</span>
+    </Button>
+  );
+};
 
 const Header = () => {
 
   const user = useUser();
   const router = useRouter();
-  const { theme, setTheme } = useTheme()
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
 
   const { first_name, last_name } = user?.user_metadata || {}
 
@@ -29,80 +57,115 @@ const Header = () => {
           <span className="font-bold text-xl">ATHLAS</span>
         </Link>
         {user ? (
-          <div className="flex items-center space-x-1">
-            <Button
-              onClick={toggleTheme}
-              variant="outline"
-              size="icon"
-              className="m-0 border-none shadow-none text-muted-foreground hover:text-primary hover:bg-transparent focus-visible:ring-0"
-            >
-              <Sun
-                className={`h-[1.2rem] w-[1.2rem] transition-transform ${theme === "light" ? "rotate-0 scale-100" : "-rotate-90 scale-0"
-                  }`}
-              />
-              <Moon
-                className={`absolute h-[1.2rem] w-[1.2rem] transition-transform ${theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"
-                  }`}
-              />
-              <span className="sr-only">Toggle theme</span>
-            </Button>
-            <Button
-              onClick={async () => {
-                await createClient().auth.signOut();
-                router.push('/auth/login');
-                router.push('/')
-              }}
-              variant="ghost"
-              className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent"
-            >
-              Sign Out
-            </Button>
-            <Link href="/dashboard">
-              <Button className="text-sm font-medium bg-primary hover:bg-primary/80  shadow-lg shadow-green-900/25">
-                Dashboard
+          <>
+            <div className="md:flex hidden items-center space-x-1">
+              <ChangeThemeButton />
+              <Button
+                onClick={async () => {
+                  await createClient().auth.signOut();
+                  router.push('/auth/login');
+                  router.push('/')
+                }}
+                variant="ghost"
+                className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent"
+              >
+                Sign Out
               </Button>
-            </Link>
-          </div>
+              <Link href="/dashboard">
+                <Button className="text-sm font-medium bg-primary hover:bg-primary/80  shadow-lg shadow-green-900/25">
+                  Dashboard
+                </Button>
+              </Link>
+            </div>
+            <div className="flex md:hidden gap-2 items-center">
+              <ChangeThemeButton />
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-muted-foreground p-0 hover:text-primary" />
+                    <NavigationMenuContent>
+                      <Button
+                        onClick={async () => {
+                          await createClient().auth.signOut();
+                          router.push('/auth/login');
+                          router.push('/')
+                        }}
+                        variant="ghost"
+                        className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent"
+                      >
+                        Sign Out
+                      </Button>
+                      <Link href="/dashboard">
+                        <NavigationMenuLink>
+                          <Button className="text-sm font-medium bg-primary hover:bg-primary/80  shadow-lg shadow-green-900/25">
+                            Dashboard
+                          </Button>
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+            </div>
+          </>
         ) : (
           <>
-            <nav className="hidden md:flex items-center space-x-8 absolute right-1/2 translate-x-1/2">
-              <Link className="text-muted-foreground hover:text-primary transition-colors" href="#about">
-                About
-              </Link>
-              <Link className="text-muted-foreground hover:text-primary transition-colors" href="#solutions">
-                Solutions
-              </Link>
-              <Link className="text-muted-foreground hover:text-primary transition-colors" href="#contact">
-                Contact
-              </Link>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Button
-                onClick={toggleTheme}
-                variant="outline"
-                size="icon"
-                className="m-0 border-none shadow-none text-muted-foreground hover:text-primary hover:bg-transparent focus-visible:ring-0"
-              >
-                <Sun
-                  className={`h-[1.2rem] w-[1.2rem] transition-transform ${theme === "light" ? "rotate-0 scale-100" : "-rotate-90 scale-0"
-                    }`}
-                />
-                <Moon
-                  className={`absolute h-[1.2rem] w-[1.2rem] transition-transform ${theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"
-                    }`}
-                />
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-              <Link href="/auth/login">
-                <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent">
-                  Sign In
-                </Button>
-              </Link>
-              <Link href="/auth/register">
-                <Button className="text-sm font-medium bg-primary hover:bg-primary/80  shadow-lg shadow-green-900/25">
-                  Sign Up
-                </Button>
-              </Link>
+            <div className="hidden md:flex">
+              <nav className="hidden md:flex items-center space-x-8 absolute right-1/2 translate-x-1/2">
+                <Link className="text-muted-foreground hover:text-primary transition-colors" href="#about">
+                  About
+                </Link>
+                <Link className="text-muted-foreground hover:text-primary transition-colors" href="#solutions">
+                  Solutions
+                </Link>
+                <Link className="text-muted-foreground hover:text-primary transition-colors" href="#contact">
+                  Contact
+                </Link>
+              </nav>
+              <div className="flex items-center space-x-4">
+                <ChangeThemeButton />
+                <Link href="/auth/login">
+                  <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/auth/register">
+                  <Button className="text-sm font-medium bg-primary hover:bg-primary/80  shadow-lg shadow-green-900/25">
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="flex md:hidden gap-2 items-center">
+              <ChangeThemeButton />
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-muted-foreground p-0 hover:text-primary" />
+                    <NavigationMenuContent className="flex flex-col justify-center items-center">
+                      <Link className="text-muted-foreground hover:text-primary transition-colors text-sm p-2" href="#about">
+                        About
+                      </Link>
+                      <Link className="text-muted-foreground hover:text-primary transition-colors text-sm p-2" href="#solutions">
+                        Solutions
+                      </Link>
+                      <Link className="text-muted-foreground hover:text-primary transition-colors text-sm p-2" href="#contact">
+                        Contact
+                      </Link>
+                      <Link href="/auth/login">
+                        <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent">
+                          Sign In
+                        </Button>
+                      </Link>
+                      <Link href="/auth/register">
+                        <Button className="text-sm font-medium bg-primary hover:bg-primary/80 shadow-lg shadow-green-900/25">
+                          Sign Up
+                        </Button>
+                      </Link>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
             </div>
           </>
         )}
