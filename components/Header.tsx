@@ -193,8 +193,9 @@ const Header = () => {
                 setSigningOut(true);
                 await createClient().auth.signOut();
                 router.push('/auth/login');
-                router.push('/')
+                router.push('/');
                 setSigningOut(false);
+                setConfirmSignout(false);
               }}
               className="px-16 w-40 py-6 bg-destructive hover:bg-destructive/80 border-destructive border-2"
             >
