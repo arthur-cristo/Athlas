@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "./ui/button"
-import { Ellipsis, Sparkles } from "lucide-react"
+import { Sparkles, X } from "lucide-react"
 import { useUser } from "@/app/UserContext"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from "./ui/navigation-menu"
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog"
 
 const ChangeThemeButton = () => {
   const { setTheme, resolvedTheme } = useTheme();
@@ -46,6 +47,8 @@ const Header = () => {
 
   const user = useUser();
   const router = useRouter();
+  const [confirmSignout, setConfirmSignout] = useState(false);
+  const [isSigningOut, setSigningOut] = useState(false);
 
   const { first_name, last_name } = user?.user_metadata || {}
 
@@ -61,11 +64,7 @@ const Header = () => {
             <div className="md:flex hidden items-center space-x-1">
               <ChangeThemeButton />
               <Button
-                onClick={async () => {
-                  await createClient().auth.signOut();
-                  router.push('/auth/login');
-                  router.push('/')
-                }}
+                onClick={() => setConfirmSignout(true)}
                 variant="ghost"
                 className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent"
               >
@@ -85,11 +84,7 @@ const Header = () => {
                     <NavigationMenuTrigger className="text-muted-foreground p-0 hover:text-primary" />
                     <NavigationMenuContent>
                       <Button
-                        onClick={async () => {
-                          await createClient().auth.signOut();
-                          router.push('/auth/login');
-                          router.push('/')
-                        }}
+                        onClick={() => setConfirmSignout(true)}
                         variant="ghost"
                         className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent"
                       >
@@ -173,6 +168,41 @@ const Header = () => {
       {user && (
         <h2 className="md:hidden flex justify-center text-xl py-3 font-medium text-center">{`Hello, ${first_name} ${last_name}!`}</h2>
       )}
+      <AlertDialog open={confirmSignout} onOpenChange={setConfirmSignout}>
+        <AlertDialogContent className=" border-none rounded-md  w-fit">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirm Sign Out</AlertDialogTitle>
+            <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={() => {
+              setConfirmSignout(false);
+            }} />
+            <AlertDialogDescription>
+              <p className="text-sm text-muted-foreground-400">Are you sure you want to sign out?</p>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className='flex gap-4 mt-4'>
+            <Button
+              onClick={() => setConfirmSignout(false)}
+              className="bg-muted border-muted-foreground/20 border-2 py-6 px-16 hover:bg-muted-foreground/20"
+              variant={'secondary'}
+            >
+              Cancel
+            </Button>
+            <Button
+              disabled={isSigningOut}
+              onClick={async () => {
+                setSigningOut(true);
+                await createClient().auth.signOut();
+                router.push('/auth/login');
+                router.push('/')
+                setSigningOut(false);
+              }}
+              className="px-16 w-40 py-6 bg-destructive hover:bg-destructive/80 border-destructive border-2"
+            >
+              {isSigningOut ? 'Signin Out...' : 'Sign Out'}
+            </Button>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
     </header>
   )
 }
