@@ -7,17 +7,18 @@ import { useRouter } from "next/navigation"
 
 interface PostFeedProps {
     reFetch: boolean;
-    setFetch: Dispatch<SetStateAction<boolean>>
+    setFetch: Dispatch<SetStateAction<boolean>>;
+    checkFollowing: boolean;
 }
 
-const PostsFeed = ({ reFetch, setFetch }: PostFeedProps) => {
+const PostsFeed = ({ reFetch, setFetch, checkFollowing }: PostFeedProps) => {
 
     const [posts, setPosts] = useState<PostType[]>([])
     const router = useRouter()
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const req = await fetch('/api/posts')
+            const req = checkFollowing ? await fetch('/api/posts/following') : await fetch('/api/posts')
             const postsData = await req.json()
             setPosts(postsData)
         }
