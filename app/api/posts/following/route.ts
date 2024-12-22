@@ -10,7 +10,6 @@ export async function GET(req: NextRequest) {
             .from('profile_follows')
             .select('following')
             .eq('follower', user.id);
-        console.log(following, followingError)
         if (followingError) return handleError(followingError.message, 500);
         const { data: posts, error } = await supabase
             .from("posts")

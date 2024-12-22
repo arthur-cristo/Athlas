@@ -102,7 +102,7 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
                                 control={form.control}
                                 name="images"
                                 render={() => (
-                                    <FormItem className="flex justify-start flex-col">
+                                    <FormItem >
                                         <FormControl>
                                             <>
                                                 <Label htmlFor='images' className='flex gap-2 items-center'>
