@@ -49,12 +49,12 @@ const PostDetailPage = ({ params }: { params: Params }) => {
             <main className="pt-32 md:pt-0">
                 {post && (
                     <>
-                        <Link href="/community" className="m-8">
-                            <Button className="mt-8 ml-3">
+                        <div className="m-8">
+                            <Button className="mt-2 ml-3" onClick={() => router.back()}>
                                 <ChevronLeft size={24} />
                                 Back
                             </Button>
-                        </Link>
+                        </div>
                         <PostDetail post={post} setFetch={setFetch} />
                         <CommentForm post={post} setFetch={setFetch} />
                         {post.id && <CommentsFeed comments={comments} setFetch={setFetch} />}
