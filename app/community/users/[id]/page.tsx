@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import EditProfileForm from "@/components/forms/EditProfile";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { handleFollow, FollowType } from "@/lib/actions/profile.actions";
+import { useRouter } from "next/navigation";
 
 const User = ({ params }: { params: { id: string } }) => {
 
@@ -20,86 +22,38 @@ const User = ({ params }: { params: { id: string } }) => {
     const [loading, setLoading] = useState(false);
     const [editProfile, setEditProfile] = useState(false);
     const user = useUser();
+    const router = useRouter();
 
     useEffect(() => {
 
         const fetchProfile = async () => {
-            const res = await fetch(`/api/users/search?id=${params.id}`)
-            const data = await res.json()
-            setProfile(data)
-
+            const res = await fetch(`/api/users/search?id=${params.id}`);
+            const data = await res.json();
+            setProfile(data);
         }
-        fetchProfile()
+        fetchProfile();
 
         const fetchPosts = async () => {
-            const res = await fetch(`/api/users/${params.id}/posts`)
-            const data = await res.json()
-
-            setPosts(data)
+            const res = await fetch(`/api/users/${params.id}/posts`);
+            const data = await res.json();
+            setPosts(data);
         }
-        fetchPosts()
+        fetchPosts();
 
-    }, [params.id, reFetch])
-
-    const handleFollow = async () => {
-        setLoading(true)
-        try {
-            const formData = new FormData();
-            formData.append('follower_id', user!.id);
-            const res = await fetch(`/api/users/${params.id}/follow`, {
-                method: 'POST',
-                body: formData
-            })
-
-            if (!res.ok) {
-                throw new Error('Failed to follow user')
-            }
-
-            setFetch(prev => !prev)
-
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    const handleUnfollow = async () => {
-        setLoading(true)
-        try {
-
-            const formData = new FormData();
-            formData.append('follower_id', user!.id);
-
-            const res = await fetch(`/api/users/${params.id}/follow`, {
-                method: 'DELETE',
-                body: formData,
-            })
-
-            if (!res.ok) {
-                throw new Error('Failed to unfollow user')
-            }
-
-            setFetch(prev => !prev)
-
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setLoading(false)
-        }
-    }
+    }, [params.id, reFetch]);
 
     return (
         <div className="min-h-screen pb-8">
             <Header />
             {profile && (
                 <div className="mt-4 mx-8 flex flex-col items-center pt-32 md:pt-0">
-                    <Link href="/community" className="my-2 ml-6 cursor-pointer absolute md:top-24 left-6 top-40">
-                        <Button >
+
+                    <div className="my-2 ml-6 cursor-pointer absolute md:top-24 left-0 top-40">
+                        <Button onClick={() => router.back()}>
                             <ChevronLeft size={24} />
-                            Back to Feed
+                            Back
                         </Button>
-                    </Link>
+                    </div>
                     {/* // User Card */}
                     <div className="w-full my-8 text-center md:w-[768px] md:mt-12 mt-24" >
                         <div className="flex gap-4 justify-center">
@@ -110,8 +64,12 @@ const User = ({ params }: { params: { id: string } }) => {
                             </div>
                         </div>
                         <div className="flex gap-8 justify-center my-4">
-                            <p className="text-muted-foreground"><span className="text-foreground font-bold">{profile.following}</span> Following</p>
-                            <p className="text-muted-foreground"><span className="text-foreground font-bold">{profile.followers}</span> Followers</p>
+                            <Link href={`${params.id}/following`}>
+                                <p className="text-muted-foreground hover:underline cursor-pointer decoration-foreground"><span className="text-foreground font-bold">{profile.following}</span> Following</p>
+                            </Link>
+                            <Link href={`${params.id}/followers`}>
+                                <p className="text-muted-foreground hover:underline cursor-pointer decoration-foreground"><span className="text-foreground font-bold">{profile.followers}</span> Followers</p>
+                            </Link>
                         </div>
                         <p className="px-4 text-wrap break-words">{profile.bio}</p>
 
@@ -121,12 +79,12 @@ const User = ({ params }: { params: { id: string } }) => {
                             </Button>
                         ) : (
                             <>
-                                {profile.profile_follows.some((follow) => follow.follower === user.id) ? (
-                                    <Button className="mt-4 bg-destructive hover:bg-destructive/80" onClick={handleUnfollow} disabled={loading}>
+                                {profile.followers_list.some(({ follower }) => follower.id === user.id) ? (
+                                    <Button className="mt-4 bg-destructive hover:bg-destructive/80" onClick={() => handleFollow(FollowType.UNFOLLOW, user.id, profile.id!, setLoading, setFetch)} disabled={loading}>
                                         Unfollow
                                     </Button>
                                 ) : (
-                                    <Button className="mt-4" onClick={handleFollow} disabled={loading}>
+                                    <Button className="mt-4" onClick={() => handleFollow(FollowType.FOLLOW, user.id, profile.id!, setLoading, setFetch)} disabled={loading}>
                                         Follow
                                     </Button>
                                 )}

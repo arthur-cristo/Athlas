@@ -17,6 +17,7 @@ export interface ProfileType {
     profile_picture: string
     following: number
     followers: number
-    profile_follows: { follower: string }[]
     random_key: string
+    following_list: { following: ProfileType }[]
+    followers_list: { follower: ProfileType }[]
 }

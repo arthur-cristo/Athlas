@@ -12,7 +12,21 @@ export async function GET(request: NextRequest) {
     const input = email || id || random_key || phone_number;
     const inputType = email ? 'email' : id ? 'id' : random_key ? 'random_key' : 'phone_number';
     if (!input) return NextResponse.json({ error: "No search input provided" }, { status: 400 });
-    const { data, error } = await supabase.from('profiles').select('*, profile_follows!profile_follows_following_fkey(follower)').eq(inputType, input).single();
+    const { data, error } = await supabase
+        .from('profiles')
+        .select(`
+            *,
+            following_list:profile_follows!profile_follows_follower_fkey(
+                following(*),
+                follow_time
+            ),
+            followers_list:profile_follows!profile_follows_following_fkey(
+                follower(*),
+                follow_time
+            )
+        `)
+        .eq(inputType, input)
+        .single();
     if (!data || error) return NextResponse.json({ error: "The user wasn't found" }, { status: 404 });
 
     return NextResponse.json(data);
