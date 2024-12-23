@@ -9,6 +9,8 @@ import { PostType } from "@/types/Post";
 import Post from "@/components/post/Post";
 import { Button } from "@/components/ui/button";
 import EditProfileForm from "@/components/forms/EditProfile";
+import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
 
 const User = ({ params }: { params: { id: string } }) => {
 
@@ -92,9 +94,14 @@ const User = ({ params }: { params: { id: string } }) => {
             <Header />
             {profile && (
                 <div className="mt-4 mx-8 flex flex-col items-center pt-32 md:pt-0">
-
+                    <Link href="/community" className="my-2 ml-6 cursor-pointer absolute md:top-24 left-6 top-40">
+                        <Button >
+                            <ChevronLeft size={24} />
+                            Back to Feed
+                        </Button>
+                    </Link>
                     {/* // User Card */}
-                    <div className="w-full my-8 text-center md:w-[768px]" >
+                    <div className="w-full my-8 text-center md:w-[768px] md:mt-12 mt-24" >
                         <div className="flex gap-4 justify-center">
                             <Image className="w-16 h-16 rounded-full" width={100} height={100} src={profile.profile_picture} alt={`${profile.first_name} ${profile.last_name}`} />
                             <div className="flex flex-col gap-2 text-left ">
