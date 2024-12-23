@@ -17,11 +17,9 @@ export async function POST(req: NextRequest) {
 
         const { data: postData, error: postError } = await supabase.from("posts").select("comments").eq("id", post_id).single();
         if (!postData) {
-            console.error("Post not found:", post_id);
             return NextResponse.json({ error: "Post not found" }, { status: 404 });
         }
         if (postError) {
-            console.error("Error fetching post:", postError);
             return NextResponse.json({ error: "Failed to fetch post" }, { status: 500 });
         }
 
@@ -38,7 +36,6 @@ export async function POST(req: NextRequest) {
             .single();
 
         if (commentError) {
-            console.error("Error inserting comment:", commentError);
             return NextResponse.json({ error: "Failed to insert comment" }, { status: 500 });
         }
 
@@ -48,7 +45,6 @@ export async function POST(req: NextRequest) {
             .eq("id", post_id);
 
         if (updatedPostError) {
-            console.error("Error updating post:", updatedPostError);
             return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
         }
 

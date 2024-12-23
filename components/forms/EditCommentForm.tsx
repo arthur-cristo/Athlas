@@ -48,7 +48,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
             });
             if (!res.ok) {
                 const body = await res.json();
-                console.error(body.error);
+                /* console.error(body.error); */
                 throw new Error(body.error || 'Failed to edit comment')
             }
             form.reset();

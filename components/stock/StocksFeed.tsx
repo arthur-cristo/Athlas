@@ -24,7 +24,7 @@ const StocksFeed = () => {
                 const result = await response.json();
                 setStocks(result.finance.result[0].quotes);
             } catch (error) {
-                console.error('Error fetching stock data:', error);
+                /* console.error('Error fetching stock data:', error); */
             }
         }
         fetchOptions();

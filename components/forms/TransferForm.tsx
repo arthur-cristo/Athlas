@@ -75,7 +75,7 @@ const TransferForm = () => {
 
                 setBalance(data.balance ?? 0);
             } catch (error) {
-                console.error('Failed to fetch balance:', error);
+                /* console.error('Failed to fetch balance:', error); */
             }
         };
 

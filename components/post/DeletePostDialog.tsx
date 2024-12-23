@@ -43,7 +43,7 @@ const DeletePostDialog = ({ post, comment, deleteDialog, setDeleteDialog, setFet
             (setFetch ? setFetch(prev => !prev) : router.push('/community'));
 
         } catch (error) {
-            console.error(error);
+            /* console.error(error); */
         } finally {
             setIsDeleting(false);
         }

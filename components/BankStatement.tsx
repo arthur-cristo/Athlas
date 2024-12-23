@@ -23,7 +23,7 @@ const BankStatement: React.FC<BankStatementProps> = ({ user }) => {
                 const data = await response.json();
                 setBankStatement(data);
             } catch (error) {
-                console.error("Failed to fetch bank statement:", error);
+                /* TODO */
             }
         };
 

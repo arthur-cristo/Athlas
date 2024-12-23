@@ -59,7 +59,7 @@ const StockDetail = ({ symbol }: { symbol: string }) => {
                 setXAxisDates(formattedChartData.map((data: { date: string; }) => data.date));
                 setIsChartUpdated(true);
             } catch (error) {
-                console.error('Error fetching stock data:', error);
+                /* console.error('Error fetching stock data:', error); */
             }
         }
         fetchOptions();

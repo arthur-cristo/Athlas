@@ -41,7 +41,7 @@ const DeleteCommentDialog = ({ comment, deleteDialog, setDeleteDialog, setFetch 
             setFetch(prev => !prev);
 
         } catch (error) {
-            console.error(error);
+            /* TODO */
         } finally {
             setIsDeleting(false);
         }

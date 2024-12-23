@@ -42,7 +42,7 @@ const Keys = () => {
                 setProfile(data);
                 setRandomKey(data.random_key);
             } catch (error) {
-                console.error("Failed to fetch profile:", error);
+                /* TODO */ 
             }
         };
 
@@ -56,7 +56,7 @@ const Keys = () => {
             const data = await response.json();
             setRandomKey(data.random_key);
         } catch (error) {
-            console.error("Failed to generate random key:", error);
+            /* TODO */
         } finally {
             setLoading(false);
         }

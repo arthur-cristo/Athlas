@@ -29,6 +29,5 @@ export async function GET(req: NextRequest) {
 }
 
 async function handleError(error: string, status: number) {
-    console.log(error);
     return NextResponse.json({ error }, { status });
 }
