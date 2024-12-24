@@ -145,7 +145,7 @@ const TransferForm = () => {
     return (
         <>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 text-left md:w-[768px] w-full">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 text-left md:w-[480px] w-full">
                     <FormField
                         control={form.control}
                         name="amount"

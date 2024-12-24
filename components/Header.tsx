@@ -38,7 +38,7 @@ const ChangeThemeButton = () => {
       ) : (
         <Sun className="h-8 w-8 transition-transform" />
       )}
-      <span className="sr-only">Toggle theme</span>
+      <span className="sr-only">Mudar tema</span>
     </Button>
   );
 };
@@ -68,7 +68,7 @@ const Header = () => {
                 variant="ghost"
                 className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent"
               >
-                Sign Out
+                Sair
               </Button>
               <Link href="/dashboard">
                 <Button className="text-sm font-medium bg-primary hover:bg-primary/80  shadow-lg shadow-green-900/25">
@@ -88,7 +88,7 @@ const Header = () => {
                         variant="ghost"
                         className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent"
                       >
-                        Sign Out
+                        Sair
                       </Button>
                       <Link href="/dashboard">
                         <NavigationMenuLink>
@@ -107,26 +107,26 @@ const Header = () => {
           <>
             <div className="hidden md:flex md:items-center">
               <nav className="hidden md:flex items-center space-x-8 absolute right-1/2 translate-x-1/2">
-                <Link className="text-muted-foreground hover:text-primary transition-colors" href="#about">
-                  About
+                <Link className="text-muted-foreground hover:text-primary transition-colors" href="/#about">
+                  Sobre
                 </Link>
-                <Link className="text-muted-foreground hover:text-primary transition-colors" href="#solutions">
-                  Solutions
+                <Link className="text-muted-foreground hover:text-primary transition-colors" href="/#solutions">
+                  Soluções
                 </Link>
-                <Link className="text-muted-foreground hover:text-primary transition-colors" href="#contact">
-                  Contact
+                <Link className="text-muted-foreground hover:text-primary transition-colors" href="/#contact">
+                  Contato
                 </Link>
               </nav>
               <div className="flex items-center space-x-4">
                 <ChangeThemeButton />
                 <Link href="/auth/login">
                   <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent">
-                    Sign In
+                    Fazer Login
                   </Button>
                 </Link>
                 <Link href="/auth/register">
                   <Button className="text-sm font-medium bg-primary hover:bg-primary/80  shadow-lg shadow-green-900/25">
-                    Sign Up
+                    Cadastre-se
                   </Button>
                 </Link>
               </div>
@@ -138,23 +138,23 @@ const Header = () => {
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="text-muted-foreground p-0 hover:text-primary" />
                     <NavigationMenuContent className="flex flex-col justify-center items-center">
-                      <Link className="text-muted-foreground hover:text-primary transition-colors text-sm p-2" href="#about">
-                        About
+                      <Link className="text-muted-foreground hover:text-primary transition-colors text-sm p-2" href="/#about">
+                        Sobre
                       </Link>
-                      <Link className="text-muted-foreground hover:text-primary transition-colors text-sm p-2" href="#solutions">
-                        Solutions
+                      <Link className="text-muted-foreground hover:text-primary transition-colors text-sm p-2" href="/#solutions">
+                        Soluções
                       </Link>
-                      <Link className="text-muted-foreground hover:text-primary transition-colors text-sm p-2" href="#contact">
-                        Contact
+                      <Link className="text-muted-foreground hover:text-primary transition-colors text-sm p-2" href="/#contact">
+                        Contatos
                       </Link>
                       <Link href="/auth/login">
                         <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-transparent">
-                          Sign In
+                          Fazer Login
                         </Button>
                       </Link>
                       <Link href="/auth/register">
                         <Button className="text-sm font-medium bg-primary hover:bg-primary/80 shadow-lg shadow-green-900/25">
-                          Sign Up
+                          Cadastre-se
                         </Button>
                       </Link>
                     </NavigationMenuContent>
@@ -171,12 +171,12 @@ const Header = () => {
       <AlertDialog open={confirmSignout} onOpenChange={setConfirmSignout}>
         <AlertDialogContent className=" border-none rounded-md  w-fit">
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Sign Out</AlertDialogTitle>
+            <AlertDialogTitle>Confirmar Saída</AlertDialogTitle>
             <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={() => {
               setConfirmSignout(false);
             }} />
             <AlertDialogDescription>
-              <p className="text-sm text-muted-foreground-400">Are you sure you want to sign out?</p>
+              <p className="text-sm text-muted-foreground-400">Você tem certeza que deseja sair?</p>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className='flex gap-4 mt-4'>
@@ -185,7 +185,7 @@ const Header = () => {
               className="bg-muted border-muted-foreground/20 border-2 py-6 px-16 hover:bg-muted-foreground/20"
               variant={'secondary'}
             >
-              Cancel
+              Cancelar
             </Button>
             <Button
               disabled={isSigningOut}
@@ -199,7 +199,7 @@ const Header = () => {
               }}
               className="px-16 w-40 py-6 bg-destructive hover:bg-destructive/80 border-destructive border-2"
             >
-              {isSigningOut ? 'Signin Out...' : 'Sign Out'}
+              Sair
             </Button>
           </div>
         </AlertDialogContent>

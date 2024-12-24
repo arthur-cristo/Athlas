@@ -115,7 +115,7 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
                                     className="px-12 bg-muted border-muted-foreground/20 border-2 hover:bg-muted-foreground/20 py-6  "
                                     variant={'secondary'}
                                 >
-                                    Cancel
+                                    Cancelar
                                 </Button>
                                 <Button
                                     type="submit"

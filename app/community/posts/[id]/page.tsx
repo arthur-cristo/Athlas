@@ -1,6 +1,6 @@
 'use client'
 
-import Header from "@/components/Header";
+
 import PostDetail from "@/components/post/PostDetail";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -45,7 +45,7 @@ const PostDetailPage = ({ params }: { params: Params }) => {
 
     return (
         <div className=" min-h-screen pb-10">
-            <Header />
+            
             <main className="pt-32 md:pt-0">
                 {post && (
                     <>

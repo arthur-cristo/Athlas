@@ -22,9 +22,9 @@ const DashboardNewsWindow = () => {
     }, [])
 
     return (
-        <aside className='md:m-0 md:mt-16 md:w-[30vw] p-8 md:fixed md:right-10'>
-            <h2 className="my-2 font-bold text-3xl mb-6 max-h-[500px]">Latest News</h2>
-            <ScrollArea className="md:h-[400px] pr-2 flex flex-col gap-6 bg-muted rounded-md">
+        <aside className='md:m-0 md:mt-16 md:w-[30vw] p-8 md:absolute md:right-10'>
+            <h2 className="my-2 font-bold text-3xl mb-6 max-h-[500px]">Últimas Notícias</h2>
+            <ScrollArea className="md:h-[300px] pr-2 flex flex-col gap-6 bg-muted rounded-md">
                 {news.length > 0 && (
                     news.map((n, index) => (
                         <div key={index} className='w-full h-full p-6 rounded-md flex flex-col gap-2 text-foreground'>

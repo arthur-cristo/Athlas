@@ -13,7 +13,7 @@ const DashboardOption = ({ label, Icon, link, disabled = false }: {
         disabled ? (
             <div className="flex flex-col justify-center items-center gap-2">
                 <Button disabled={disabled} className='w-16 h-16 bg-muted-foreground/10 dark:bg-muted md:bg-primary rounded-full flex justify-center items-center hover:bg-primary/80'>
-                    <Icon className='w-7 h-7 md:text-white' />
+                    <Icon className='w-7 h-7 md:text-white text-muted-foreground' />
                 </Button>
                 <Label className="text-base font-medium">{label}</Label>
             </div>

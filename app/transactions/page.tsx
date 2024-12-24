@@ -1,6 +1,5 @@
 import BalanceDisplay from '@/components/BalanceDisplay'
 import BankStatement from '@/components/BankStatement'
-import Header from '@/components/Header'
 import TransferOptions from '@/components/TransferOptions';
 import { createClient } from '@/lib/supabase/server';
 
@@ -10,7 +9,6 @@ export default async function Transactions() {
 
     return (
         <div className='text-center md:h-screen min-h-screen pb-8'>
-            <Header />
             <div className='md:flex md:items-center md:justify-center md:mt-16 my-10 pt-32 md:pt-0'>
                 <div>
                     <BalanceDisplay />

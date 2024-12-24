@@ -1,38 +1,30 @@
 import RegisterForm from "@/components/forms/RegisterForm"
 import Link from "next/link"
-import { Sparkles } from "lucide-react"
+import registerImage from "@/public/assets/images/register_image.jpg"
+import Header from "@/components/Header"
+import Image from "next/image"
 
 const Register = () => {
 
     return (
-
-        <div className='flex justify-center items-center'>
-            <div className='bg-register-gradient flex flex-col justify-center items-center md:h-screen w-screen'>
-                <header className="hidden md:flex fixed top-0 left-0 right-0 z-50">
-                    <div className="container mx-auto px-8 md:px-3 h-16 mt-2 flex items-center justify-between">
-                        <Link href="/" className="flex items-center space-x-2">
-                            <Sparkles className="h-6 w-6 text-primary" />
-                            <span className="font-bold text-xl">ATHLAS</span>
-                        </Link>
-                    </div>
-                </header>
-                <div className='bg-muted p-6 md:rounded-md flex flex-col gap-6 md:w-[568px] items-center justify-center w-screen'>
-                    <Link href="/" className="mt-5 flex items-center space-x-2 md:hidden top-10 pt-2 ">
-                        <Sparkles className="h-10 w-10 text-primary" />
-                        <span className="font-bold text-4xl gradient-text">ATHLAS</span>
-                    </Link>
-                    <h2 className="mt-5 text-2xl font-bold capitalize text-center ">Create your account</h2 >
+        <>
+            
+            <div className='flex flex-col md:flex-row justify-around md:mt-8'>
+                <div>
+                    <Image src={registerImage} alt="Register" className="hidden md:flex w-[600px] h-[460px] rounded-md object-cover shadow-2xl" />
+                </div>
+                <div className='shadow-2xl bg-muted p-6 md:rounded-md flex flex-col gap-6 md:h-[460px] md:w-[568px] items-center justify-center w-screen h-screen'>
+                    <h2 className="mb-2 text-2xl font-bold text-center w-2/3 md:w-1/2">Crie sua conta e comece a aprender</h2 >
                     <RegisterForm />
-                    <p className=" text-sm text-center">Alredy have an account?&nbsp;
-                        <Link href="/auth/login" className="text-primary font-bold">Login</Link>
-                    </p>
-                    <p className="mb-10 text-muted-foreground text-sm text-center">By creating an account, you agree to the&nbsp;
-                        <Link href="/terms-of-use" className=" underline">Terms of Use</Link>
+                    <p className="text-muted-foreground text-sm text-center">Ao criar uma conta, você concorda com os&nbsp;
+                        <Link href="/terms-of-use" className="underline">Termos de Uso</Link>
                         .</p>
-
+                    <p className="mb-5 text-center">Já tem uma conta?&nbsp;
+                        <Link href="/auth/login" className="underline text-primary font-bold">Faça Login</Link>
+                    </p>
                 </div>
             </div>
-        </div >
+        </ >
     )
 }
 

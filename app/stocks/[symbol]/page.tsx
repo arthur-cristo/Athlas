@@ -8,7 +8,7 @@ const page = ({ params }: { params: { symbol: string } }) => {
 
     return (
         <>
-            <Header />
+            
             <div className="mt-8">
                 <Link href="/stocks" className="ml-8">
                     <Button>

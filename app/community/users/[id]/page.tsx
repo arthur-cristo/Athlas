@@ -3,7 +3,7 @@
 import { ProfileType } from "@/types/Profile";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Header from "@/components/Header";
+
 import { useUser } from "@/app/UserContext";
 import { PostType } from "@/types/Post";
 import Post from "@/components/post/Post";
@@ -44,7 +44,7 @@ const User = ({ params }: { params: { id: string } }) => {
 
     return (
         <div className="min-h-screen pb-8">
-            <Header />
+            
             {profile && (
                 <div className="mt-4 mx-8 flex flex-col items-center pt-32 md:pt-0">
 

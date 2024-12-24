@@ -126,7 +126,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                                     className="px-12 py-6 bg-muted border-muted-foreground/20 border-2 hover:bg-muted-foreground/20"
                                     variant={'secondary'}
                                 >
-                                    Cancel
+                                    Cancelar
                                 </Button>
                                 <Button
                                     type="submit"

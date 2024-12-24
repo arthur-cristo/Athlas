@@ -27,7 +27,6 @@ const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const router = useRouter();
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -59,16 +58,14 @@ const LoginForm = () => {
                         name="email"
                         render={({ field }) => (
                             <FormItem className="w-full">
-                                <FormLabel className="text-muted-foreground">Email</FormLabel>
                                 <div className="bg-input flex items-center border-none  rounded-md">
                                     <MailIcon className="mx-2 h-6 w-6 text-muted-foreground" />
                                     <FormControl>
-                                        <Input type='email' placeholder='Email' {...field} className="border-none placeholder:text-dark_gray" />
+                                        <Input type='email' placeholder='Email' {...field} className="border-none placeholder:font-bold placeholder:text-dark_gray" />
                                     </FormControl>
                                 </div>
                                 <FormDescription>
                                 </FormDescription>
-                                <FormMessage />
                             </FormItem>
                         )}
                     />
@@ -77,10 +74,9 @@ const LoginForm = () => {
                         name="password"
                         render={({ field }) => (
                             <FormItem className="w-full">
-                                <FormLabel className="text-muted-foreground">Password</FormLabel>
                                 <div className="bg-input flex items-center border-none placeholder:text-muted-foreground rounded-md">
                                     <FormControl>
-                                        <Input type={showPassword ? 'true' : 'password'} placeholder='Password' {...field} className="border-none  placeholder:text-muted-foreground-400" />
+                                        <Input type={showPassword ? 'true' : 'password'} placeholder='Senha' {...field} className="border-none placeholder:font-bold placeholder:text-muted-foreground-400" />
                                     </FormControl>
                                     {showPassword ? (
                                         <EyeClosedIcon className="mx-2 h-6 w-6 text-muted-foreground cursor-pointer" onClick={() => setShowPassword(false)} />
@@ -90,11 +86,10 @@ const LoginForm = () => {
                                 </div>
                                 <FormDescription>
                                 </FormDescription>
-                                <FormMessage />
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" disabled={isLoading} className="w-full">{isLoading ? 'Loading...' : 'Sign In'}</Button>
+                    <Button type="submit" disabled={isLoading} className="w-full">Fazer Login</Button>
                     {error && (
                         <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                     )}

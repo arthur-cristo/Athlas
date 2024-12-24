@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { UserProvider } from "./UserContext";
 import { Toaster } from "@/components/ui/toaster";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Athlas",
@@ -25,6 +26,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <UserProvider>
+            <Header />
             {children}
             <SpeedInsights />
             <Toaster />

@@ -3,7 +3,7 @@
 import { ProfileType } from "@/types/Profile";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Header from "@/components/Header";
+
 import { useUser } from "@/app/UserContext";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
@@ -44,7 +44,7 @@ const Followers = ({ params }: { params: { id: string } }) => {
 
     return (
         <div className="min-h-screen">
-            <Header />
+            
             {profile && user && (
                 <div className="mx-8 flex flex-col items-center justify-center pt-32 md:pt-0">
                     <div className="flex justify-center flex-col items-center w-full my-8 text-center md:w-[768px] md:mt-12 mt-24">

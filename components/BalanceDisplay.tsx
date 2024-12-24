@@ -40,17 +40,17 @@ const BalanceDisplay = () => {
     }, [user]);
 
     return (
-        <div className="md:p-8 md:w-[400px] md:mb-6 justify-center p-8 py-16">
-            <h2 className="text-xl font-medium text-muted-foreground">Your Balance</h2>
+        <div className="md:p-8 md:w-[400px] justify-center p-8 py-16">
+            <h2 className="text-xl font-medium text-muted-foreground">Seu Saldo</h2>
             {balance && (
                 <h1 className="font-bold text-4xl">
-                <span className="text-primary">$</span>
+                <span className="text-primary">A$</span>
                 {dollarFormat.format(balance).slice(1)}
             </h1>
             )}
             {pathName !== '/transactions' && (
                 <Link href='/transactions'>
-                    <h3 className="text-sm text-muted-foreground underline cursor-pointer mt-4">View Bank Statement</h3>
+                    <h3 className="text-sm text-muted-foreground hover:underline decoration-foreground cursor-pointer mt-4">Ver Extrato Bancário</h3>
                 </Link>
             )}
 

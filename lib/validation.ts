@@ -3,29 +3,29 @@ import { z } from 'zod'
 export const registerSchema = z.object({
     firstName: z
         .string()
-        .min(2, "First name must be at least 2 characters.")
-        .max(50, "First name must be at most 50 characters."),
+        .min(2, "O nome deve ter pelo menos 2 caracteres.")
+        .max(50, "O nome deve ter no máximo 50 caracteres."),
     lastName: z
         .string()
-        .min(2, "Last name must be at least 2 characters.")
-        .max(50, "Last name must be at most 50 characters."),
-    email: z.string().email('Invalid email address.'),
+        .min(2, "O sobrenome deve ter pelo menos 2 caracteres.")
+        .max(50, "O sobrenome deve ter no máximo 50 caracteres."),
+    email: z.string().email('Endereço de e-mail inválido.'),
     phoneNumber: z
         .string()
-        .refine((phone) => /^\+\d{10,15}$/.test(phone), "Invalid phone number"),
+        .refine((phone) => /^\+\d{10,15}$/.test(phone), "Número de telefone inválido"),
     password: z
         .string()
-        .min(8, "Password must be at least 8 characters")
-        .max(50, "Password must be at most 50 characters")
+        .min(8, "A senha deve ter pelo menos 8 caracteres")
+        .max(50, "A senha deve ter no máximo 50 caracteres")
         .regex(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/,
-            "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"),
+            "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial"),
     confirmPassword: z
         .string()
-        .min(1, "Please, confirm your password.")
-        .max(50, "Password must be at most 50 characters."),
+        .min(1, "Por favor, confirme sua senha.")
+        .max(50, "A senha deve ter no máximo 50 caracteres."),
 }).refine(({ password, confirmPassword }) => password === confirmPassword, {
-    message: "Password doesn't match.",
+    message: "As senhas não coincidem.",
     path: ["confirmPassword"]
 });
 

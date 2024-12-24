@@ -74,7 +74,7 @@ const RegisterForm = () => {
         }
     }
 
-    const values = ['First Name', 'Last Name', 'Email', 'Phone Number', 'Password', 'Confirm Password']
+    const values = ['Nome', 'Sobrenome', 'Email', 'Telefone', 'Senha', 'Confirme sua Senha']
 
     return (
         <div className="w-full">
@@ -86,13 +86,11 @@ const RegisterForm = () => {
                             name="firstName"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-muted-foreground">{values[0]}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder={values[0]} {...field} className="bg-input border-none  placeholder:text-muted-foreground" />
+                                        <Input placeholder={values[0]} {...field} className="bg-input border-none placeholder:font-bold placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
-                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
@@ -101,13 +99,11 @@ const RegisterForm = () => {
                             name="lastName"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-muted-foreground">{values[1]}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder={values[1]} {...field} className="bg-input border-none  placeholder:text-muted-foreground" />
+                                        <Input placeholder={values[1]} {...field} className="bg-input placeholder:font-bold border-none  placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
-                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
@@ -118,16 +114,14 @@ const RegisterForm = () => {
                             name="email"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-muted-foreground">{values[2]}</FormLabel>
                                     <div className="bg-input flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                                         <MailIcon className="mx-2 h-6 w-6 text-muted-foreground-300" />
                                         <FormControl>
-                                            <Input type='email' placeholder={values[2]} {...field} className="border-none placeholder:text-muted-foreground" />
+                                            <Input type='email' placeholder={values[2]} {...field} className="border-none placeholder:font-bold placeholder:text-muted-foreground" />
                                         </FormControl>
                                     </div>
                                     <FormDescription>
                                     </FormDescription>
-                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
@@ -136,11 +130,10 @@ const RegisterForm = () => {
                             name="phoneNumber"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-muted-foreground">{values[3]}</FormLabel>
                                     <FormControl>
                                         <PhoneInput
-                                            defaultCountry="US"
-                                            placeholder='+1 (702) 123-4567'
+                                            defaultCountry="BR"
+                                            placeholder='Phone Number'
                                             international
                                             value={field.value}
                                             onChange={field.onChange}
@@ -149,7 +142,6 @@ const RegisterForm = () => {
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
-                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
@@ -160,10 +152,9 @@ const RegisterForm = () => {
                             name="password"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-muted-foreground">{values[4]}</FormLabel>
                                     <div className="bg-input flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                                         <FormControl>
-                                            <Input type={showPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="bg-input border-none  placeholder:text-muted-foreground" />
+                                            <Input type={showPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="bg-input placeholder:font-bold border-none  placeholder:text-muted-foreground" />
                                         </FormControl>
                                         {showPassword ? (
                                             <EyeClosedIcon className="mx-2 h-6 w-6 text-muted-foreground-300 cursor-pointer" onClick={() => setShowPassword(false)} />
@@ -173,7 +164,6 @@ const RegisterForm = () => {
                                     </div>
                                     <FormDescription>
                                     </FormDescription>
-                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
@@ -182,10 +172,9 @@ const RegisterForm = () => {
                             name="confirmPassword"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel className="text-muted-foreground">{values[5]}</FormLabel>
                                     <div className="bg-input flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                                         <FormControl>
-                                            <Input type={showConfirmPassword ? 'true' : 'password'} placeholder={values[4]} {...field} className="bg-input border-none  placeholder:text-muted-foreground" />
+                                            <Input type={showConfirmPassword ? 'true' : 'password'} placeholder={values[5]} {...field} className="bg-input placeholder:font-bold border-none  placeholder:text-muted-foreground" />
                                         </FormControl>
                                         {showConfirmPassword ? (
                                             <EyeClosedIcon className="mx-2 h-6 w-6 text-muted-foreground-300 cursor-pointer" onClick={() => setShowConfirmPassword(false)} />
@@ -195,12 +184,11 @@ const RegisterForm = () => {
                                     </div>
                                     <FormDescription>
                                     </FormDescription>
-                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
                     </div>
-                    <Button type="submit" disabled={isLoading} className="w-full">{isLoading ? 'Loading...' : 'Sign Up'}</Button>
+                    <Button type="submit" disabled={isLoading || !form.formState.isValid} className="w-full">Cadastre-se</Button>
                     {error && (
                         <Label className="text-destructive font-bold text-sm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                     )}
@@ -209,11 +197,11 @@ const RegisterForm = () => {
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Check your email</AlertDialogTitle>
+                        <AlertDialogTitle>Cheque seu Email</AlertDialogTitle>
                         <AlertDialogDescription className="space-y-3 text-muted-foreground">
-                            <p>We've sent a confirmation email to:</p>
+                            <p>Enviamos um email para:</p>
                             <p className="font-medium text-primary">{registeredEmail}</p>
-                            <p>Please check your email and click the confirmation link to complete your registration.</p>
+                            <p>Por favor, verifique seu e-mail e clique no link de confirmação para concluir seu cadastro.</p>
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <Button
@@ -223,7 +211,7 @@ const RegisterForm = () => {
                         }}
                         className="w-full"
                     >
-                        Go to Login
+                        Fazer Login
                     </Button>
                 </AlertDialogContent>
             </AlertDialog>

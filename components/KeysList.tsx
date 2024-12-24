@@ -71,15 +71,15 @@ const Keys = () => {
             </div>
             <div className="bg-input flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                 <Phone className="mx-2 h-6 w-6 text-muted-foreground" />
-                <Input placeholder='Phone Number' className="border-none placeholder:text-muted-foreground focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.phone_number} />
+                <Input placeholder='Telefone' className="border-none placeholder:text-muted-foreground focus-visible:ring-0 cursor-default" readOnly={true} value={profile?.phone_number} />
                 {profile && (<CopyButton type='Phone Number' value={profile.phone_number} />)}
             </div>
             <div className="bg-input flex items-center border-none  placeholder:text-muted-foreground rounded-md">
                 <Shuffle className="mx-2 h-6 w-6 text-muted-foreground" />
-                <Input placeholder='Random Key' className="border-none placeholder:text-muted-foreground focus-visible:ring-0 cursor-default" readOnly={true} value={randomKey || ''} />
+                <Input placeholder='Chave Aleatória' className="border-none placeholder:text-muted-foreground focus-visible:ring-0 cursor-default" readOnly={true} value={randomKey || ''} />
                 {profile && randomKey && (<CopyButton type='Random Key' value={randomKey} />)}
             </div>
-            <Button onClick={handleGenerateRandomKey} disabled={loading}>Generate New Random Key</Button>
+            <Button onClick={handleGenerateRandomKey} disabled={loading}>Gerar Nova Chave Aleatória</Button>
         </div>
     )
 }

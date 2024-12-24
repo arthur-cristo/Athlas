@@ -34,8 +34,8 @@ const BankStatement: React.FC<BankStatementProps> = ({ user }) => {
     }, [user]);
 
     return (
-        <div className="m-8 flex flex-col items-center justify-center md:fixed md:right-10 md:top-8 md:max-h-[480px]">
-            <h1 className="font-bold text-2xl mt-10 text-left mb-4">History</h1>
+        <div className="m-8 flex flex-col items-center justify-center md:fixed md:right-24 md:top-16 md:max-h-[480px]">
+            <h1 className="font-bold text-2xl mt-10 text-left mb-4">Histórico</h1>
             <ScrollArea className="flex flex-col">
                 <ScrollBar />
                 {!bankStatement ? (

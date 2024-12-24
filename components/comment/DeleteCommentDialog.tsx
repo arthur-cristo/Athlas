@@ -65,7 +65,7 @@ const DeleteCommentDialog = ({ comment, deleteDialog, setDeleteDialog, setFetch 
                         className="bg-muted border-muted-foreground/20 border-2 py-6 px-16 hover:bg-muted-foreground/20"
                         variant={'secondary'}
                     >
-                        Cancel
+                        Cancelar
                     </Button>
                     <Button
                         disabled={isDeleting}

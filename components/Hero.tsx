@@ -12,9 +12,9 @@ const Hero = () => {
   const user = useUser();
 
   const features = [
-    "User-Friendly Interface",
-    "Real-Time Trading",
-    "No Risk, Only Growth"
+    "Conhecimento Acessível",
+    "Interface Amigável",
+    "Sem Risco, Apenas Crescimento"
   ];
 
   return (
@@ -23,11 +23,11 @@ const Hero = () => {
         <div className="flex-1 space-y-8">
 
           <h1 className="capitalize text-5xl md:text-6xl font-bold leading-tight text-center md:text-left">
-            Control your <span className="text-primary">finances</span> like never before
+            Aprenda <span className="text-primary">finanças</span> como nunca
           </h1>
 
           <p className="text-lg text-muted-foreground max-w-[600px] text-justify">
-            With Athlas, you can easily create a user account, make instant transactions, and explore the world of trading—all without real money. Athlas empowers you to learn by doing, in a safe and risk-free environment.
+            Com Athlas, você consegue facilmente criar a sua conta e entrar no mundo dos negócios. Com ele você poderá fazer transações de forma rápida e simples com outros usuários, interagir em um fórum dinâmico, e, aprender com outros usuários em uma plataforma de estudos, tudo sem dinheiro real. Athlas apoia aprender fazendo, em um ambiente seguro e sem riscos.
           </p>
 
           <div className="space-y-4">
@@ -48,7 +48,7 @@ const Hero = () => {
                     size="lg"
                     className="group bg-primary hover:bg-primary/80  shadow-lg shadow-green-900/25"
                   >
-                    Get Started
+                    Crie Sua Conta
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
@@ -68,14 +68,14 @@ const Hero = () => {
 
         <div className="flex-1 relative z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent rounded-3xl -rotate-6 scale-95 w-full max-w-1/2 blur-2xl" />
-            <Image
-              src={heroImage}
-              alt="Financial dashboard"
-              placeholder="blur"
-              width={600}
-              height={400}
-              className="rounded-3xl shadow-2xl"
-            />
+          <Image
+            src={heroImage}
+            alt="Financial dashboard"
+            placeholder="blur"
+            width={600}
+            height={400}
+            className="rounded-3xl shadow-2xl"
+          />
         </div>
       </div >
     </main >
