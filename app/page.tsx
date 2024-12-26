@@ -41,8 +41,7 @@ export default async function Home() {
   ];
 
   return (
-    <div className="overflow-hidden">
-      
+    <>
       <Hero />
       <section id="about" className="py-16">
         <div className="container mx-auto text-center space-y-8 justify-center">
@@ -94,6 +93,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
