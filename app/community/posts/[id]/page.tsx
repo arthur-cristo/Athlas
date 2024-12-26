@@ -48,12 +48,10 @@ const PostDetailPage = ({ params }: { params: Params }) => {
             <main className="pt-16 md:pt-0">
                 {post && (
                     <>
-                        <div className="m-8">
-                            <Button className="mt-2 ml-3" onClick={() => router.back()}>
-                                <ChevronLeft size={24} />
-                                Voltar
-                            </Button>
-                        </div>
+                        <Button onClick={() => router.back()} className="w-fit absolute top-28 left-8">
+                            <ChevronLeft size={24} />
+                            Voltar
+                        </Button>
                         <PostDetail post={post} setFetch={setFetch} />
                         <CommentForm post={post} setFetch={setFetch} />
                         {post.id && <CommentsFeed comments={comments} setFetch={setFetch} />}

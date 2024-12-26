@@ -80,7 +80,7 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                             render={({ field }) => (
                                 <FormItem className="flex justify-start flex-col ">
                                     <FormControl>
-                                        <Textarea placeholder='Bio' {...field} maxLength={50} className="mt-2 bg-input w-full border-none placeholder:text-muted-foreground placeholder:font-bold" />
+                                        <Textarea placeholder='Bio' {...field} maxLength={50} className="mt-2 bg-input w-full border-none placeholder:text-muted-foreground" />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -129,9 +129,6 @@ const EditProfileForm = ({ profile, edit, setEdit, setFetch }: EditProfileProps)
                                 Editar
                             </Button>
                         </div>
-                        {error && (
-                            <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
-                        )}
                     </form>
                 </Form>
             </AlertDialogContent>

@@ -18,6 +18,7 @@ import {
 import { Button } from '../ui/button'
 import { useUser } from '@/app/UserContext'
 import { PostType } from '@/types/Post'
+import { Input } from '../ui/input'
 
 interface CommentFormProps {
     post: PostType;
@@ -62,24 +63,31 @@ const CommentForm = ({ post, comment_id, setFetch }: CommentFormProps) => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='rounded-md p-4 flex items-center bg-muted md:flex-row flex-col gap-4 bg-dark-gray mx-8'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='rounded-md flex items-center md:flex-row flex-col gap-4 bg-dark-gray mx-8'>
                 <FormField
                     control={form.control}
                     name="content"
                     render={({ field }) => (
                         <FormItem className="w-full">
-                            <FormControl>
-                                <Textarea placeholder='Escreva um comentário' {...field} maxLength={140} className="md:h-fit h-24 border-none bg-input placeholder:text-muted-foreground" />
+                            <FormControl className='md:hidden flex'>
+                                <Textarea
+                                    placeholder='Escreva um comentário'
+                                    {...field} maxLength={140}
+                                    className="md:h-fit h-24 border-none bg-input placeholder:text-muted-foreground" />
+                            </FormControl>
+                            <FormControl className='hidden md:flex'>
+                                <Input
+                                    placeholder='Escreva um comentário'
+                                    {...field}
+                                    maxLength={140}
+                                    className="py-6 rounded-full border-none bg-input placeholder:text-muted-foreground focus-visible:ring-0" />
                             </FormControl>
                             <FormDescription>
                             </FormDescription>
                         </FormItem>
                     )}
                 />
-                <Button type="submit" disabled={isLoading} className="md:w-fit w-full px-8 py-6 rounded-md text-xl font-medium border-2 border-primary">Comentar</Button>
-                {error && (
-                    <Label className="pt-4 text-destructive font-bold text-md text-center flex flex-col items-center justify-center capitalize">{error}</Label>
-                )}
+                <Button type="submit" disabled={isLoading || !form.formState.isValid} className="md:w-fit w-full px-8 py-6 rounded-full text-xl font-medium border-2 border-primary">Comentar</Button>
             </form>
         </Form>
     )

@@ -18,7 +18,7 @@ const Comment = ({ comment, setFetch }: { comment: CommentType, setFetch: Dispat
     const user = useUser();
 
     return (
-        <div className="p-4 rounded-md my-4 text-left w-full round">
+        <div className="mt-8 rounded-md my-4 text-left w-full">
             <div className="flex justify-between pb-2">
                 <Link href={`/community/users/${comment.user_id}`} className='flex gap-2 items-center'>
                     <Image className='rounded-full' src={comment.profiles.profile_picture} width={24} height={24} alt={comment.profiles.first_name + ' ' + comment.profiles.last_name} />

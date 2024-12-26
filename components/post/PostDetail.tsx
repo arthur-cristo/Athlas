@@ -24,7 +24,7 @@ const PostDetail = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<Set
     const user = useUser();
 
     return (
-        <div className='p-4 rounded-md mb-4 text-left mx-8 '>
+        <div className='pb-4 rounded-md mb-4 text-left mx-8 pt-28'>
             <div className="flex justify-between">
                 <div className='flex gap-2 items-center'>
                     <Link href={`/community/users/${post.profiles.email}`} className='flex gap-2 items-center'>
