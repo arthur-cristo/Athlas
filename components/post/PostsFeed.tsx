@@ -18,6 +18,7 @@ const PostsFeed = ({ reFetch, setFetch, checkFollowing }: PostFeedProps) => {
 
     useEffect(() => {
         const fetchPosts = async () => {
+            setPosts([])
             const req = checkFollowing ? await fetch('/api/posts/following') : await fetch('/api/posts')
             const postsData = await req.json()
             setPosts(postsData)
