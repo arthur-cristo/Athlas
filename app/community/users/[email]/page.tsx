@@ -3,7 +3,6 @@
 import { ProfileType } from "@/types/Profile";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
 import { useUser } from "@/app/UserContext";
 import { PostType } from "@/types/Post";
 import Post from "@/components/post/Post";
@@ -44,19 +43,15 @@ const User = ({ params }: { params: { email: string } }) => {
     }, [profile?.id, reFetch]);
 
     return (
-        <div className="min-h-screen pb-8">
-
+        <div className="">
             {profile && (
-                <div className="mt-4 mx-8 flex flex-col items-center pt-32 md:pt-0">
-
-                    <div className="my-2 ml-6 cursor-pointer absolute md:top-24 left-0 top-40">
-                        <Button onClick={() => router.back()}>
-                            <ChevronLeft size={24} />
-                            Voltar
-                        </Button>
-                    </div>
+                <div className="mt-28 mx-8 flex flex-col md:mt-8 justify-center items-center">
+                    <Button onClick={() => router.back()} className="w-fit absolute top-28 left-8">
+                        <ChevronLeft size={24} />
+                        Voltar
+                    </Button>
                     {/* // User Card */}
-                    <div className="w-full my-8 text-center md:w-[768px] md:mt-12 mt-24" >
+                    <div className="w-full my-8 text-center md:w-[768px] mt-16" >
                         <div className="flex gap-4 justify-center">
                             <Image className="w-16 h-16 rounded-full" width={100} height={100} src={profile.profile_picture} alt={`${profile.first_name} ${profile.last_name}`} />
                             <div className="flex flex-col gap-2 text-left ">
@@ -95,7 +90,7 @@ const User = ({ params }: { params: { email: string } }) => {
                     </div>
 
                     {/* // User posts */}
-                    <div className="md:w-[768px]">
+                    <div className="md:w-[768px] w-full">
                         {posts.length > 0 && (
                             posts.map((post) => (
                                 <Post key={post.id} post={post} setFetch={setFetch} />
