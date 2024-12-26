@@ -114,7 +114,6 @@ export const handleLike = async (likeType: LikeType, postType: PostCommentType, 
                     .delete()
                     .match({ comment_id: post.id, user_id: userId });
 
-                console.log(error)
                 if (error) return;
 
                 const { data, error: updateError } = await supabase
@@ -123,7 +122,6 @@ export const handleLike = async (likeType: LikeType, postType: PostCommentType, 
                     .eq('id', post.id)
                     .select('likes')
                     .single();
-                console.log(data, updateError)
                 if (updateError) return;
                 updatedItem = data.likes;
             }

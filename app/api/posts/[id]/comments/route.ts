@@ -50,7 +50,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ commentData }, { status: 200 });
 
     } catch (error) {
-        console.error(error);
         return NextResponse.json({ error }, { status: 500 });
     }
 }
