@@ -20,7 +20,7 @@ import {
     FormDescription,
     FormField,
     FormItem,
-        FormMessage,
+    FormMessage,
 } from "@/components/ui/form"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -36,6 +36,7 @@ import { Label } from "@/components/ui/label"
 import { useUser } from "@/app/UserContext"
 import { createClient } from "@/lib/supabase/client"
 import { dollarFormat } from "@/lib/utils"
+import { useRouter } from "next/navigation"
 
 const TransferForm = () => {
 
@@ -47,6 +48,7 @@ const TransferForm = () => {
     const user = useUser();
     const supabase = createClient();
     const [balance, setBalance] = useState<number | null>(null);
+    const router = useRouter();
 
     const form = useForm<z.infer<typeof transferSchema>>({
         resolver: zodResolver(transferSchema),
@@ -104,7 +106,7 @@ const TransferForm = () => {
     async function onSubmit(values: z.infer<typeof transferSchema>) {
 
         setIsLoading(true);
-        
+
         try {
             let query = '/api/users/search?';
             const { keyType, randomKey, email, phoneNumber } = values
@@ -151,10 +153,10 @@ const TransferForm = () => {
                         name="amount"
                         render={({ field }) => (
                             <FormItem className="space-y-2">
-                                <h1 className="text-3xl font-bold w-[60vw]">How much do you want to send?</h1>
-                                <p className="text-muted-foreground text-xl">Your balance: <span className="text-foreground font-medium">$ {balance && (dollarFormat.format(balance).slice(1))}</span></p>
+                                <h1 className="text-3xl font-bold w-[60vw]">Quanto você quer enviar?</h1>
+                                <p className="text-muted-foreground text-xl">Seu saldo: <span className="text-foreground font-medium">A$ {balance && (dollarFormat.format(balance).slice(1))}</span></p>
                                 <div className="flex bg-input items-center border-none placeholder:text-muted-foreground rounded-md">
-                                    <Label className='mx-2 text-muted-foreground'>$</Label>
+                                    <Label className='mx-2 text-muted-foreground'>A$</Label>
                                     <FormControl>
                                         <Input
                                             type='number'
@@ -182,7 +184,7 @@ const TransferForm = () => {
                         name="keyType"
                         render={({ field }) => (
                             <FormItem>
-                                <p className="text-muted-foreground text-md">What is the type of the receiver's key?</p>
+                                <p className="text-muted-foreground text-md">Qual é o tipo da chave?</p>
                                 <div className="flex bg-input items-center border-none placeholder:text-muted-foreground rounded-md">
                                     <KeyRound className="mx-2 h-6 w-6 text-muted-foreground" />
                                     <FormControl>
@@ -195,8 +197,8 @@ const TransferForm = () => {
                                             </SelectTrigger>
                                             <SelectContent className="w-fit border-none shadow-md">
                                                 <SelectItem value="email">Email</SelectItem>
-                                                <SelectItem value="phoneNumber">Phone Number</SelectItem>
-                                                <SelectItem value="randomKey">Random Key</SelectItem>
+                                                <SelectItem value="phoneNumber">Telefone</SelectItem>
+                                                <SelectItem value="randomKey">Chave Aleatória</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </FormControl>
@@ -212,11 +214,10 @@ const TransferForm = () => {
                             name="email"
                             render={({ field }) => (
                                 <FormItem>
-                                    <p className="text-muted-foreground text-md">Receiver's Email</p>
                                     <div className="flex items-center border-none bg-input placeholder:text-muted-foreground rounded-md">
                                         <MailIcon className="mx-2 h-6 w-6 text-muted-foreground" />
                                         <FormControl>
-                                            <Input type='email' placeholder='Receiver Email' {...field} className="border-none placeholder:text-muted-foreground" />
+                                            <Input type='email' placeholder='Email' {...field} className="border-none placeholder:text-muted-foreground" />
                                         </FormControl>
                                     </div>
                                     <FormDescription>
@@ -231,11 +232,10 @@ const TransferForm = () => {
                             name="randomKey"
                             render={({ field }) => (
                                 <FormItem>
-                                    <p className="text-muted-foreground text-md">Receiver's Random Key</p>
                                     <div className="flex items-center border-none bg-input placeholder:text-muted-foreground rounded-md">
                                         <Shuffle className="mx-2 h-6 w-6 text-muted-foreground" />
                                         <FormControl>
-                                            <Input type='text' placeholder="Receiver's Random Key" {...field} className="border-none placeholder:text-muted-foreground" />
+                                            <Input type='text' placeholder="Chave Aleatória" {...field} className="border-none placeholder:text-muted-foreground" />
                                         </FormControl>
                                     </div>
                                     <FormDescription>
@@ -250,11 +250,9 @@ const TransferForm = () => {
                             name="phoneNumber"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <p className="text-muted-foreground text-md">Receiver's Phone Number</p>
                                     <FormControl>
                                         <PhoneInput
-                                            defaultCountry="US"
-                                            placeholder='+1 (702) 123-4567'
+                                            defaultCountry="BR"
                                             international
                                             value={field.value}
                                             onChange={field.onChange}
@@ -268,38 +266,51 @@ const TransferForm = () => {
                             )}
                         />
                     )}
-                    <Button type="submit" disabled={isLoading} className="w-full">{isLoading ? 'Loading...' : 'Transfer'}</Button>
+                    <Button type="submit" disabled={isLoading || !form.formState.isValid} className="w-full">Transferir</Button>
                 </form>
             </Form>
             <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <AlertDialogContent className="bg-background border-none rounded-md w-4/5">
                     <AlertDialogHeader>
-                        <AlertDialogTitle className="text-center">Transaction Successful!</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={() => {
+                        <AlertDialogTitle className="text-center">Transação Bem-Sucedida!</AlertDialogTitle>
+                        <X size={20} className='absolute top-5 right-6 cursor-pointer text-muted-foreground' onClick={() => {
                             setIsDialogOpen(false);
                             form.reset();
                         }} />
                     </AlertDialogHeader>
                     <AlertDialogDescription className="space-y-3 text-muted-foreground-200 text-center">
-                        <p>You have transferred <span className="text-primary">${form.getValues("amount")}</span> to {receiverData?.first_name} {receiverData?.last_name} (<span className="text-primary">{receiverData?.email}</span>).</p>
-                        <p className="text-sm text-muted-foreground-400">Your balance may take a few seconds to update.</p>
+                        <p>Você transferiu <span className="text-primary">A$</span>{form.getValues("amount")} para {receiverData?.first_name} {receiverData?.last_name} ({receiverData?.email}).</p>
+                        <p className="text-sm text-muted-foreground-400">Seu saldo pode levar alguns segundos para atualizar.</p>
                     </AlertDialogDescription>
-                    <Button
-                        onClick={() => {
-                            setIsDialogOpen(false);
-                            form.reset();
-                        }}
-                        className="w-full mt-2"
-                    >
-                        Go Back
-                    </Button>
+                    <div className="flex justify-between gap-4">
+                        <Button
+                            variant={"secondary"}
+                            onClick={() => {
+                                setIsDialogOpen(false);
+                                form.reset();
+                                router.push('/transactions');
+                            }}
+                            className="w-full mt-2"
+                        >
+                            Voltar
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                setIsDialogOpen(false);
+                                form.reset();
+                            }}
+                            className="w-full mt-2"
+                        >
+                            Realizar outra transferência
+                        </Button>
+                    </div>
                 </AlertDialogContent>
             </AlertDialog>
             <AlertDialog open={showError} onOpenChange={setShowError}>
                 <AlertDialogContent className="border-none rounded-md w-4/5">
                     <AlertDialogHeader>
-                        <AlertDialogTitle className="text-center text-destructive">Transaction wasn't Successful.</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={() => {
+                        <AlertDialogTitle className="text-center text-destructive">A transação não foi bem-sucedida.</AlertDialogTitle>
+                        <X size={20} className='absolute top-5 right-6 cursor-pointer text-muted-foreground' onClick={() => {
                             setShowError(false);
                             form.reset();
                         }} />
@@ -315,7 +326,7 @@ const TransferForm = () => {
                         }}
                         className="mt-2 border-solid border-white bg-dark-gray hover:border-2 border-opacity-10 hover:bg-transparent"
                     >
-                        Go Back
+                        Voltar
                     </Button>
                 </AlertDialogContent>
             </AlertDialog>

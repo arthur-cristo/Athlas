@@ -34,12 +34,12 @@ const BankStatement: React.FC<BankStatementProps> = ({ user }) => {
     }, [user]);
 
     return (
-        <div className="m-8 flex flex-col items-center justify-center md:fixed md:right-24 md:top-16 md:max-h-[480px]">
+        <div className="m-8 flex flex-col items-center justify-center md:fixed md:right-12 md:top-10 md:max-h-[480px]">
             <h1 className="font-bold text-2xl mt-10 text-left mb-4">Histórico</h1>
             <ScrollArea className="flex flex-col">
                 <ScrollBar />
                 {!bankStatement ? (
-                    <p>Loading your transactions...</p>
+                    <p>Carregando...</p>
                 ) : bankStatement.length ? (
                     bankStatement.map((transaction: TransactionType) => (
                         <BankStatementTransaction
@@ -49,7 +49,7 @@ const BankStatement: React.FC<BankStatementProps> = ({ user }) => {
                         />
                     ))
                 ) : (
-                    <p>No transactions found.</p>
+                    <p>Nenhuma transação encontrada.</p>
                 )}
 
             </ScrollArea>
