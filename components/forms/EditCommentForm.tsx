@@ -48,7 +48,6 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
             });
             if (!res.ok) {
                 const body = await res.json();
-                /* console.error(body.error); */
                 throw new Error(body.error || 'Failed to edit comment')
             }
             form.reset();
@@ -72,8 +71,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
             <AlertDialog open={edit} onOpenChange={setEdit}>
                 <AlertDialogContent aria-describedby='edit-comment-description' className="max-w-[90vw] w-fit  border-none rounded-md py-8  flex flex-col items-center justify-center">
                     <AlertDialogHeader>
-                        <AlertDialogTitle className="text-center">Edit Comment</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={handleCancel} />
+                        <X size={20} className='absolute top-5 right-6 text-muted-foreground cursor-pointer m-0' onClick={handleCancel} />
                     </AlertDialogHeader>
                     <AlertDialogDescription id="edit-comment-description" className="hidden">Edit the comment content below.</AlertDialogDescription>
                     <Form {...form}>
@@ -83,9 +81,8 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                                 name="content"
                                 render={({ field }) => (
                                     <FormItem className="flex justify-start flex-col">
-                                        <FormLabel className="text-muted-foreground text-left">Content</FormLabel>
                                         <FormControl>
-                                            <Textarea placeholder='Write your thoughts here...' {...field} maxLength={140} className="h-36 w-full border-none  placeholder:text-muted-foreground" />
+                                            <Textarea placeholder='Write your thoughts here...' {...field} maxLength={140} className="bg-input mt-2 h-20 md:h-20 w-full border-none placeholder:text-muted-foreground" />
                                         </FormControl>
                                         <FormDescription>
                                         </FormDescription>
@@ -96,7 +93,7 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                             <div className='flex gap-4 mt-4'>
                                 <Button
                                     onClick={handleCancel}
-                                    className="bg-muted border-muted-foreground/20 border-2 py-6 px-16 hover:bg-muted-foreground/20"
+                                    className="bg-muted border-muted-foreground/20 border-2 py-6 px-12 hover:bg-muted-foreground/20"
                                     variant={'secondary'}
                                 >
                                     Cancelar
@@ -104,8 +101,8 @@ const EditPostForm = ({ comment, edit, setEdit, setFetch }: EditPostFormProps) =
                                 <Button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="px-12 w-48 py-6 rounded-md text-md font-medium border-2 border-primary">
-                                    {isLoading ? 'Loading...' : 'Edit'}
+                                    className="px-12 py-6 rounded-md text-md font-medium border-2 border-primary">
+                                    Editar
                                 </Button>
                             </div>
                             {error && (

@@ -50,7 +50,7 @@ const BalanceDisplay = () => {
             )}
             {pathName !== '/transactions' && (
                 <Link href='/transactions'>
-                    <h3 className="text-sm text-muted-foreground hover:underline decoration-foreground cursor-pointer mt-4">Ver Extrato Bancário</h3>
+                    <h3 className="text-sm text-muted-foreground underline decoration-foreground cursor-pointer mt-4">Ver Extrato Bancário</h3>
                 </Link>
             )}
 

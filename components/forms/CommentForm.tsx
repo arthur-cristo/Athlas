@@ -69,15 +69,14 @@ const CommentForm = ({ post, comment_id, setFetch }: CommentFormProps) => {
                     render={({ field }) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <Textarea placeholder='Write a comment' {...field} maxLength={140} className="md:h-fit h-28 border-none bg-input placeholder:text-muted-foreground" />
+                                <Textarea placeholder='Escreva um comentário' {...field} maxLength={140} className="md:h-fit h-24 border-none bg-input placeholder:text-muted-foreground" />
                             </FormControl>
                             <FormDescription>
                             </FormDescription>
-                            <FormMessage />
                         </FormItem>
                     )}
                 />
-                <Button type="submit" disabled={isLoading} className="md:w-fit w-full px-8 py-6 rounded-md text-xl font-medium border-2 border-primary">{isLoading ? 'Loading...' : 'Comment'}</Button>
+                <Button type="submit" disabled={isLoading} className="md:w-fit w-full px-8 py-6 rounded-md text-xl font-medium border-2 border-primary">Comentar</Button>
                 {error && (
                     <Label className="pt-4 text-destructive font-bold text-md text-center flex flex-col items-center justify-center capitalize">{error}</Label>
                 )}

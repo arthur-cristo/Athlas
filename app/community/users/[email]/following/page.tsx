@@ -8,10 +8,10 @@ import { useUser } from "@/app/UserContext";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { FollowType, handleFollow } from "@/lib/actions/profile.actions";
+import { FollowType, handleFollow } from "@/lib/actions/community.actions";
 import Link from "next/link";
 
-const Following = ({ params }: { params: { id: string } }) => {
+const Following = ({ params }: { params: { email: string } }) => {
 
     const [profile, setProfile] = useState<ProfileType | null>(null);
     const [userProfile, setUserProfile] = useState<ProfileType | null>(null);
@@ -22,7 +22,7 @@ const Following = ({ params }: { params: { id: string } }) => {
 
     useEffect(() => {
         const fetchProfile = async () => {
-            const res = await fetch(`/api/users/search?id=${params.id}`);
+            const res = await fetch(`/api/users/search?email=${params.email}`);
             const data = await res.json();
             if (data.followers_list) {
                 data.followers_list.sort((a: { follow_time: string | number | Date; }, b: { follow_time: string | number | Date; }) => new Date(b.follow_time).getTime() - new Date(a.follow_time).getTime());
@@ -40,18 +40,18 @@ const Following = ({ params }: { params: { id: string } }) => {
             fetchUserProfile();
         }
 
-    }, [params.id, user?.id, reFetch]);
+    }, [params.email, user?.id, reFetch]);
 
     return (
-        <div className="min-h-screen">
-            
+        <>
+
             {profile && user && (
                 <div className="mx-8 flex flex-col items-center justify-center pt-32 md:pt-0">
                     <div className="flex justify-center flex-col items-center w-full my-8 text-center md:w-[768px] md:mt-12 mt-24" >
                         <div className="my-2 cursor-pointer absolute md:top-24 left-6 top-40">
                             <Button className="mt-2 ml-3" onClick={() => router.back()}>
                                 <ChevronLeft size={24} />
-                                Back
+                                Voltar
                             </Button>
                         </div>
                         <Link href={`/community/users/${profile.id}`} className="flex gap-4 justify-center mt-8">
@@ -83,11 +83,11 @@ const Following = ({ params }: { params: { id: string } }) => {
                                             <>
                                                 {userProfile && userProfile.following_list.some(({ following: userFollowing }) => following.id === userFollowing.id) ? (
                                                     <Button className="bg-destructive hover:bg-destructive/80" onClick={() => handleFollow(FollowType.UNFOLLOW, user.id, following.id!, setLoading, setFetch)} disabled={isLoading}>
-                                                        Unfollow
+                                                        Deixar de Seguir
                                                     </Button>
                                                 ) : (
                                                     <Button onClick={() => handleFollow(FollowType.FOLLOW, user.id, following.id!, setLoading, setFetch)} disabled={isLoading}>
-                                                        Follow
+                                                        Seguir
                                                     </Button>
                                                 )}
                                             </>
@@ -99,7 +99,7 @@ const Following = ({ params }: { params: { id: string } }) => {
                     </div>
                 </div>
             )}
-        </div >
+        </ >
     )
 }
 

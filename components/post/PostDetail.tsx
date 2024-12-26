@@ -24,14 +24,17 @@ const PostDetail = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<Set
     const user = useUser();
 
     return (
-        <div className='p-4 rounded-md mb-4 mt-2 text-left mx-8 '>
+        <div className='p-4 rounded-md mb-4 text-left mx-8 '>
             <div className="flex justify-between">
-                <div className='flex gap-2 items-center mt-2'>
-                    {/* <Image className="w-6 h-6 rounded-full" width={16} height={16} src={userPfp} alt={post.user_name} /> */}
-                    <Link href={`/community/users/${post.user_id}`}><h3>{post.user_name}</h3></Link>
+                <div className='flex gap-2 items-center'>
+                    <Link href={`/community/users/${post.profiles.email}`} className='flex gap-2 items-center'>
+                        <Image className='rounded-full' src={post.profiles.profile_picture} width={32} height={32} alt={post.profiles.first_name + ' ' + post.profiles.last_name} />
+                        <h3 className='text-lg'>{post.profiles.first_name + ' ' + post.profiles.last_name}</h3>
+                    </Link>
                 </div>
                 <div className='flex items-center gap-2'>
-                    <p className="text-muted-foreground">{new Date(post.updated_at).toLocaleString()}</p>
+                    <p className="text-muted-foreground flex md:hidden">{new Date(post.updated_at).toLocaleDateString('pt-BR', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                    <p className="text-muted-foreground hidden md:flex">{new Date(post.updated_at).toLocaleDateString('pt-BR', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
                     {user?.id === post.user_id &&
                         <DropdownMenu modal={false}>
                             <DropdownMenuTrigger>
@@ -41,12 +44,12 @@ const PostDetail = ({ post, setFetch }: { post: PostType, setFetch: Dispatch<Set
                                 <DropdownMenuItem
                                     onClick={() => setEdit(true)}
                                     className='focus:bg-muted-foreground focus:text-muted'>
-                                    Edit
+                                    Editar
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     className='text-destructive focus:bg-destructive'
                                     onClick={() => setDeleteDialog(true)}>
-                                    Delete
+                                    Apagar
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

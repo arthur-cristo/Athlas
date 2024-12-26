@@ -8,7 +8,7 @@ const CommunityFeed = () => {
     const [fetch, setFetch] = useState(false)
     const [checkFollowing, setCheckFollowing] = useState(false)
     return (
-        <div className="md:w-[768px] w-screen mx-auto h-full p-2 rounded-md pb-8 md:pb-0 md:pt-0 pt-36">
+        <div className="md:w-[768px] mx-auto p-2 rounded-md pb-4 md:pb-0 md:pt-0 pt-20">
             <PostForm setFetch={setFetch} />
             <div className='flex justify-around items-center mt-4'>
                 {checkFollowing ? (
@@ -16,16 +16,16 @@ const CommunityFeed = () => {
                         <h2 className="w-32 text-md text-muted-foreground cursor-pointer" onClick={() => {
                             setCheckFollowing(false)
                             setFetch(!fetch)
-                        }}>Community Feed</h2>
-                        <h2 className="w-32 text-md font-bold">Following Feed</h2>
+                        }}>Para Você</h2>
+                        <h2 className="w-32 text-md font-bold">Seguindo</h2>
                     </>
                 ) : (
                     <>
-                        <h2 className="w-32 text-md font-bold">Community Feed</h2>
+                        <h2 className="w-32 text-md font-bold">Para Você</h2>
                         <h2 className="w-32 text-md text-muted-foreground cursor-pointer" onClick={() => {
                             setCheckFollowing(true)
                             setFetch(!fetch)
-                        }}>Following Feed</h2>
+                        }}>Seguindo</h2>
                     </>
                 )}
             </div>

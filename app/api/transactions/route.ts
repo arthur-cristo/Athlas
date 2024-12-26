@@ -46,7 +46,6 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({ message: 'Transaction successful' }, { status: 200 });
     } catch (error) {
-        console.error("Unexpected error:", error);
         return NextResponse.json({ error: "An unexpected error occurred" }, { status: 500 });
     }
 }

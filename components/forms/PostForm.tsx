@@ -65,76 +65,71 @@ const PostForm = ({ setFetch }: { setFetch: Dispatch<SetStateAction<boolean>> })
 
     return (
         <div className='rounded-md p-4 flex flex-col gap-2 py-2'>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
+                    <FormField
+                        control={form.control}
+                        name="title"
+                        render={({ field }) => (
+                            <FormItem className="flex justify-start flex-col">
+                                <FormControl>
+                                    <Input placeholder='O que você está pensando?' {...field} maxLength={50} className="bg-input border-none placeholder:text-muted-foreground" />
+                                </FormControl>
+                                <FormDescription>
+                                </FormDescription>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="content"
+                        render={({ field }) => (
+                            <FormItem className="flex justify-start flex-col">
+                                <FormControl>
+                                    <Textarea placeholder='Escreva seus pensamentos aqui...' {...field} maxLength={280} className="bg-input md:h-20 h-36 border-none placeholder:text-muted-foreground" />
+                                </FormControl>
+                                <FormDescription>
+                                </FormDescription>
+                            </FormItem>
+                        )}
+                    />
+                    <div className='flex justify-between items-center'>
                         <FormField
                             control={form.control}
-                            name="title"
-                            render={({ field }) => (
-                                <FormItem className="flex justify-start flex-col">
-                                    {/* <FormLabel className="text-muted-foreground text-left">Title</FormLabel> */}
+                            name="images"
+                            render={() => (
+                                <FormItem >
                                     <FormControl>
-                                        <Input placeholder='What are you thinking?' {...field} maxLength={50} className="bg-input border-none placeholder:text-muted-foreground" />
-                                    </FormControl>
-                                    <FormDescription>
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="content"
-                            render={({ field }) => (
-                                <FormItem className="flex justify-start flex-col">
-                                    {/* <FormLabel className="text-muted-foreground text-left">Content</FormLabel> */}
-                                    <FormControl>
-                                        <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="bg-input md:h-20 h-36 border-none placeholder:text-muted-foreground" />
-                                    </FormControl>
-                                    <FormDescription>
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <div className='flex justify-between items-center'>
-                            <FormField
-                                control={form.control}
-                                name="images"
-                                render={() => (
-                                    <FormItem >
-                                        <FormControl>
-                                            <>
-                                                <Label htmlFor='images' className='flex gap-2 items-center'>
-                                                    <div className='p-2 rounded-full hover:bg-muted/80 cursor-pointer transition duration-300'>
-                                                        <Images className="h-7 w-7 text-primary" />
-                                                    </div>
-                                                    <h3 className='text-xl'>{form.watch('images')?.length || 0}</h3>
-                                                </Label>
-                                                <Input
-                                                    id='images'
-                                                    type='file'
-                                                    multiple
-                                                    accept='image/*'
-                                                    {...fileRef}
-                                                    className="hidden-input"
-                                                />
+                                        <>
+                                            <Label htmlFor='images' className='flex gap-2 items-center'>
+                                                <div className='p-2 rounded-full hover:bg-muted/80 cursor-pointer transition duration-300'>
+                                                    <Images className="h-7 w-7 text-primary" />
+                                                </div>
+                                                <h3 className='text-xl'>{form.watch('images')?.length || 0}</h3>
+                                            </Label>
+                                            <Input
+                                                id='images'
+                                                type='file'
+                                                multiple
+                                                accept='image/*'
+                                                {...fileRef}
+                                                className="hidden-input"
+                                            />
 
-                                            </>
-                                        </FormControl>
-                                        <FormDescription>
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <Button type="submit" disabled={isLoading} className="px-6 py-4 rounded-full text-xl font-medium">{isLoading ? 'Loading...' : 'Post'}</Button>
-                            {error && (
-                                <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+                                        </>
+                                    </FormControl>
+                                    <FormDescription>
+                                    </FormDescription>
+                                </FormItem>
                             )}
-                        </div>
-                    </form>
-                </Form>
+                        />
+                        <Button type="submit" disabled={isLoading || !form.formState.isValid} className="px-6 py-4 rounded-full text-xl font-medium">Postar</Button>
+                        {error && (
+                            <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+                        )}
+                    </div>
+                </form>
+            </Form>
         </div >
     )
 }

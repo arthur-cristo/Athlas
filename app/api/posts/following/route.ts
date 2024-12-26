@@ -15,6 +15,7 @@ export async function GET(req: NextRequest) {
             .from("posts")
             .select(`
                 *,
+                profiles (*),
                 posts_pictures (image_url),
                 posts_likes (user_id)
               `)

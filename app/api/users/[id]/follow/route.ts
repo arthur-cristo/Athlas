@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
     const { error } = await supabase.rpc('follow_profile', ({ following_id, follower_id }));
 
     if (error) {
-        console.error("Error following profile:", error);
         return NextResponse.json({ error: "Failed to follow profile" }, { status: 500 });
     }
 
@@ -31,7 +30,6 @@ export async function DELETE(req: NextRequest) {
     const { error } = await supabase.rpc('unfollow_profile', ({ following_id, follower_id }));
 
     if (error) {
-        console.error("Error following profile:", error);
         return NextResponse.json({ error: "Failed to unfollow profile" }, { status: 500 });
     }
 

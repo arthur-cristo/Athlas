@@ -8,10 +8,10 @@ import { useUser } from "@/app/UserContext";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { FollowType, handleFollow } from "@/lib/actions/profile.actions";
+import { FollowType, handleFollow } from "@/lib/actions/community.actions";
 import Link from "next/link";
 
-const Followers = ({ params }: { params: { id: string } }) => {
+const Followers = ({ params }: { params: { email: string } }) => {
 
     const [profile, setProfile] = useState<ProfileType | null>(null);
     const [userProfile, setUserProfile] = useState<ProfileType | null>(null);
@@ -22,7 +22,7 @@ const Followers = ({ params }: { params: { id: string } }) => {
 
     useEffect(() => {
         const fetchProfile = async () => {
-            const res = await fetch(`/api/users/search?id=${params.id}`);
+            const res = await fetch(`/api/users/search?email=${params.email}`);
             const data = await res.json();
             if (data.followers_list) {
                 data.followers_list.sort((a: { follow_time: string | number | Date; }, b: { follow_time: string | number | Date; }) => new Date(b.follow_time).getTime() - new Date(a.follow_time).getTime());
@@ -40,11 +40,10 @@ const Followers = ({ params }: { params: { id: string } }) => {
             fetchUserProfile();
         }
 
-    }, [params.id, user?.id, reFetch]);
+    }, [params.email, user?.id, reFetch]);
 
     return (
-        <div className="min-h-screen">
-            
+        <>
             {profile && user && (
                 <div className="mx-8 flex flex-col items-center justify-center pt-32 md:pt-0">
                     <div className="flex justify-center flex-col items-center w-full my-8 text-center md:w-[768px] md:mt-12 mt-24">
@@ -99,7 +98,7 @@ const Followers = ({ params }: { params: { id: string } }) => {
                     </div>
                 </div>
             )}
-        </div >
+        </ >
     );
 }
 

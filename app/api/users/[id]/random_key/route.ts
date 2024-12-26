@@ -14,7 +14,6 @@ export async function PATCH(req: NextRequest) {
         if (error) return NextResponse.json({ error: "Failed to generate a new random key", description: error }, { status: 500 });
         return NextResponse.json(data, { status: 200 });
     } catch (error) {
-        console.error("Error generating a new random random key:", error);
         return NextResponse.json({ error: "Failed to generate a new random key", description: error }, { status: 500 });
     }
 }

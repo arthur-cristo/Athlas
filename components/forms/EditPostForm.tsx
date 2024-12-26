@@ -68,70 +68,64 @@ const EditPostForm = ({ post, edit, setEdit, setFetch }: EditPostFormProps) => {
     };
 
     return (
-        <div>
-
-            <AlertDialog open={edit} onOpenChange={setEdit}>
-                <AlertDialogContent aria-describedby='edit-post-description' className="max-w-[90vw] w-fit border-none rounded-md py-8  flex flex-col items-center justify-center">
-                    <AlertDialogHeader>
-                        <AlertDialogTitle className="text-center">Edit Post</AlertDialogTitle>
-                        <X size={20} className='absolute top-3 right-4 cursor-pointer m-0' onClick={handleCancel} />
-                    </AlertDialogHeader>
-                    <AlertDialogDescription id="edit-post-description" className="hidden">Edit the post title and content below.</AlertDialogDescription>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                            <FormField
-                                control={form.control}
-                                name="title"
-                                render={({ field }) => (
-                                    <FormItem className="flex justify-start flex-col ">
-                                        <FormLabel className="text-muted-foreground text-left">Title</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder='What are you thinking?' {...field} maxLength={50} className="bg-input w-full border-none placeholder:text-muted-foreground" />
-                                        </FormControl>
-                                        <FormDescription>
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="content"
-                                render={({ field }) => (
-                                    <FormItem className="flex justify-start flex-col">
-                                        <FormLabel className="text-muted-foreground text-left">Content</FormLabel>
-                                        <FormControl>
-                                            <Textarea placeholder='Write your thoughts here...' {...field} maxLength={280} className="bg-input h-36 w-full border-none  placeholder:text-muted-foreground" />
-                                        </FormControl>
-                                        <FormDescription>
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <div className='flex gap-4 mt-4'>
-                                <Button
-                                    onClick={handleCancel}
-                                    className="px-12 bg-muted border-muted-foreground/20 border-2 hover:bg-muted-foreground/20 py-6  "
-                                    variant={'secondary'}
-                                >
-                                    Cancelar
-                                </Button>
-                                <Button
-                                    type="submit"
-                                    disabled={isLoading}
-                                    className="px-12 w-48 py-6 rounded-md text-md font-medium border-2 border-primary">
-                                    {isLoading ? 'Loading...' : 'Edit'}
-                                </Button>
-                            </div>
-                            {error && (
-                                <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+        <AlertDialog open={edit} onOpenChange={setEdit}>
+            <AlertDialogContent aria-describedby='edit-post-description' className="max-w-[90vw] md:max-w-[50vw] border-none rounded-md p-4 flex flex-col items-center justify-center">
+                <AlertDialogHeader>
+                    <X size={20} className='absolute top-5 right-6 cursor-pointer m-0 text-muted-foreground' onClick={handleCancel} />
+                </AlertDialogHeader>
+                <AlertDialogDescription id="edit-post-description" className="hidden">Edit the post title and content below.</AlertDialogDescription>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+                        <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem className="flex justify-start flex-col ">
+                                    <FormControl>
+                                        <Input placeholder='O que você está pensando?' {...field} maxLength={50} className="mt-6 bg-input border-none placeholder:text-muted-foreground" />
+                                    </FormControl>
+                                    <FormDescription>
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
                             )}
-                        </form>
-                    </Form>
-                </AlertDialogContent>
-            </AlertDialog >
-        </div>
+                        />
+                        <FormField
+                            control={form.control}
+                            name="content"
+                            render={({ field }) => (
+                                <FormItem className="flex justify-start flex-col">
+                                    <FormControl>
+                                        <Textarea placeholder='Escreva seus pensamentos aqui...' {...field} maxLength={280} className="bg-input h-44 md:h-24 w-full border-none  placeholder:text-muted-foreground" />
+                                    </FormControl>
+                                    <FormDescription>
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <div className='flex md:justify-end md:gap-4 justify-between mt-4'>
+                            <Button
+                                onClick={handleCancel}
+                                className="px-12 bg-muted border-muted-foreground/20 border-2 hover:bg-muted-foreground/20 py-6  "
+                                variant={'secondary'}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                type="submit"
+                                disabled={isLoading}
+                                className="px-12 py-6 rounded-md text-md font-medium border-2 border-primary">
+                                Editar
+                            </Button>
+                        </div>
+                        {error && (
+                            <Label className="pt-4 text-destructive font-bold text-mm text-center flex flex-col items-center justify-center capitalize">{error}</Label>
+                        )}
+                    </form>
+                </Form>
+            </AlertDialogContent>
+        </AlertDialog >
     )
 }
 

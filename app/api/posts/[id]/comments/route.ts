@@ -29,8 +29,7 @@ export async function POST(req: NextRequest) {
                 user_id,
                 post_id,
                 comment_id,
-                content,
-                user_name,
+                content
             })
             .select("id")
             .single();
@@ -51,7 +50,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ commentData }, { status: 200 });
 
     } catch (error) {
-        console.error("Unexpected error:", error);
+        console.error(error);
         return NextResponse.json({ error }, { status: 500 });
     }
 }
@@ -65,11 +64,10 @@ export async function GET(req: NextRequest) {
 
     const { data, error } = await supabase
         .from("comments")
-        .select()
+        .select('*, profiles(*)')
         .order("likes", { ascending: false })
         .order("created_at", { ascending: false })
         .eq("post_id", post_id);
-
     if (!data || error) return NextResponse.json({ error: "Comment not found" }, { status: 404 });
 
     return NextResponse.json(data);

@@ -1,3 +1,5 @@
+import { ProfileType } from "./Profile"
+
 export interface PostType {
     id?: string
     title: string
@@ -8,6 +10,6 @@ export interface PostType {
     comments: number
     posts_pictures: { image_url: string }[]
     posts_likes: { user_id: string }[]
-    user_name: string
+    profiles: ProfileType
     updated_at: string
 }

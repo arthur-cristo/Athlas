@@ -1,6 +1,7 @@
 'use client'
 
 import { useUser } from '@/app/UserContext';
+import { handleLike, LikeType, PostCommentType } from '@/lib/actions/community.actions';
 import { createClient } from '@/lib/supabase/client';
 import { PostType } from '@/types/Post';
 import { Heart } from 'lucide-react'
@@ -19,70 +20,35 @@ const LikeButton = (post: PostType) => {
                 const { data: likesData } = await supabase
                     .from(`posts_likes`)
                     .select('user_id')
-                    .eq(`post_id`, post.id)
-                    .eq('user_id', user.id)
-                    .single();
-                setLiked(!!likesData);
+                    .match({ post_id: post.id, user_id: user.id });
+                setLiked(!!likesData?.length);
             }
         };
         fetchUser();
     }, [user, post, supabase]);
 
-    const handleLike = async () => {
-        if (!user) return;
-
-        const { error } = await supabase
-            .from(`posts_likes`)
-            .insert({
-                [`post_id`]: post.id,
-                user_id: user.id,
-            });
-
-        if (error) return;
-
-        const { data: updatedItem, error: updateError } = await supabase
-            .from(`posts`)
-            .update({ likes: likes + 1 })
-            .eq('id', post.id)
-            .select('likes')
-            .single();
-
-        if (updateError) return;
-
-        setLikes(updatedItem.likes);
-        setLiked(true);
-    };
-
-    const handleUnlike = async () => {
-        if (!user) return;
-
-        const { error } = await supabase
-            .from(`posts_likes`)
-            .delete()
-            .eq(`post_id`, post.id)
-            .eq('user_id', user.id);
-
-        if (error) return;
-
-        const { data: updatedItem, error: updateError } = await supabase
-            .from(`posts`)
-            .update({ likes: likes - 1 })
-            .eq('id', post.id)
-            .select('likes')
-            .single();
-
-        if (updateError) return;
-
-        setLikes(updatedItem.likes);
-        setLiked(false);
-    };
-
     return (
         <div className="flex gap-2">
             {liked ? (
-                <Heart size={24} fill="#dc2626" className="text-red-600 cursor-pointer" onClick={handleUnlike} />
+                <Heart size={24} fill="#dc2626" className="text-red-600 cursor-pointer" onClick={() => handleLike(
+                    LikeType.UNLIKE,
+                    PostCommentType.POST,
+                    user!.id,
+                    likes,
+                    setLikes,
+                    setLiked,
+                    post
+                )} />
             ) : (
-                <Heart size={24} className="cursor-pointer" onClick={handleLike} />
+                <Heart size={24} className="cursor-pointer" onClick={() => handleLike(
+                    LikeType.LIKE,
+                    PostCommentType.POST,
+                    user!.id,
+                    likes,
+                    setLikes,
+                    setLiked,
+                    post
+                )} />
             )}
             <span>{likes}</span>
         </div>

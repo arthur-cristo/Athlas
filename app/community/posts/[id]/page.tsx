@@ -44,15 +44,14 @@ const PostDetailPage = ({ params }: { params: Params }) => {
     }, [reFetch]);
 
     return (
-        <div className=" min-h-screen pb-10">
-            
-            <main className="pt-32 md:pt-0">
+        <div className="pb-4">
+            <main className="pt-16 md:pt-0">
                 {post && (
                     <>
                         <div className="m-8">
                             <Button className="mt-2 ml-3" onClick={() => router.back()}>
                                 <ChevronLeft size={24} />
-                                Back
+                                Voltar
                             </Button>
                         </div>
                         <PostDetail post={post} setFetch={setFetch} />

@@ -165,9 +165,6 @@ const Header = () => {
           </>
         )}
       </div>
-      {user && (
-        <h2 className="md:hidden flex justify-center text-xl py-3 font-medium text-center">{`Hello, ${first_name} ${last_name}!`}</h2>
-      )}
       <AlertDialog open={confirmSignout} onOpenChange={setConfirmSignout}>
         <AlertDialogContent className=" border-none rounded-md  w-fit">
           <AlertDialogHeader>

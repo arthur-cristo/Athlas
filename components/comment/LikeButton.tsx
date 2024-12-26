@@ -1,6 +1,7 @@
 'use client'
 
 import { useUser } from '@/app/UserContext';
+import { handleLike, LikeType, PostCommentType } from '@/lib/actions/community.actions';
 import { createClient } from '@/lib/supabase/client';
 import { CommentType } from '@/types/Comment';
 import { Heart } from 'lucide-react'
@@ -20,69 +21,35 @@ const LikeButton = (comment: CommentType) => {
                     .from(`comments_likes`)
                     .select('user_id')
                     .eq(`comment_id`, comment.id)
-                    .eq('user_id', user.id)
-                    .single();
-                setLiked(!!likesData);
+                    .eq('user_id', user.id);
+                setLiked(!!likesData?.length);
             }
         };
         fetchUser();
     }, [user, comment, supabase]);
 
-    const handleLike = async () => {
-        if (!user) return;
-
-        const { error } = await supabase
-            .from(`comments_likes`)
-            .insert({
-                comment_id: comment.id,
-                user_id: user.id,
-            });
-
-        if (error) return;
-
-        const { data: updatedItem, error: updateError } = await supabase
-            .from(`comments`)
-            .update({ likes: likes + 1 })
-            .eq('id', comment.id)
-            .select('likes')
-            .single();
-
-        if (updateError) return;
-
-        setLikes(updatedItem.likes);
-        setLiked(true);
-    };
-
-    const handleUnlike = async () => {
-        if (!user) return;
-
-        const { error } = await supabase
-            .from(`comments_likes`)
-            .delete()
-            .eq(`comment_id`, comment.id)
-            .eq('user_id', user.id);
-
-        if (error) return;
-
-        const { data: updatedItem, error: updateError } = await supabase
-            .from(`comments`)
-            .update({ likes: likes - 1 })
-            .eq('id', comment.id)
-            .select('likes')
-            .single();
-
-        if (updateError) return;
-
-        setLikes(updatedItem.likes);
-        setLiked(false);
-    };
-
     return (
         <div className="flex gap-2">
             {liked ? (
-                <Heart size={24} fill="#dc2626" className="text-red-600 cursor-pointer" onClick={handleUnlike} />
+                <Heart size={24} fill="#dc2626" className="text-red-600 cursor-pointer" onClick={() => handleLike(
+                    LikeType.UNLIKE,
+                    PostCommentType.COMMENT,
+                    user!.id,
+                    likes,
+                    setLikes,
+                    setLiked,
+                    comment
+                )} />
             ) : (
-                <Heart size={24} className="cursor-pointer" onClick={handleLike} />
+                <Heart size={24} className="cursor-pointer" onClick={() => handleLike(
+                    LikeType.LIKE,
+                    PostCommentType.COMMENT,
+                    user!.id,
+                    likes,
+                    setLikes,
+                    setLiked,
+                    comment
+                )} />
             )}
             <span>{likes}</span>
         </div>

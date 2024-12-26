@@ -11,10 +11,10 @@ import { Button } from "@/components/ui/button";
 import EditProfileForm from "@/components/forms/EditProfile";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { handleFollow, FollowType } from "@/lib/actions/profile.actions";
+import { handleFollow, FollowType } from "@/lib/actions/community.actions";
 import { useRouter } from "next/navigation";
 
-const User = ({ params }: { params: { id: string } }) => {
+const User = ({ params }: { params: { email: string } }) => {
 
     const [profile, setProfile] = useState<ProfileType | null>(null);
     const [posts, setPosts] = useState<PostType[]>([]);
@@ -25,33 +25,34 @@ const User = ({ params }: { params: { id: string } }) => {
     const router = useRouter();
 
     useEffect(() => {
-
         const fetchProfile = async () => {
-            const res = await fetch(`/api/users/search?id=${params.id}`);
+            const res = await fetch(`/api/users/search?email=${params.email}`);
             const data = await res.json();
             setProfile(data);
         }
         fetchProfile();
+    }, [params.email, reFetch]);
 
+    useEffect(() => {
         const fetchPosts = async () => {
-            const res = await fetch(`/api/users/${params.id}/posts`);
+            if (!profile) return;
+            const res = await fetch(`/api/users/${profile.id}/posts`);
             const data = await res.json();
             setPosts(data);
         }
         fetchPosts();
-
-    }, [params.id, reFetch]);
+    }, [profile?.id, reFetch]);
 
     return (
         <div className="min-h-screen pb-8">
-            
+
             {profile && (
                 <div className="mt-4 mx-8 flex flex-col items-center pt-32 md:pt-0">
 
                     <div className="my-2 ml-6 cursor-pointer absolute md:top-24 left-0 top-40">
                         <Button onClick={() => router.back()}>
                             <ChevronLeft size={24} />
-                            Back
+                            Voltar
                         </Button>
                     </div>
                     {/* // User Card */}
@@ -64,28 +65,28 @@ const User = ({ params }: { params: { id: string } }) => {
                             </div>
                         </div>
                         <div className="flex gap-8 justify-center my-4">
-                            <Link href={`${params.id}/following`}>
-                                <p className="text-muted-foreground hover:underline cursor-pointer decoration-foreground"><span className="text-foreground font-bold">{profile.following}</span> Following</p>
+                            <Link href={`${params.email}/following`}>
+                                <p className="text-muted-foreground hover:underline cursor-pointer decoration-foreground"><span className="text-foreground font-bold">{profile.following}</span> Seguindo</p>
                             </Link>
-                            <Link href={`${params.id}/followers`}>
-                                <p className="text-muted-foreground hover:underline cursor-pointer decoration-foreground"><span className="text-foreground font-bold">{profile.followers}</span> Followers</p>
+                            <Link href={`${params.email}/followers`}>
+                                <p className="text-muted-foreground hover:underline cursor-pointer decoration-foreground"><span className="text-foreground font-bold">{profile.followers}</span> Seguidores</p>
                             </Link>
                         </div>
                         <p className="px-4 text-wrap break-words">{profile.bio}</p>
 
                         {user && (user.id === profile.id ? (
                             <Button className="mt-4" onClick={() => { setEditProfile(true) }}>
-                                Edit Profile
+                                Editar Perfil
                             </Button>
                         ) : (
                             <>
                                 {profile.followers_list.some(({ follower }) => follower.id === user.id) ? (
                                     <Button className="mt-4 bg-destructive hover:bg-destructive/80" onClick={() => handleFollow(FollowType.UNFOLLOW, user.id, profile.id!, setLoading, setFetch)} disabled={loading}>
-                                        Unfollow
+                                        Deixar de Seguir
                                     </Button>
                                 ) : (
                                     <Button className="mt-4" onClick={() => handleFollow(FollowType.FOLLOW, user.id, profile.id!, setLoading, setFetch)} disabled={loading}>
-                                        Follow
+                                        Seguir
                                     </Button>
                                 )}
                             </>
