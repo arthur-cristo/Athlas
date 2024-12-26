@@ -18,8 +18,8 @@ const BankStatementTransaction: React.FC<BankStatementTransactionProps> = ({ tra
                     </div>
                     <div className='flex flex-col text-left w-full ml-6'>
                         <div className='flex justify-between mb-2'>
-                            <h3 className='font-bold'>Sent Transfer</h3>
-                            <p className="text-muted-foreground">{new Date(transaction.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                            <h3 className='font-bold'>Enviado</h3>
+                            <p className="text-muted-foreground">{new Date(transaction.created_at).toLocaleDateString('pt-BR', { month: 'short', day: 'numeric' })}</p>
                         </div>
                         <p>{transaction.receiver_name}</p>
                         <p>${dollarFormat.format(transaction.amount).slice(1)}</p>
@@ -32,8 +32,8 @@ const BankStatementTransaction: React.FC<BankStatementTransactionProps> = ({ tra
                     </div>
                     <div className='flex flex-col text-left w-full ml-6'>
                         <div className='flex justify-between mb-2'>
-                            <h3 className='font-bold'>Received Transfer</h3>
-                            <p className="text-muted-foreground">{new Date(transaction.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                            <h3 className='font-bold'>Recebido</h3>
+                            <p className="text-muted-foreground">{new Date(transaction.created_at).toLocaleDateString('pt-BR', { month: 'short', day: 'numeric' })}</p>
                         </div>
                         <p>{transaction.sender_name}</p>
                         <p>${dollarFormat.format(transaction.amount).slice(1)}</p>
